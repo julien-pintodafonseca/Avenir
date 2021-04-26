@@ -1,2 +1,2 @@
-Projet CAW, Ensimag.
-Equipe G, 2021.
+Projet CAW, Ensimag.  
+Equipe G, 2021.  
