@@ -1,112 +1,63 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+const express = require('express');
+const bodyParser = require('body-parser');
+const sqlite = require('sqlite3').verbose();
+const session = require('express-session');
+const tokenService = require('./services/token');
+const coinMarketService = require('./services/coinMarket');
 
-import React from 'react';
-import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+const account = require('./routes/account.js');
+const cryptocurrency = require('./routes/cryptocurrency.js');
+const wallet = require('./routes/wallet.js');
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+require('mandatoryenv').load(['SECRET', 'DB']);
+const DEBUG = process.env.DEBUG || false
 
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
+if (!DEBUG) { console.debug = () => {} }
+// Créer base de données avec un utilisateur défini dans .env
 
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+global.db = new sqlite.Database(process.env.DB)
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+const app = express()
 
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+setInterval(() => {
+  coinMarketService.selectCryptocurrencies();
+}, coinMarketService.CALL_TIMER);
 
-export default App;
+app
+  .use(require('cookie-parser')())
+  .use(session({ secret: process.env.SECRET, resave: false, saveUninitialized: true }))
+  // Permet le passage de paramètres en POST
+  .use(bodyParser.urlencoded({ extended: true }))
+  // Egalement en JSON
+  .use(bodyParser.json())
+  // Log toutes les requêtes pour aider au debug
+  .use((req, res, next) => {
+    console.debug(`${req.method} url:${req.url} req.query:${JSON.stringify(req.query)}` +
+                ` / req.body:${JSON.stringify(req.body)} req.cookies:${JSON.stringify(req.cookies)}`)
+    next()
+  })
+  // Tous les accès à l'API doivent avoir un Token d'accès valide,
+  // On utilise ici un middleware fait sur mesure qui vérifie le token
+  // et l'utilisateur présent dans le Token est enregistré pour req.user pour les requêtes /api/xxx
+  .use('/api', (req, res, next) => {
+    try {
+      let payload
+      if (!req.headers.authorization ||
+          !(payload = tokenService.verifyAndGetPayload(req.headers.authorization)) ||
+          !(payload = JSON.parse(payload)) || !(payload.scope) ||
+          !(payload.scope.includes('api'))
+      ) { res.status(403).send('Accès interdit'); return }
+      JSON.parse(tokenService.verifyAndGetPayload(req.headers.authorization))
+      req.user = payload.sub
+      next()
+    } catch {
+      res.status(403).send('Accès interdit')
+    }
+  })
+
+  .use('/account', account)
+  .use('/api/cryptocurrency', cryptocurrency)
+  .use('/api/wallet', wallet)
+
+module.exports = app

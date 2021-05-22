@@ -1,4 +1,8 @@
 {
-  "name": "avenir",
-  "displayName": "avenir"
+  "name": "Heroku App Node.js User/GPS",
+  "description": "Application avec connexion et enregistrement de position GPS  en Node.js utilisant Express 4",
+  "repository": "",
+  "logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/main/public/node.svg",
+  "keywords": ["node", "express", "heroku"],
+  "image": "heroku/nodejs"
 }
