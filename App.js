@@ -13,16 +13,16 @@ require('mandatoryenv').load(['SECRET', 'DB']);
 const DEBUG = process.env.DEBUG || false
 
 if (!DEBUG) { console.debug = () => {} }
-// Créer base de données avec un utilisateur défini dans .env
 
 global.db = new sqlite.Database(process.env.DB)
 
 const app = express()
 
-
+/*
 setInterval(() => {
   coinMarketService.selectCryptocurrencies();
 }, coinMarketService.CALL_TIMER);
+*/
 
 app
   .use(require('cookie-parser')())
