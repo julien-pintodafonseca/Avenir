@@ -30,7 +30,7 @@ router.post('/login', function(req, res) {
     )
 });
 
-function validateEmail(errors, email)
+function validateEmail(errors, email, callback)
 {
     const re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     const email_valid =  re.test(email);

@@ -6,13 +6,14 @@ pages:
   script:
   - mkdir -p public # Crée le répertoire pour disposer dans pages de l'application 
   - source /home/rnuser/.androidrc # Définit les variables d'environnement pour accéder aux outils nécessaires
+  - cd ui         # Se place dans le répertoire ui
   - npm install --save-dev jetifier # Peut être nécessaire pour la génération de l'apk
   - npm install   # Installe les modules node présents dans package.json (le répertoire node_modules n'étant pas dans le dépôt)
   - npm run lint  # Vérifie la qualité du code
   - npx jetify    # Prépare la génération de l'application native
   - cd android    # Se place dans le répertoire android
   - ./gradlew assembleRelease # Puis génère l'application au format apk 
-  - cp ./app/build/outputs/apk/release/app-release.apk ../public/monapp.apk # Déplace l'application générée dans /public 
+  - cp ./app/build/outputs/apk/release/app-release.apk ../../public/monapp.apk # Déplace l'application générée dans /public 
   artifacts:
     paths:
       - public
