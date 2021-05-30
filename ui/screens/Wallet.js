@@ -1,22 +1,34 @@
 import React from 'react';
-import {StyleSheet, View, Text, FlatList, TouchableHighlight} from 'react-native';
 import {
-  Container, Header, Left, Body, Right, Title, Icon, Button} from 'native-base';
-
-
+  StyleSheet,
+  View,
+  Text,
+  FlatList,
+  TouchableHighlight,
+} from 'react-native';
+import {
+  Container,
+  Header,
+  Left,
+  Body,
+  Right,
+  Title,
+  Icon,
+  Button,
+} from 'native-base';
 
 // fetch de user selon l'iduser
 const userWallet = {
   id: 1,
   totalAssets: 2034,
-  assets:[
+  assets: [
     {
       id: 1,
       stockSymbol: 'BTC',
       fullname: 'Bitcoin',
       symbol: 'U+20BF',
       amount: 10,
-      amountConverted: 272727
+      amountConverted: 272727,
     },
     {
       id: 2,
@@ -24,7 +36,7 @@ const userWallet = {
       fullname: 'ether',
       symbol: 'U+20BF',
       amount: 20,
-      amountConverted: 272
+      amountConverted: 272,
     },
     {
       id: 3,
@@ -32,11 +44,10 @@ const userWallet = {
       fullname: 'doge',
       symbol: 'U+20BF',
       amount: 20,
-      amountConverted: 272
-    }
-  ]
+      amountConverted: 272,
+    },
+  ],
 };
-
 
 const WalletView = ({navigation}) => {
   const Item = ({
@@ -75,8 +86,7 @@ const WalletView = ({navigation}) => {
             </Text>
           </View>
           <View style={{marginLeft: 'auto', width: 50}}>
-            <Text style={styles.rawValue}
-              numberOfLines={1}>
+            <Text style={styles.rawValue} numberOfLines={1}>
               {amount}
             </Text>
             <Text style={styles.rawValue} numberOfLines={1}>
@@ -88,7 +98,6 @@ const WalletView = ({navigation}) => {
     </View>
   );
 
-  
   const renderItem = ({item}) => (
     <Item
       id={item.id}
@@ -102,65 +111,103 @@ const WalletView = ({navigation}) => {
 
   return (
     <Container style={{backgroundColor: 'black'}}>
-      <Header style={{backgroundColor: 'black',
+      <Header
+        style={{
+          backgroundColor: 'black',
           borderBottomColor: 'gray',
           borderBottomWidth: 1,
-          }}>
+        }}>
         <Left />
         <Body>
-          <Title style={{
-                color: 'orange',
-                fontSize: 20,
-                fontWeight: 'bold',
-              }}>Total Balance</Title>
+          <Title
+            style={{
+              color: 'orange',
+              fontSize: 20,
+              fontWeight: 'bold',
+            }}>
+            Total Balance
+          </Title>
         </Body>
         <Right />
       </Header>
-      <Container style={{backgroundColor: 'black', margin:10}}>
-        <View style={{borderBottomColor: 'gray',
-          borderBottomWidth: 1, paddingBottom: 20}}>
-            <Text style={{
-                color: '#FFF',
-                fontSize: 20,
-                fontWeight: 'bold',
-              }}>Asset Allocation</Text>
-              <Text style={{
-                color: '#FFF',
-                fontSize: 20,
-                fontWeight: 'bold',
-                height: 170
-              }}> path to graph</Text>
-        </View>
-        <View style= {{height: 250, borderBottomColor: 'gray',
-          borderBottomWidth: 1, paddingBottom: 20, paddingTop: 20}}>
-          <Text style={{
+      <Container style={{backgroundColor: 'black', margin: 10}}>
+        <View
+          style={{
+            borderBottomColor: 'gray',
+            borderBottomWidth: 1,
+            paddingBottom: 20,
+          }}>
+          <Text
+            style={{
               color: '#FFF',
               fontSize: 20,
               fontWeight: 'bold',
-            }}>Assets</Text>
-          <FlatList
-                  data={userWallet.assets}
-                  renderItem={renderItem}
-                  keyExtractor={item => item.id}
-                  style={{backgroundColor: 'black'}}
-                />
+            }}>
+            Asset Allocation
+          </Text>
+          <Text
+            style={{
+              color: '#FFF',
+              fontSize: 20,
+              fontWeight: 'bold',
+              height: 170,
+            }}>
+            {' '}
+            path to graph
+          </Text>
         </View>
-        <View style= {{paddingTop: 10, flexDirection: 'row', justifyContent: 'space-evenly'}}>
-            <Button style={{backgroundColor:'orange'}} transparent onPress={() => console.log("pressed")}>
-              <Icon style={{ color: '#FFF' }} name="remove" />
-            </Button>
-            <Button style={{backgroundColor:'orange'}} transparent onPress={() => console.log("pressed")}>
-              <Icon style={{ color: '#FFF' }} name="create-outline" />
-            </Button>
-            <Button style={{backgroundColor:'orange'}} transparent onPress={() => console.log("pressed")}>
-              <Icon style={{ color: '#FFF' }} name="add" />
-            </Button>
+        <View
+          style={{
+            height: 250,
+            borderBottomColor: 'gray',
+            borderBottomWidth: 1,
+            paddingBottom: 20,
+            paddingTop: 20,
+          }}>
+          <Text
+            style={{
+              color: '#FFF',
+              fontSize: 20,
+              fontWeight: 'bold',
+            }}>
+            Assets
+          </Text>
+          <FlatList
+            data={userWallet.assets}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+            style={{backgroundColor: 'black'}}
+          />
+        </View>
+        <View
+          style={{
+            paddingTop: 10,
+            flexDirection: 'row',
+            justifyContent: 'space-evenly',
+          }}>
+          <Button
+            style={{backgroundColor: 'orange'}}
+            transparent
+            onPress={() => console.log('pressed')}>
+            <Icon style={{color: '#FFF'}} name="remove" />
+          </Button>
+          <Button
+            style={{backgroundColor: 'orange'}}
+            transparent
+            onPress={() => console.log('pressed')}>
+            <Icon style={{color: '#FFF'}} name="create-outline" />
+          </Button>
+          <Button
+            style={{backgroundColor: 'orange'}}
+            transparent
+            onPress={() => console.log('pressed')}>
+            <Icon style={{color: '#FFF'}} name="add" />
+          </Button>
         </View>
       </Container>
     </Container>
   );
 };
-
 
 const styles = StyleSheet.create({
   container: {
