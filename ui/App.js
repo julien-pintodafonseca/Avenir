@@ -2,55 +2,33 @@
  * Avenir
  * https://gitlab.ensimag.fr/pintodaj/avenir
  */
-
-import React from 'react';
-import type {Node} from 'react';
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
-
-const App: () => Node = () => {
-  const appName = 'Avenir';
-
-  return (
-    <View style={styles.mainView}>
-        <Text style={styles.title}>{appName}</Text>
-        <TextInput style={styles.input}
-            value=""
-            placeholder="Login"
-        />
-        <Text></Text>
-        <TextInput style={styles.input}
-            value=""
-            placeholder="Password"
-        />
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  mainView: {
-    backgroundColor: '#303030',
-    height: '100%',
-    width: '100%',
-  },
-  title: {
-    fontFamily: 'Helvetica',
-    fontSize: 69,
-    color: 'orange',
-    textAlign: 'center',
-    textAlignVertical: 'center',
-  },
-  input: {
-    color: 'pink',
-    backgroundColor: 'white',
-    alignSelf: 'center',
-    textAlign: 'center',
-    width: 200,
+import React, {useState} from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {View} from 'react-native';
+import Tabs from './navigation/tabs';
+import ConnexionInscription from './src/components/ConnexionInscription';
+const App = () => {
+  function connect(username, password) {
+    console.log('login', username, password);
+    // fetch(`${BACKEND}/login`, {
+    //   method: 'POST',
+    //   headers: {'Content-Type': 'application/json'},
+    //   body: `${JSON.stringify({login: username, password})}`,
+    // })
+    // .then(response => response.json())
+    // .then(data => setToken(data.msg==="ok"?data.token:''))
+    // .catch(error => console.log(error));
+    setToken('ok');
   }
-});
+
+  const [token, setToken] = useState('');
+  return (token === '' ? (
+    <ConnexionInscription onConnect={connect} />
+  ) : (
+    <NavigationContainer>
+      <Tabs />
+    </NavigationContainer>
+  ));
+};
 
 export default App;
