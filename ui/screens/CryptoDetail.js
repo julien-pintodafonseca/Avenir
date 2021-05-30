@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {
-  Text
+  Text,
+  StyleSheet,
 } from 'react-native';
 import {
   Icon,
@@ -13,6 +14,7 @@ import {
   Title,
 } from 'native-base';
 
+// fetch de crypto selon le route.params.cryptoId
 const Crypto = {
   id: 1,
   stockSymbol: 'BTC',
@@ -25,21 +27,36 @@ const Crypto = {
 
 const CryptoDetail = ({route, navigation}) => {
   return (
-    <Container>
-      <Header>
+    <Container style={{backgroundColor: 'black'}}>
+      <Header style={{backgroundColor: 'black',
+          borderBottomColor: 'gray',
+          borderBottomWidth: 1,
+          }}>
         <Left>
           <Button transparent onPress={() => navigation.goBack()}>
-            <Icon name="arrow-back" />
+            <Icon style={{ color: 'orange' }} name="arrow-back" />
           </Button>
         </Left>
         <Body>
-          <Title>CryptoDetail n°{route.params.cryptoId}</Title>
+          <Title style={{
+              color: 'orange',
+              fontSize: 20,
+              fontWeight: 'bold',
+            }}>{Crypto.fullname}</Title>
         </Body>
         <Right />
       </Header>
-      <Text>CryptoDetail</Text>
-      <Button title="Click" onPress={() => alert('button clicked')} />
+      <Container style={{backgroundColor: 'black', margin:10}}>
+        <Text style={{fontSize:30, color:'#FFF', fontWeight: 'bold'}}>${Crypto.rawValue}</Text>
+        <Text style={Crypto.variation >= 0 ? {color: 'green'} : {color: 'red'}}>{Crypto.variation}%</Text>
+        <Text style={{backgroundColor: 'white'}}>{Crypto.graph}</Text>
+      </Container>
     </Container>
   );
 };
+
+const styles = StyleSheet.create({
+
+});
+
 export default CryptoDetail;
