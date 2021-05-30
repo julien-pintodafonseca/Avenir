@@ -16,7 +16,7 @@ import {
   Icon,
   Button,
 } from 'native-base';
-
+import CustomCryptoList from './WalletListing';
 // fetch de user selon l'iduser
 const userWallet = {
   id: 1,
@@ -150,7 +150,7 @@ const WalletView = ({navigation}) => {
               color: '#FFF',
               fontSize: 20,
               fontWeight: 'bold',
-              height: 170,
+              height: 200,
             }}>
             {' '}
             path to graph
@@ -159,27 +159,44 @@ const WalletView = ({navigation}) => {
         <View
           style={{
             height: 250,
-            borderBottomColor: 'gray',
-            borderBottomWidth: 1,
-            paddingBottom: 20,
+            // borderBottomColor: 'gray',
+            // borderBottomWidth: 1,
+            // paddingBottom: 20,
             paddingTop: 20,
           }}>
-          <Text
-            style={{
-              color: '#FFF',
-              fontSize: 20,
-              fontWeight: 'bold',
-            }}>
-            Assets
-          </Text>
-          <FlatList
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <Text
+                style={{
+                  color: '#FFF',
+                  fontSize: 20,
+                  fontWeight: 'bold',
+                  paddingBottom: 30,
+                }}>
+                Assets
+              </Text>
+                <Button iconRight transparent style={{marginLeft:'auto'}} onPress={() => console.log('pressed')}>
+                  <Text style={{color:"#FFF", fontSize: 15, marginRight: 10}}>Add</Text>
+                  <Icon style={{color: '#FFF'}} size={40} name="add-circle" />
+                </Button>
+            </View>
+          {/* <FlatList
             data={userWallet.assets}
             renderItem={renderItem}
             keyExtractor={item => item.id}
             style={{backgroundColor: 'black'}}
+          /> */}
+          <CustomCryptoList style={{
+            // height: 250,
+            // borderBottomColor: 'gray',
+            // borderBottomWidth: 1,
+            paddingBottom: 20,
+            paddingTop: 20,
+            
+          }}
+          navigation={navigation}
           />
         </View>
-        <View
+        {/* <View
           style={{
             paddingTop: 10,
             flexDirection: 'row',
@@ -203,7 +220,7 @@ const WalletView = ({navigation}) => {
             onPress={() => console.log('pressed')}>
             <Icon style={{color: '#FFF'}} name="add" />
           </Button>
-        </View>
+        </View> */}
       </Container>
     </Container>
   );
