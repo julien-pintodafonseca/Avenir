@@ -163,7 +163,6 @@ const ListingScreen = ({navigation}) => {
           backgroundColor: 'black',
           borderBottomColor: 'gray',
           borderBottomWidth: 1,
-          margin: 5,
           paddingBottom: 20,
         }}>
         <Itm>
