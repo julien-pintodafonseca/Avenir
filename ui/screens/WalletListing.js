@@ -28,45 +28,40 @@ const Cryptos = [
     stockSymbol: 'BTC',
     fullname: 'Bitcoin',
     symbol: 'U+20BF',
-    graph: 'pathtograph',
-    rawValue: 25,
-    variation: 2,
+    amount: 10,
+    amountConverted: 272727,
   },
   {
     id: 2,
     stockSymbol: 'DOGE',
     symbol: 'U+20BF',
     fullname: 'Doge',
-    graph: 'pathtograph',
-    rawValue: 2,
-    variation: 4,
+    amount: 10,
+    amountConverted: 272727,
   },
   {
     id: 3,
     stockSymbol: 'ETH',
     fullname: 'Etherum',
     symbol: 'U+20BF',
-    graph: 'pathtograph',
-    rawValue: 225,
-    variation: 6,
+    amount: 10,
+    amountConverted: 272727,
   },
   {
     id: 4,
     stockSymbol: 'CHA',
     fullname: 'Chia',
     symbol: 'U+20BF',
-    graph: 'pathtograph',
-    rawValue: 12,
-    variation: -1,
+    amount: 10,
+    amountConverted: 272727,
   },
   {
     id: 5,
     stockSymbol: 'SHBA',
     fullname: 'Shiba',
     symbol: 'U+20BF',
-    graph: 'pathtograph',
-    rawValue: 25,
-    variation: -4,
+    amount: 10,
+    amountConverted: 272727,
   },
 ];
 
@@ -74,12 +69,12 @@ const ListingScreen = ({navigation}) => {
   const [listData, setListData] = useState(
     Cryptos.map((CryptoItem, index) => ({
       key: `${index}`,
+      id: CryptoItem.id,
       stockSymbol: CryptoItem.stockSymbol,
       fullname: CryptoItem.fullname,
       symbol: CryptoItem.symbol,
-      graph: CryptoItem.graph,
-      rawValue: CryptoItem.rawValue,
-      variation: CryptoItem.variation,
+      amount: CryptoItem.amount,
+      amountConverted: CryptoItem.amountConverted,
     })),
   );
 
@@ -119,7 +114,7 @@ const ListingScreen = ({navigation}) => {
 
   const VisibleItem = props => {
     const {data, rowHeightAnimatedValue, removeRow, rightActionState} = props;
-
+    // console.log(props);
     if (rightActionState) {
       Animated.timing(rowHeightAnimatedValue, {
         toValue: 0,
@@ -134,50 +129,41 @@ const ListingScreen = ({navigation}) => {
       <Animated.View
         style={[styles.rowFront, {height: rowHeightAnimatedValue}]}>
         <TouchableHighlight
-          style={styles.rowFrontVisible}
-          onPress={() => {
-            console.log('Element touched');
-            // navigation.navigate('CryptoDetail', {item: data.item.key});
-          }}
-          underlayColor={'#aaa'}>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Text
-              style={{
-                backgroundColor: 'yellow',
-                width: 30,
-                height: 30,
-                marginLeft: 10,
-              }}
-              numberOfLines={1}>
-              {data.item.symbol}
+        style={styles.rowFrontVisible}
+        onPress={() => {
+          console.log('Element touched');
+          navigation.navigate('WalletCrypto', {cryptoId: data.item.id});
+        }}
+        underlayColor={'#aaa'}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Text
+            style={{
+              backgroundColor: 'yellow',
+              width: 30,
+              height: 30,
+              marginLeft: 10,
+            }}
+            numberOfLines={1}>
+            {data.item.symbol}
+          </Text>
+          <View style={{marginLeft: 20, width: 70}}>
+            <Text style={styles.stockSymbol} numberOfLines={1}>
+              {data.item.stockSymbol}
             </Text>
-            <View style={{marginLeft: 20, width: 70}}>
-              <Text style={styles.stockSymbol} numberOfLines={1}>
-                {data.item.stockSymbol}
-              </Text>
-              <Text style={styles.fullname} numberOfLines={1}>
-                {data.item.fullname}
-              </Text>
-            </View>
-            <Text
-              style={{backgroundColor: 'red', marginLeft: 20, width: 100}}
-              numberOfLines={1}>
-              {data.item.graph}
+            <Text style={styles.fullname} numberOfLines={1}>
+              {data.item.fullname}
             </Text>
-            <View style={{marginLeft: 'auto', width: 50}}>
-              <Text style={styles.rawValue} numberOfLines={1}>
-                {data.item.rawValue}$
-              </Text>
-              <Text
-                style={
-                  data.item.variation >= 0 ? {color: 'green'} : {color: 'red'}
-                }
-                numberOfLines={1}>
-                {data.item.variation}%
-              </Text>
-            </View>
           </View>
-        </TouchableHighlight>
+          <View style={{marginLeft: 'auto', width: 50}}>
+            <Text style={styles.rawValue} numberOfLines={1}>
+              {data.item.amount}
+            </Text>
+            <Text style={styles.rawValue} numberOfLines={1}>
+              ${data.item.amountConverted}
+            </Text>
+          </View>
+        </View>
+      </TouchableHighlight>
       </Animated.View>
     );
   };
@@ -291,42 +277,6 @@ const ListingScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      {/* <StatusBar barStyle="dark-content" /> */}
-      {/* <StatusBar backgroundColor="#FF6347" barStyle="light-content"/> */}
-      {/* <Header style={{backgroundColor: 'black'}}> */}
-        {/* <Left/> */}
-        {/* <Body>
-          <Title
-            style={{
-              color: 'orange',
-              fontSize: 20,
-              fontWeight: 'bold',
-              marginLeft: 10,
-            }}>
-            Markets
-          </Title>
-        </Body>
-        <Right />
-      </Header> */}
-
-      {/* <Header
-        searchBar
-        rounded
-        style={{
-          backgroundColor: 'black',
-          borderBottomColor: 'gray',
-          borderBottomWidth: 1,
-          margin: 5,
-          paddingBottom: 20,
-        }}>
-        <Item>
-          <Icon name="ios-search" />
-          <Input placeholder="Search" />
-        </Item>
-        <Btn transparent>
-          <Text>Search</Text>
-        </Btn>
-      </Header> */}
       <SwipeListView
         data={listData}
         renderItem={renderItem}
@@ -363,7 +313,7 @@ const styles = StyleSheet.create({
   rowFront: {
     backgroundColor: '#000000',
     borderRadius: 5,
-    height: 60,
+    height: 50,
     margin: 5,
     // marginBottom: 15,
     shadowColor: '#999',
@@ -375,7 +325,7 @@ const styles = StyleSheet.create({
   rowFrontVisible: {
     backgroundColor: '#000000',
     borderRadius: 5,
-    height: 60,
+    height: 50,
     padding: 10,
     // marginBottom: 15,
   },
