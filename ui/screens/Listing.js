@@ -1,26 +1,25 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   View,
   Text,
   StyleSheet,
-  Animated,
   TouchableHighlight,
-  TouchableOpacity,
   StatusBar,
+  SafeAreaView,
+  FlatList,
 } from 'react-native';
-
-import {SwipeListView} from 'react-native-swipe-list-view';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
+  Left,
   Header,
   Body,
   Right,
   Title,
   Icon,
-  Item,
   Input,
-  Button as Btn,
+  Button,
+  Item as Itm,
 } from 'native-base';
+
 const Cryptos = [
   {
     id: 1,
@@ -69,235 +68,87 @@ const Cryptos = [
   },
 ];
 
-const NotificationScreen = ({navigation}) => {
-  const [listData, setListData] = useState(
-    Cryptos.map((CryptoItem, index) => ({
-      key: `${index}`,
-      stockSymbol: CryptoItem.stockSymbol,
-      fullname: CryptoItem.fullname,
-      symbol: CryptoItem.symbol,
-      graph: CryptoItem.graph,
-      rawValue: CryptoItem.rawValue,
-      variation: CryptoItem.variation,
-    })),
+const ListingScreen = ({navigation}) => {
+  const Item = ({
+    id,
+    stockSymbol,
+    fullname,
+    symbol,
+    graph,
+    rawValue,
+    variation,
+  }) => (
+    <View>
+      <TouchableHighlight
+        style={styles.rowFrontVisible}
+        onPress={() => {
+          console.log('Element touched');
+          navigation.navigate('CryptoDetail', {cryptoId: id});
+        }}
+        underlayColor={'#aaa'}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Text
+            style={{
+              backgroundColor: 'yellow',
+              width: 30,
+              height: 30,
+              marginLeft: 10,
+            }}
+            numberOfLines={1}>
+            {symbol}
+          </Text>
+          <View style={{marginLeft: 20, width: 70}}>
+            <Text style={styles.stockSymbol} numberOfLines={1}>
+              {stockSymbol}
+            </Text>
+            <Text style={styles.fullname} numberOfLines={1}>
+              {fullname}
+            </Text>
+          </View>
+          <Text
+            style={{backgroundColor: 'red', marginLeft: 20, width: 100}}
+            numberOfLines={1}>
+            {graph}
+          </Text>
+          <View style={{marginLeft: 'auto', width: 50}}>
+            <Text style={styles.rawValue} numberOfLines={1}>
+              {rawValue}$
+            </Text>
+            <Text
+              style={variation >= 0 ? {color: 'green'} : {color: 'red'}}
+              numberOfLines={1}>
+              {variation}%
+            </Text>
+          </View>
+        </View>
+      </TouchableHighlight>
+    </View>
   );
 
-  const closeRow = (rowMap, rowKey) => {
-    if (rowMap[rowKey]) {
-      rowMap[rowKey].closeRow();
-    }
-  };
-
-  const deleteRow = (rowMap, rowKey) => {
-    closeRow(rowMap, rowKey);
-    const newData = [...listData];
-    const prevIndex = listData.findIndex(item => item.key === rowKey);
-    newData.splice(prevIndex, 1);
-    setListData(newData);
-  };
-
-  const onRowDidOpen = rowKey => {
-    console.log('This row opened', rowKey);
-  };
-
-  const onLeftActionStatusChange = rowKey => {
-    console.log('onLeftActionStatusChange', rowKey);
-  };
-
-  const onRightActionStatusChange = rowKey => {
-    console.log('onRightActionStatusChange', rowKey);
-  };
-
-  const onRightAction = rowKey => {
-    console.log('onRightAction', rowKey);
-  };
-
-  const onLeftAction = rowKey => {
-    console.log('onLeftAction', rowKey);
-  };
-
-  const VisibleItem = props => {
-    const {data, rowHeightAnimatedValue, removeRow, rightActionState} = props;
-
-    if (rightActionState) {
-      Animated.timing(rowHeightAnimatedValue, {
-        toValue: 0,
-        duration: 200,
-        useNativeDriver: false,
-      }).start(() => {
-        removeRow();
-      });
-    }
-
-    return (
-      <Animated.View
-        style={[styles.rowFront, {height: rowHeightAnimatedValue}]}>
-        <TouchableHighlight
-          style={styles.rowFrontVisible}
-          onPress={() => console.log('Element touched')}
-          underlayColor={'#aaa'}>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Text
-              style={{
-                backgroundColor: 'yellow',
-                width: 30,
-                height: 30,
-                marginLeft: 10,
-              }}
-              numberOfLines={1}>
-              {data.item.symbol}
-            </Text>
-            <View style={{marginLeft: 20, width: 70}}>
-              <Text style={styles.stockSymbol} numberOfLines={1}>
-                {data.item.stockSymbol}
-              </Text>
-              <Text style={styles.fullname} numberOfLines={1}>
-                {data.item.fullname}
-              </Text>
-            </View>
-            <Text
-              style={{backgroundColor: 'red', marginLeft: 20, width: 100}}
-              numberOfLines={1}>
-              {data.item.graph}
-            </Text>
-            <View style={{marginLeft: 'auto', width: 50}}>
-              <Text style={styles.rawValue} numberOfLines={1}>
-                {data.item.rawValue}$
-              </Text>
-              <Text
-                style={
-                  data.item.variation >= 0 ? {color: 'green'} : {color: 'red'}
-                }
-                numberOfLines={1}>
-                {data.item.variation}%
-              </Text>
-            </View>
-          </View>
-        </TouchableHighlight>
-      </Animated.View>
-    );
-  };
-
-  const renderItem = (data, rowMap) => {
-    const rowHeightAnimatedValue = new Animated.Value(60);
-
-    return (
-      <VisibleItem
-        data={data}
-        rowHeightAnimatedValue={rowHeightAnimatedValue}
-        removeRow={() => deleteRow(rowMap, data.item.key)}
-      />
-    );
-  };
-
-  const HiddenItemWithActions = props => {
-    const {
-      swipeAnimatedValue,
-      leftActionActivated,
-      rightActionActivated,
-      rowActionAnimatedValue,
-      rowHeightAnimatedValue,
-      onClose,
-      onDelete,
-    } = props;
-
-    if (rightActionActivated) {
-      Animated.spring(rowActionAnimatedValue, {
-        toValue: 500,
-        useNativeDriver: false,
-      }).start();
-    } else {
-      Animated.spring(rowActionAnimatedValue, {
-        toValue: 75,
-        useNativeDriver: false,
-      }).start();
-    }
-
-    return (
-      <Animated.View style={[styles.rowBack, {height: rowHeightAnimatedValue}]}>
-        <Text>Left</Text>
-        {!leftActionActivated && (
-          <TouchableOpacity
-            style={[styles.backRightBtn, styles.backRightBtnLeft]}
-            onPress={onClose}>
-            <MaterialCommunityIcons
-              name="close-circle-outline"
-              size={25}
-              style={styles.trash}
-              color="#fff"
-            />
-          </TouchableOpacity>
-        )}
-        {!leftActionActivated && (
-          <Animated.View
-            style={[
-              styles.backRightBtn,
-              styles.backRightBtnRight,
-              {
-                flex: 1,
-                width: rowActionAnimatedValue,
-              },
-            ]}>
-            <TouchableOpacity
-              style={[styles.backRightBtn, styles.backRightBtnRight]}
-              onPress={onDelete}>
-              <Animated.View
-                style={[
-                  styles.trash,
-                  {
-                    transform: [
-                      {
-                        scale: swipeAnimatedValue.interpolate({
-                          inputRange: [-90, -45],
-                          outputRange: [1, 0],
-                          extrapolate: 'clamp',
-                        }),
-                      },
-                    ],
-                  },
-                ]}>
-                <MaterialCommunityIcons
-                  name="trash-can-outline"
-                  size={25}
-                  color="#fff"
-                />
-              </Animated.View>
-            </TouchableOpacity>
-          </Animated.View>
-        )}
-      </Animated.View>
-    );
-  };
-
-  const renderHiddenItem = (data, rowMap) => {
-    const rowActionAnimatedValue = new Animated.Value(75);
-    const rowHeightAnimatedValue = new Animated.Value(60);
-
-    return (
-      <HiddenItemWithActions
-        data={data}
-        rowMap={rowMap}
-        rowActionAnimatedValue={rowActionAnimatedValue}
-        rowHeightAnimatedValue={rowHeightAnimatedValue}
-        onClose={() => closeRow(rowMap, data.item.key)}
-        onDelete={() => deleteRow(rowMap, data.item.key)}
-      />
-    );
-  };
+  const renderItem = ({item}) => (
+    <Item
+      title={item.title}
+      id={item.id}
+      stockSymbol={item.stockSymbol}
+      fullname={item.fullname}
+      symbol={item.symbol}
+      graph={item.graph}
+      rawValue={item.rawValue}
+      variation={item.variation}
+    />
+  );
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" />
-      {/* <StatusBar backgroundColor="#FF6347" barStyle="light-content"/> */}
       <Header style={{backgroundColor: 'black'}}>
-        {/* <Left/> */}
+        <Left />
         <Body>
           <Title
             style={{
               color: 'orange',
               fontSize: 20,
               fontWeight: 'bold',
-              marginLeft: 10,
             }}>
             Markets
           </Title>
@@ -315,99 +166,36 @@ const NotificationScreen = ({navigation}) => {
           margin: 5,
           paddingBottom: 20,
         }}>
-        <Item>
+        <Itm>
           <Icon name="ios-search" />
           <Input placeholder="Search" />
-        </Item>
-        <Btn transparent>
+        </Itm>
+        <Button transparent>
           <Text>Search</Text>
-        </Btn>
+        </Button>
       </Header>
-      <SwipeListView
-        data={listData}
+      <FlatList
+        data={Cryptos}
         renderItem={renderItem}
-        renderHiddenItem={renderHiddenItem}
-        leftOpenValue={75}
-        rightOpenValue={-150}
-        disableRightSwipe
-        onRowDidOpen={onRowDidOpen}
-        leftActivationValue={100}
-        rightActivationValue={-200}
-        leftActionValue={0}
-        rightActionValue={-500}
-        onLeftAction={onLeftAction}
-        onRightAction={onRightAction}
-        onLeftActionStatusChange={onLeftActionStatusChange}
-        onRightActionStatusChange={onRightActionStatusChange}
+        keyExtractor={item => item.id}
         style={{backgroundColor: 'black'}}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 
-export default NotificationScreen;
-
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#f4f4f4',
     flex: 1,
   },
-  backTextWhite: {
-    color: '#FFF',
+  item: {
+    backgroundColor: '#f9c2ff',
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
   },
-  rowFront: {
-    backgroundColor: '#000000',
-    borderRadius: 5,
-    height: 60,
-    margin: 5,
-    // marginBottom: 15,
-    shadowColor: '#999',
-    shadowOffset: {width: 0, height: 1},
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 5,
-  },
-  rowFrontVisible: {
-    backgroundColor: '#000000',
-    borderRadius: 5,
-    height: 60,
-    padding: 10,
-    // marginBottom: 15,
-  },
-  rowBack: {
-    alignItems: 'center',
-    backgroundColor: '#DDD',
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingLeft: 15,
-    margin: 5,
-    marginBottom: 15,
-    borderRadius: 5,
-  },
-  backRightBtn: {
-    alignItems: 'flex-end',
-    bottom: 0,
-    justifyContent: 'center',
-    position: 'absolute',
-    top: 0,
-    width: 75,
-    paddingRight: 17,
-  },
-  backRightBtnLeft: {
-    backgroundColor: '#1f65ff',
-    right: 75,
-  },
-  backRightBtnRight: {
-    backgroundColor: 'red',
-    right: 0,
-    borderTopRightRadius: 5,
-    borderBottomRightRadius: 5,
-  },
-  trash: {
-    height: 25,
-    width: 25,
-    marginRight: 7,
+  title: {
+    fontSize: 32,
   },
   stockSymbol: {
     fontSize: 14,
@@ -425,4 +213,12 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#999',
   },
+  rowFrontVisible: {
+    backgroundColor: '#000000',
+    borderRadius: 5,
+    height: 60,
+    padding: 10,
+  },
 });
+
+export default ListingScreen;
