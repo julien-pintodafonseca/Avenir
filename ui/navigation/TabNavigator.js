@@ -1,38 +1,20 @@
 import React from 'react';
 import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import ListingScreen from '../screens/Listing';
-import WalletScreen from '../screens/Wallet';
-import SettingScreen from '../screens/Setting';
 import IoniconsIcons from 'react-native-vector-icons/Ionicons';
+import {
+  LoginStack,
+  ListingStack,
+  WalletStack,
+  SettingStack,
+} from './StackNavigator';
+
 const Tab = createBottomTabNavigator();
 
-const CustomWalletTabButton = ({children, onPress}) => {
-  return (
-    <TouchableOpacity
-      style={{
-        top: -30,
-        justifyContent: 'center',
-        alignItems: 'center',
-        ...styles.shadow,
-      }}
-      onPress={onPress}>
-      <View
-        style={{
-          width: 70,
-          height: 70,
-          borderRadius: 35,
-          backgroundColor: '#e32f45',
-        }}>
-        {children}
-      </View>
-    </TouchableOpacity>
-  );
-};
-
-const Tabs = () => {
+const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
+      initialRouteName="Wallet"
       tabBarOptions={{
         showLabel: false,
         style: {
@@ -45,7 +27,7 @@ const Tabs = () => {
       }}>
       <Tab.Screen
         name="Listing"
-        component={ListingScreen}
+        component={ListingStack}
         options={{
           tabBarIcon: ({focused, size}) => (
             <IoniconsIcons
@@ -56,24 +38,9 @@ const Tabs = () => {
           ),
         }}
       />
-      {/* <Tab.Screen name="Wallet" component={WalletScreen} options={{
-                tabBarIcon: ({ focused, color, size }) => (
-                    <IoniconsIcons
-                        name="wallet"
-                        color={focused ? color : '#FF0000'}
-                        size={size*1.5}
-                        style={{
-                            marginLeft: 5
-                        }}
-                    />
-                ),
-                tabBarButton: (props) => (
-                    <CustomWalletTabButton { ...props } />
-                ),
-            }}/> */}
       <Tab.Screen
         name="Wallet"
-        component={WalletScreen}
+        component={WalletStack}
         options={{
           tabBarIcon: ({focused, size}) => (
             <IoniconsIcons
@@ -89,7 +56,7 @@ const Tabs = () => {
       />
       <Tab.Screen
         name="Setting"
-        component={SettingScreen}
+        component={SettingStack}
         options={{
           tabBarIcon: ({focused, size}) => (
             <IoniconsIcons
@@ -117,4 +84,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Tabs;
+export default BottomTabNavigator;

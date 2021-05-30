@@ -4,9 +4,8 @@
  */
 import React, {useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {View} from 'react-native';
-import Tabs from './navigation/tabs';
 import ConnexionInscription from './src/components/ConnexionInscription';
+import BottomTabNavigator from './navigation/TabNavigator';
 const App = () => {
   function connect(username, password) {
     console.log('login', username, password);
@@ -22,13 +21,15 @@ const App = () => {
   }
 
   const [token, setToken] = useState('');
-  return (token === '' ? (
-    <ConnexionInscription onConnect={connect} />
-  ) : (
+  return (
     <NavigationContainer>
-      <Tabs />
+      {token === '' ? (
+        <ConnexionInscription onConnect={connect} />
+      ) : (
+        <BottomTabNavigator />
+      )}
     </NavigationContainer>
-  ));
+  );
 };
 
 export default App;
