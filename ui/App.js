@@ -30,7 +30,7 @@ const App = () => {
         // <ConnexionInscription onConnect={connect} />
         <LoginStack onConnect={connect} />
       ) : ( */}
-      {/* // <LoginStack/> */}
+      {/* <LoginStack/> */}
       <BottomTabNavigator />
       {/* <BottomTabNavigatorAdmin /> */}
       {/* )} */}
