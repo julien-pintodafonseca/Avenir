@@ -20,7 +20,7 @@ Equipe G, 2021.
 
 # Modèle de données
 
-TODO
+![DataModel](./doc/DataModel.png)
 
 # Documentation API back-end
 

@@ -1,0 +1,49 @@
+// Creating tables
+
+Table premium_vouchers {
+  id INTEGER [pk, increment]
+  voucher TEXT [not null]
+  is_valid INTEGER [not null]
+  creation_date TIMESTAMP [not null]
+  expiration_date TIMESTAMP
+  date_of_use TIMESTAMP
+}
+
+Table users {
+  id INTEGER [pk, increment]
+  email TEXT [not null, unique]
+  password TEXT [not null]
+  is_admin INTEGER [not null]
+  id_premium_voucher INTEGER [ref: > premium_vouchers.id]
+}
+ 
+Table cryptocurrencies {
+  id INTEGER [pk, increment]
+  name TEXT [not null, unique]
+  symbol TEXT [not null, unique]
+  is_active INTEGER [not null]
+}
+ 
+Table market {
+  id INTEGER [pk, increment]
+  timestamp TIMESTAMP [not null]
+  price REAL [not null]
+  volume_24h REAL [not null]
+  cmc_rank INTEGER [not null]
+  percent_change_1h REAL [not null]
+  percent_change_24h REAL [not null]
+  percent_change_7d REAL [not null]
+  id_cryptocurrency INTEGER [not null, ref: > cryptocurrencies.id]
+}
+ 
+Table wallets {
+  id INTEGER [pk, increment]
+  id_user INTEGER [not null, ref: > users.id]
+}
+ 
+Table wallets_cryptocurrencies {
+  id_wallet INTEGER [not null, ref: > wallets.id]
+  id_cryptocurrency INTEGER [not null, ref: > cryptocurrencies.id]
+  quantity REAL [not null]
+  is_active INTEGER [not null]
+}
