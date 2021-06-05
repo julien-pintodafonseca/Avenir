@@ -18,7 +18,7 @@ import {
   Right,
   Subtitle,
 } from 'native-base';
-
+import ConfirmInputItem from '../Custom/ConfirmInputItem';
 const SignUp = ({navigation}) => {
   return (
     <Container style={styles.container}>
@@ -44,30 +44,17 @@ const SignUp = ({navigation}) => {
             style={{
               paddingTop: 20,
             }}>
-            <Text style={styles.sectionTitle}>E-Mail</Text>
-            <Item>
-              <Input style={styles.text} placeholder="E-mail" />
-            </Item>
-            <Item>
-              <Input style={styles.text} placeholder="Confirm E-mail" />
-            </Item>
+            <ConfirmInputItem
+              placeholder="E-mail"
+              title="E-mail"
+            />
           </View>
           <View style={styles.spacing}>
-            <Text style={styles.sectionTitle}>Password</Text>
-            <Item>
-              <Input
-                style={styles.text}
-                secureTextEntry
-                placeholder="Password"
-              />
-            </Item>
-            <Item>
-              <Input
-                style={styles.text}
-                secureTextEntry
-                placeholder="Confirm Password"
-              />
-            </Item>
+            <ConfirmInputItem
+              placeholder="Password"
+              secureTextEntry="true"
+              title="Password"
+            />
             <Text style={styles.infoText}>
               The password must contain at least three character categories
               among the following: Uppercase characters (A-Z) Lowercase
