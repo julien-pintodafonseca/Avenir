@@ -52,37 +52,21 @@ const userWallet = {
 const WalletView = ({navigation}) => {
   return (
     <Container style={{backgroundColor: '#303030'}}>
-      <Header
-        style={styles.general}>
+      <Header style={styles.general}>
         <Left />
         <Body>
-          <Title
-            style={styles.title}>
-            Total Balance
-          </Title>
+          <Title style={styles.title}>Total Balance</Title>
         </Body>
         <Right />
       </Header>
       <Container style={{backgroundColor: '#303030', margin: 10}}>
-        <View
-          style={styles.walletAsset}>
-          <Text
-            style={styles.subtitle}>
-            Asset Allocation
-          </Text>
-          <Text
-            style={styles.tmpText}>
-            {' '}
-            path to graph
-          </Text>
+        <View style={styles.walletAsset}>
+          <Text style={styles.subtitle}>Asset Allocation</Text>
+          <Text style={styles.tmpText}> path to graph</Text>
         </View>
-        <View
-          style={styles.walletListing}>
+        <View style={styles.walletListing}>
           <View style={styles.walletListingBanner}>
-            <Text
-              style={styles.subtitle}>
-              Assets
-            </Text>
+            <Text style={styles.subtitle}>Assets</Text>
             <Button
               iconRight
               transparent
@@ -91,16 +75,11 @@ const WalletView = ({navigation}) => {
                 console.log('pressed');
                 navigation.navigate('WalletListingAdd', {AddCryptoRoute: true});
               }}>
-              <Text style={styles.walletAddText}>
-                Add
-              </Text>
+              <Text style={styles.walletAddText}>Add</Text>
               <Icon style={styles.addIcon} size={40} name="add-circle" />
             </Button>
           </View>
-          <CustomCryptoList
-            style={styles.walletList}
-            navigation={navigation}
-          />
+          <CustomCryptoList style={styles.walletList} navigation={navigation} />
         </View>
       </Container>
     </Container>
@@ -148,28 +127,28 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     paddingBottom: 20,
   },
-  tmpText:{
+  tmpText: {
     color: '#FFF',
     fontSize: 20,
     fontWeight: 'bold',
     height: 200,
   },
-  subtitle:{
+  subtitle: {
     color: '#FFF',
     fontSize: 20,
     fontWeight: 'bold',
-  }, 
-  walletListing:{
+  },
+  walletListing: {
     height: 250,
     paddingTop: 20,
-  }, 
-  walletListingBanner:{flexDirection: 'row', alignItems: 'center'},
-  walletAddText:{color: '#FFF', fontSize: 15, marginRight: 10},
-  addIcon:{color: '#FFF'},
+  },
+  walletListingBanner: {flexDirection: 'row', alignItems: 'center'},
+  walletAddText: {color: '#FFF', fontSize: 15, marginRight: 10},
+  addIcon: {color: '#FFF'},
   walletList: {
     paddingBottom: 20,
     paddingTop: 20,
-  }
+  },
 });
 
 export default WalletView;
