@@ -7,8 +7,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import {
   BottomTabNavigator,
   BottomTabNavigatorAdmin,
-} from './navigation/TabNavigator';
-import {LoginStack} from './navigation/StackNavigator';
+} from './src/navigation/TabNavigator';
+import {LoginStack} from './src/navigation/StackNavigator';
 const App = () => {
   function connect(username, password) {
     console.log('login', username, password);
