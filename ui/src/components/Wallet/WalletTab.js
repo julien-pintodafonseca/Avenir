@@ -50,65 +50,6 @@ const userWallet = {
 };
 
 const WalletView = ({navigation}) => {
-  const Item = ({
-    id,
-    stockSymbol,
-    fullname,
-    symbol,
-    amount,
-    amountConverted,
-  }) => (
-    <View>
-      <TouchableHighlight
-        style={styles.rowFrontVisible}
-        onPress={() => {
-          console.log('Element touched');
-          // navigation.navigate('CryptoDetail', {cryptoId: id});
-        }}
-        underlayColor={'#aaa'}>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Text
-            style={{
-              backgroundColor: 'yellow',
-              width: 30,
-              height: 30,
-              marginLeft: 10,
-            }}
-            numberOfLines={1}>
-            {symbol}
-          </Text>
-          <View style={{marginLeft: 20, width: 70}}>
-            <Text style={styles.stockSymbol} numberOfLines={1}>
-              {stockSymbol}
-            </Text>
-            <Text style={styles.fullname} numberOfLines={1}>
-              {fullname}
-            </Text>
-          </View>
-          <View style={{marginLeft: 'auto', width: 50}}>
-            <Text style={styles.rawValue} numberOfLines={1}>
-              {amount}
-            </Text>
-            <Text style={styles.rawValue} numberOfLines={1}>
-              ${amountConverted}
-            </Text>
-          </View>
-        </View>
-      </TouchableHighlight>
-    </View>
-  );
-
-  const renderItem = ({item}) => (
-    <Item
-      id={item.id}
-      stockSymbol={item.stockSymbol}
-      fullname={item.fullname}
-      symbol={item.symbol}
-      amount={item.amount}
-      amountConverted={item.amountConverted}
-    />
-  );
-
   return (
     <Container style={{backgroundColor: '#303030'}}>
       <Header
@@ -159,9 +100,6 @@ const WalletView = ({navigation}) => {
         <View
           style={{
             height: 250,
-            // borderBottomColor: 'gray',
-            // borderBottomWidth: 1,
-            // paddingBottom: 20,
             paddingTop: 20,
           }}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -188,48 +126,14 @@ const WalletView = ({navigation}) => {
               <Icon style={{color: '#FFF'}} size={40} name="add-circle" />
             </Button>
           </View>
-          {/* <FlatList
-            data={userWallet.assets}
-            renderItem={renderItem}
-            keyExtractor={item => item.id}
-            style={{backgroundColor: '#303030'}}
-          /> */}
           <CustomCryptoList
             style={{
-              // height: 250,
-              // borderBottomColor: 'gray',
-              // borderBottomWidth: 1,
               paddingBottom: 20,
               paddingTop: 20,
             }}
             navigation={navigation}
           />
         </View>
-        {/* <View
-          style={{
-            paddingTop: 10,
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-          }}>
-          <Button
-            style={{backgroundColor: '#FF7F50'}}
-            transparent
-            onPress={() => console.log('pressed')}>
-            <Icon style={{color: '#FFF'}} name="remove" />
-          </Button>
-          <Button
-            style={{backgroundColor: '#FF7F50'}}
-            transparent
-            onPress={() => console.log('pressed')}>
-            <Icon style={{color: '#FFF'}} name="create-outline" />
-          </Button>
-          <Button
-            style={{backgroundColor: '#FF7F50'}}
-            transparent
-            onPress={() => console.log('pressed')}>
-            <Icon style={{color: '#FFF'}} name="add" />
-          </Button>
-        </View> */}
       </Container>
     </Container>
   );

@@ -14,6 +14,8 @@ import {
   Input,
 } from 'native-base';
 
+// import Header from '../Custom/Header';
+
 // fetch de crypto selon le route.params.cryptoId
 const Crypto = {
   id: 1,
@@ -24,7 +26,7 @@ const Crypto = {
   amountConverted: 272727,
 };
 
-const WalletCrypto = ({route, navigation}) => {
+const WalletCryptoDetail = ({route, navigation}) => {
   return (
     <Container style={{backgroundColor: '#303030'}}>
       <Header
@@ -50,6 +52,7 @@ const WalletCrypto = ({route, navigation}) => {
         </Body>
         <Right />
       </Header>
+      {/* <Header goBack="true" title="Amount"/> */}
       <Container style={{backgroundColor: '#303030', margin: 10}}>
         <View style={{flexDirection: 'row'}}>
           <Text
@@ -79,7 +82,7 @@ const WalletCrypto = ({route, navigation}) => {
             </Item>
           </Form>
           <Button
-            onPress={() => console.log('pressed')}
+            onPress={() =>{ console.log('pressed'); navigation.goBack();}}
             block
             style={{margin: 15, marginTop: 25, backgroundColor: '#FF7F50'}}>
             <Text style={{color: '#FFF'}}>Confirm</Text>
@@ -92,4 +95,4 @@ const WalletCrypto = ({route, navigation}) => {
 
 const styles = StyleSheet.create({});
 
-export default WalletCrypto;
+export default WalletCryptoDetail;

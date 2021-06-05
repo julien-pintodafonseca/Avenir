@@ -115,7 +115,6 @@ const ListingScreen = ({navigation}) => {
 
   const VisibleItem = props => {
     const {data, rowHeightAnimatedValue, removeRow, rightActionState} = props;
-    // console.log(props);
     if (rightActionState) {
       Animated.timing(rowHeightAnimatedValue, {
         toValue: 0,
@@ -133,7 +132,7 @@ const ListingScreen = ({navigation}) => {
           style={styles.rowFrontVisible}
           onPress={() => {
             console.log('Element touched');
-            navigation.navigate('WalletCrypto', {cryptoId: data.item.id});
+            navigation.navigate('WalletCryptoDetail', {cryptoId: data.item.id});
           }}
           underlayColor={'#aaa'}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -152,14 +151,12 @@ const ListingScreen = ({navigation}) => {
                 {data.item.fullname}
               </Text>
             </View>
-            {/* <View style={{marginLeft: 'auto', width: 50}}> */}
             <Text style={styles.rawValue} numberOfLines={1}>
               {data.item.amount}
             </Text>
             <Text style={styles.rawValue} numberOfLines={1}>
               ${data.item.amountConverted}
             </Text>
-            {/* </View> */}
           </View>
         </TouchableHighlight>
       </Animated.View>
@@ -282,7 +279,6 @@ const ListingScreen = ({navigation}) => {
         leftOpenValue={75}
         rightOpenValue={-150}
         disableRightSwipe
-        // disableLeftSwipe
         onRowDidOpen={onRowDidOpen}
         leftActivationValue={100}
         rightActivationValue={-200}
@@ -308,11 +304,8 @@ const styles = StyleSheet.create({
     color: '#FFF',
   },
   rowFront: {
-    // backgroundColor: '#303030',
     borderRadius: 5,
-    // height: 60,
     margin: 5,
-    // marginBottom: 15,
     shadowColor: '#999',
     shadowOffset: {width: 0, height: 1},
     shadowOpacity: 0.8,
@@ -324,7 +317,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     height: 60,
     padding: 10,
-    // marginBottom: 15,
   },
   rowBack: {
     alignItems: 'center',
@@ -336,7 +328,6 @@ const styles = StyleSheet.create({
     margin: 5,
     marginBottom: 15,
     borderRadius: 5,
-    // height: 60
   },
   backRightBtn: {
     alignItems: 'flex-end',
