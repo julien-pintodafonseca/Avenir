@@ -4,12 +4,14 @@ import {
   Icon,
   Button,
   Container,
-  Header,
+  // Header,
   Left,
   Body,
   Right,
   Title,
 } from 'native-base';
+
+import Header from '../Custom/Header';
 
 // fetch de crypto selon le route.params.cryptoId
 const Crypto = {
@@ -24,17 +26,7 @@ const Crypto = {
 const CryptoDetail = ({route, navigation}) => {
   return (
     <Container style={styles.bgColor}>
-      <Header style={styles.headerBanner}>
-        <Left>
-          <Button transparent onPress={() => navigation.goBack()}>
-            <Icon style={{color: '#FF7F50'}} name="arrow-back" />
-          </Button>
-        </Left>
-        <Body>
-          <Title style={styles.title}>{Crypto.fullname}</Title>
-        </Body>
-        <Right />
-      </Header>
+      <Header navigation={navigation} title={Crypto.fullname} />
       <Container
         style={{
           backgroundColor: '#303030',

@@ -9,8 +9,8 @@ import {
   FlatList,
   Image,
 } from 'react-native';
-import {Left, Header, Body, Right, Title, Icon, Button} from 'native-base';
-
+import {Left, Body, Right, Title, Icon, Button} from 'native-base';
+import Header from '../Custom/Header';
 const Cryptos = [
   {
     id: 1,
@@ -136,30 +136,10 @@ const ListingScreen = ({navigation, route}) => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" />
-
-      <Header style={{backgroundColor: '#303030'}}>
-        {route.params ? (
-          <Left>
-            <Button transparent onPress={() => navigation.goBack()}>
-              <Icon style={{color: '#FF7F50'}} name="arrow-back" />
-            </Button>
-          </Left>
-        ) : (
-          <Left />
-        )}
-        <Body>
-          <Title
-            style={{
-              color: '#FF7F50',
-              fontSize: 20,
-              fontWeight: 'bold',
-            }}>
-            {route.params ? 'Choose Crypto' : 'Markets'}
-          </Title>
-        </Body>
-        <Right />
-      </Header>
-
+      <Header
+        navigation={route.params ? navigation : ''}
+        title={route.params ? 'Choose Crypto' : 'Markets'}
+      />
       <FlatList
         data={Cryptos}
         renderItem={renderItem}

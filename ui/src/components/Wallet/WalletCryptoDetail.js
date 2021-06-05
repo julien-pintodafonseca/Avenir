@@ -4,7 +4,7 @@ import {
   Icon,
   Button,
   Container,
-  Header,
+  // Header,
   Left,
   Body,
   Right,
@@ -14,7 +14,7 @@ import {
   Input,
 } from 'native-base';
 
-// import Header from '../Custom/Header';
+import Header from '../Custom/Header';
 
 // fetch de crypto selon le route.params.cryptoId
 const Crypto = {
@@ -29,17 +29,7 @@ const Crypto = {
 const WalletCryptoDetail = ({route, navigation}) => {
   return (
     <Container style={styles.bgColor}>
-      <Header style={styles.headerBanner}>
-        <Left>
-          <Button transparent onPress={() => navigation.goBack()}>
-            <Icon style={styles.headerIcon} name="arrow-back" />
-          </Button>
-        </Left>
-        <Body>
-          <Title style={styles.title}>Amount</Title>
-        </Body>
-        <Right />
-      </Header>
+      <Header navigation={navigation} title="Amount" />
       <Container style={{backgroundColor: '#303030', margin: 10}}>
         <View style={{flexDirection: 'row'}}>
           <Text style={styles.subtitle}>{Crypto.stockSymbol}</Text>

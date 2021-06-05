@@ -2,7 +2,6 @@ import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import {
   Container,
-  Header,
   Left,
   Body,
   Right,
@@ -12,17 +11,12 @@ import {
   Input,
   Item,
 } from 'native-base';
+import Header from '../Custom/Header';
 const user = {};
 const ProfileView = ({navigation}) => {
   return (
     <Container style={styles.bgColor}>
-      <Header style={styles.headerBanner}>
-        <Left />
-        <Body>
-          <Title style={styles.title}>Profile</Title>
-        </Body>
-        <Right />
-      </Header>
+      <Header title="Profile" />
       <Container style={{backgroundColor: '#303030', margin: 10}}>
         <View style={styles.passwordBorder}>
           <Text style={styles.sectionTitle}>Reset password</Text>
