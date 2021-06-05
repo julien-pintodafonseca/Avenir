@@ -18,46 +18,54 @@ Equipe G, 2021.
 
 ![Maquette](./doc/MockUp.png)
 
+# Modèle de données
 
+TODO
 
+# Documentation API back-end
 
+TODO
 
-# Node-js-getting-started alternative for Ensimag/Phelma 
+# Choix techniques
 
-A Node.js app with GPS and USER using [Express 4](http://expressjs.com/).
+TODO
 
-This application supports the [Getting Started on Heroku with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs) article - check it out.
+# Screencast
 
-## Running Locally
+TODO
+# Back-end
 
-Make sure you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://cli.heroku.com/) installed.
+Open a terminal :
 
 ```sh
-$ git clone https://gitlab.ensimag.fr/viardots/backend_heroku_caw.git # or clone your own fork
-$ cd node-js-getting-started
+$ git clone https://gitlab.ensimag.fr/pintodaj/avenir # or clone your own fork
+$ cd avenir
 $ npm install
 $ npm start
 ```
 
 Your app should now be running on [localhost:5000](http://localhost:5000/).
 
-## Deploying to Heroku
+# Front-end
 
+Open a terminal :
+
+```sh
+$ cd avenir/ui
+$ npm install
+$ npm start
 ```
-$ heroku create
-$ git push heroku main
-$ heroku open
+
+Open another terminal :
+
+```sh
+$ cd avenir/ui
+$ npm run android
 ```
-or
 
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+Your app should now be running on your emulator.
 
-## Documentation
+# Tests
 
-For more information about using Node.js on Heroku, see these Dev Center articles:
+TODO
 
-- [Getting Started on Heroku with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
-- [Heroku Node.js Support](https://devcenter.heroku.com/articles/nodejs-support)
-- [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs)
-- [Best Practices for Node.js Development](https://devcenter.heroku.com/articles/node-best-practices)
-- [Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)
