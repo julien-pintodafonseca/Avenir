@@ -22,11 +22,19 @@ Equipe G, 2021.
 
 ![DataModel](./doc/DataModel.png)
 
-# Documentation API back-end
+# API back-end
 
 TODO
 
 # Choix techniques
+
+## Webservices utilisés
+
+TODO
+
+## Gestion des rôles
+
+TODO
 
 ## Structure projet
 
