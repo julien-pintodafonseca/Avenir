@@ -7,7 +7,7 @@ const Header = props => {
     <Header style={styles.general}>
       {props.goBack ? (
         <Left>
-          <Button transparent onPress={() => navigation.goBack()}>
+          <Button transparent onPress={() => props.navigation.goBack()}>
             <Icon style={styles.Icon} name="arrow-back" />
           </Button>
         </Left>

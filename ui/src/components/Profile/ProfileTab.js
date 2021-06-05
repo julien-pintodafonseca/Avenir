@@ -15,7 +15,7 @@ import {
 const user = {};
 const ProfileView = ({navigation}) => {
   return (
-    <Container style={{backgroundColor: '#303030'}}>
+    <Container style={styles.bgColor}>
       <Header style={styles.headerBanner}>
         <Left />
         <Body>
@@ -125,6 +125,7 @@ const styles = StyleSheet.create({
   text: {
     color: '#FFF',
   },
+  bgColor: {backgroundColor: '#303030'},
 });
 
 export default ProfileView;
