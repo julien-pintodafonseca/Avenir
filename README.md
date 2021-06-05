@@ -28,7 +28,9 @@ TODO
 
 # Choix techniques
 
-TODO
+## Structure projet
+
+![ProjectStructure](./doc/ProjectStructure.png)
 
 # Screencast
 
