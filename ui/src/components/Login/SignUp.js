@@ -23,8 +23,7 @@ const SignUp = ({navigation}) => {
   return (
     <Container style={styles.container}>
       <Content style={{margin: 10}}>
-        <Header
-          style={styles.headerBanner}>
+        <Header style={styles.headerBanner}>
           <Left>
             <Button
               style={styles.center}
@@ -35,10 +34,7 @@ const SignUp = ({navigation}) => {
           </Left>
           <Body>
             <Title style={styles.title}>Avenir</Title>
-            <Subtitle
-              style={styles.subtitle}>
-              Signing up
-            </Subtitle>
+            <Subtitle style={styles.subtitle}>Signing up</Subtitle>
           </Body>
           <Right />
         </Header>
@@ -48,10 +44,7 @@ const SignUp = ({navigation}) => {
             style={{
               paddingTop: 20,
             }}>
-            <Text
-              style={styles.sectionTitle}>
-              E-Mail
-            </Text>
+            <Text style={styles.sectionTitle}>E-Mail</Text>
             <Item>
               <Input style={styles.text} placeholder="E-mail" />
             </Item>
@@ -59,12 +52,8 @@ const SignUp = ({navigation}) => {
               <Input style={styles.text} placeholder="Confirm E-mail" />
             </Item>
           </View>
-          <View
-            style={styles.spacing}>
-            <Text
-              style={styles.sectionTitle}>
-              Password
-            </Text>
+          <View style={styles.spacing}>
+            <Text style={styles.sectionTitle}>Password</Text>
             <Item>
               <Input
                 style={styles.text}
@@ -79,8 +68,7 @@ const SignUp = ({navigation}) => {
                 placeholder="Confirm Password"
               />
             </Item>
-            <Text
-              style={styles.infoText}>
+            <Text style={styles.infoText}>
               The password must contain at least three character categories
               among the following: Uppercase characters (A-Z) Lowercase
               characters (a-z) Digits (0-9)
@@ -118,7 +106,7 @@ const styles = StyleSheet.create({
     borderTopColor: 'white',
     color: 'white',
   },
-  headerBanner:{
+  headerBanner: {
     backgroundColor: '#303030',
     height: 150,
     borderBottomColor: 'gray',
@@ -129,7 +117,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     textAlignVertical: 'center',
   },
-  subtitle:{
+  subtitle: {
     fontFamily: 'Helvetica',
     fontSize: 30,
     color: 'white',
@@ -137,27 +125,27 @@ const styles = StyleSheet.create({
     textAlignVertical: 'center',
     width: 150,
   },
-  sectionTitle:{
+  sectionTitle: {
     color: '#FFF',
     fontSize: 20,
     fontWeight: 'bold',
   },
-  spacing:{
+  spacing: {
     borderBottomColor: 'gray',
     borderBottomWidth: 1,
     paddingBottom: 20,
     paddingTop: 20,
   },
   text: {
-    color:'#FFF'
+    color: '#FFF',
   },
-  infoText:{
+  infoText: {
     color: 'gray',
     fontSize: 12,
     margin: 15,
     marginBottom: 0,
   },
-  button:{margin: 15, backgroundColor: '#FF7F50'}
+  button: {margin: 15, backgroundColor: '#FF7F50'},
 });
 
 export default SignUp;
