@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
-import {Container, Left, Body, Right, Title, Icon, Button} from 'native-base';
+import {Container, Icon, Button} from 'native-base';
 import CustomCryptoList from './WalletListing';
 
 import Header from '../Custom/Header';

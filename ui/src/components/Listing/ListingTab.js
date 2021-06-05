@@ -9,7 +9,6 @@ import {
   FlatList,
   Image,
 } from 'react-native';
-import {Left, Body, Right, Title, Icon, Button} from 'native-base';
 import Header from '../Custom/Header';
 const Cryptos = [
   {
