@@ -6,7 +6,7 @@ import ListingScreen from '../components/Listing/ListingTab';
 import ListingAdminAppScreen from '../components/Listing/ListingTabAdminApp';
 import ListingAdminExtScreen from '../components/Listing/ListingTabAdminExt';
 import WalletScreen from '../components/Wallet/WalletTab';
-import WalletCryptoScreen from '../components/Wallet/WalletCrypto';
+import WalletCryptoDetailScreen from '../components/Wallet/WalletCryptoDetail';
 
 import ProfileScreen from '../components/Profile/ProfileTab';
 
@@ -66,20 +66,12 @@ const WalletStack = () => {
       initialRouteName="Wallet"
       screenOptions={screenOptionStyle}>
       <Stack.Screen name="Wallet" component={WalletScreen} />
-      <Stack.Screen name="WalletCrypto" component={WalletCryptoScreen} />
+      <Stack.Screen name="WalletCryptoDetail" component={WalletCryptoDetailScreen} />
       <Stack.Screen name="WalletListingAdd" component={ListingScreen} />
       <Stack.Screen
         name="WalletListingAddAmount"
-        component={WalletCryptoScreen}
+        component={WalletCryptoDetailScreen}
       />
-      {/* <Stack.Screen
-        name="Listing"
-        component={WalletCryptoAddScreen}
-      />
-      <Stack.Screen
-        name="WalletCryptoAddAmount"
-        component={WalletCryptoAddAmountScreen}
-      /> */}
     </Stack.Navigator>
   );
 };

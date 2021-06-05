@@ -155,29 +155,10 @@ const ListingScreen = ({navigation}) => {
         </Body>
         <Right />
       </Header>
-
-      {/* <Header
-        searchBar
-        rounded
-        style={{
-          backgroundColor: '#303030',
-          borderBottomColor: 'gray',
-          borderBottomWidth: 1,
-          paddingBottom: 20,
-        }}>
-        <Itm>
-          <Icon name="ios-search" />
-          <Input placeholder="Search" />
-        </Itm>
-        <Button transparent>
-          <Text>Search</Text>
-        </Button>
-      </Header> */}
       <FlatList
         data={Cryptos}
         renderItem={renderItem}
         keyExtractor={item => item.id}
-        // style={{backgroundColor: '#303030'}}
       />
     </SafeAreaView>
   );
