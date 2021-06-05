@@ -169,7 +169,7 @@ const ListingScreen = ({navigation, route}) => {
         </Body>
         <Right />
       </Header>
-      
+
       <FlatList
         data={Cryptos}
         renderItem={renderItem}

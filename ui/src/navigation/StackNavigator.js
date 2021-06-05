@@ -66,7 +66,10 @@ const WalletStack = () => {
       initialRouteName="Wallet"
       screenOptions={screenOptionStyle}>
       <Stack.Screen name="Wallet" component={WalletScreen} />
-      <Stack.Screen name="WalletCryptoDetail" component={WalletCryptoDetailScreen} />
+      <Stack.Screen
+        name="WalletCryptoDetail"
+        component={WalletCryptoDetailScreen}
+      />
       <Stack.Screen name="WalletListingAdd" component={ListingScreen} />
       <Stack.Screen
         name="WalletListingAddAmount"

@@ -136,10 +136,7 @@ const ListingScreen = ({navigation}) => {
           }}
           underlayColor={'#aaa'}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Image
-              source={{uri: data.item.link}}
-              style={styles.imageSize}
-            />
+            <Image source={{uri: data.item.link}} style={styles.imageSize} />
             <View style={styles.cryptoName}>
               <Text style={styles.stockSymbol} numberOfLines={1}>
                 {data.item.stockSymbol}
@@ -367,9 +364,9 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#999',
   },
-  imageSize:{
+  imageSize: {
     width: 30,
     height: 30,
   },
-  cryptoName:{marginLeft: 20, width: 70}
+  cryptoName: {marginLeft: 20, width: 70},
 });

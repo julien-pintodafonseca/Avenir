@@ -29,29 +29,21 @@ const Crypto = {
 const WalletCryptoDetail = ({route, navigation}) => {
   return (
     <Container style={{backgroundColor: '#303030'}}>
-      <Header
-        style={styles.headerBanner}>
+      <Header style={styles.headerBanner}>
         <Left>
           <Button transparent onPress={() => navigation.goBack()}>
             <Icon style={styles.headerIcon} name="arrow-back" />
           </Button>
         </Left>
         <Body>
-          <Title
-            style={styles.title}>
-            Amount
-          </Title>
+          <Title style={styles.title}>Amount</Title>
         </Body>
         <Right />
       </Header>
       <Container style={{backgroundColor: '#303030', margin: 10}}>
         <View style={{flexDirection: 'row'}}>
-          <Text style={styles.subtitle}>
-            {Crypto.stockSymbol}
-          </Text>
-          <Text style={styles.subtitle}>
-            {Crypto.fullname}
-          </Text>
+          <Text style={styles.subtitle}>{Crypto.stockSymbol}</Text>
+          <Text style={styles.subtitle}>{Crypto.fullname}</Text>
         </View>
         <View>
           <Form>
@@ -64,7 +56,10 @@ const WalletCryptoDetail = ({route, navigation}) => {
             </Item>
           </Form>
           <Button
-            onPress={() =>{ console.log('pressed'); navigation.goBack();}}
+            onPress={() => {
+              console.log('pressed');
+              navigation.goBack();
+            }}
             block
             style={styles.button}>
             <Text style={{color: '#FFF'}}>Confirm</Text>
@@ -76,19 +71,19 @@ const WalletCryptoDetail = ({route, navigation}) => {
 };
 
 const styles = StyleSheet.create({
-  headerBanner:{
+  headerBanner: {
     backgroundColor: '#303030',
     borderBottomColor: 'gray',
-    borderBottomWidth: 1
-  }, 
-  headerIcon:{color: '#FF7F50'},
+    borderBottomWidth: 1,
+  },
+  headerIcon: {color: '#FF7F50'},
   title: {
     color: '#FF7F50',
     fontSize: 20,
     fontWeight: 'bold',
   },
-  subtitle:{fontSize: 30, color: '#FFF', fontWeight: 'bold'},
-button: {margin: 15, marginTop: 25, backgroundColor: '#FF7F50'}
+  subtitle: {fontSize: 30, color: '#FFF', fontWeight: 'bold'},
+  button: {margin: 15, marginTop: 25, backgroundColor: '#FF7F50'},
 });
 
 export default WalletCryptoDetail;

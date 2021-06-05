@@ -17,51 +17,27 @@ const user = {};
 const ProfileView = ({navigation}) => {
   return (
     <Container style={{backgroundColor: '#303030'}}>
-      <Header
-        style={{
-          backgroundColor: '#303030',
-          borderBottomColor: 'gray',
-          borderBottomWidth: 1,
-        }}>
+      <Header style={styles.headerBanner}>
         <Left />
         <Body>
-          <Title
-            style={{
-              color: '#FF7F50',
-              fontSize: 20,
-              fontWeight: 'bold',
-            }}>
-            Profile
-          </Title>
+          <Title style={styles.title}>Profile</Title>
         </Body>
         <Right />
       </Header>
       <Container style={{backgroundColor: '#303030', margin: 10}}>
-        <View
-          style={{
-            borderBottomColor: 'gray',
-            borderBottomWidth: 1,
-            paddingBottom: 20,
-          }}>
-          <Text
-            style={{
-              color: '#FFF',
-              fontSize: 20,
-              fontWeight: 'bold',
-            }}>
-            Reset password
-          </Text>
+        <View style={styles.passwordBorder}>
+          <Text style={styles.sectionTitle}>Reset password</Text>
           <Form>
             <Item stackedLabel>
               <Input
-                style={{color: '#FFF'}}
+                style={styles.text}
                 secureTextEntry
                 placeholder="Password"
               />
             </Item>
             <Item stackedLabel>
               <Input
-                style={{color: '#FFF'}}
+                style={styles.text}
                 secureTextEntry
                 placeholder="Confirm Password"
               />
@@ -70,8 +46,8 @@ const ProfileView = ({navigation}) => {
           <Button
             onPress={() => console.log('pressed')}
             block
-            style={{margin: 15, marginTop: 25, backgroundColor: '#FF7F50'}}>
-            <Text style={{color: '#FFF'}}>Change password</Text>
+            style={styles.button}>
+            <Text style={styles.text}>Change password</Text>
           </Button>
         </View>
         {!user.is_admin ? (
@@ -79,24 +55,17 @@ const ProfileView = ({navigation}) => {
             style={{
               marginTop: 20,
             }}>
-            <Text
-              style={{
-                color: '#FFF',
-                fontSize: 20,
-                fontWeight: 'bold',
-              }}>
-              Voucher
-            </Text>
+            <Text style={styles.sectionTitle}>Voucher</Text>
             <Form>
               <Item>
-                <Input style={{color: '#FFF'}} placeholder="Voucher code" />
+                <Input style={styles.text} placeholder="Voucher code" />
               </Item>
             </Form>
             <Button
               onPress={() => console.log('pressed')}
               block
-              style={{margin: 15, marginTop: 25, backgroundColor: '#FF7F50'}}>
-              <Text style={{color: '#FFF'}}>Confirm</Text>
+              style={styles.button}>
+              <Text style={styles.text}>Confirm</Text>
             </Button>
           </View>
         ) : (
@@ -132,6 +101,30 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     height: 60,
     padding: 10,
+  },
+  headerBanner: {
+    backgroundColor: '#303030',
+    borderBottomColor: 'gray',
+    borderBottomWidth: 1,
+  },
+  title: {
+    color: '#FF7F50',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  passwordBorder: {
+    borderBottomColor: 'gray',
+    borderBottomWidth: 1,
+    paddingBottom: 20,
+  },
+  sectionTitle: {
+    color: '#FFF',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  button: {margin: 15, marginTop: 25, backgroundColor: '#FF7F50'},
+  text: {
+    color: '#FFF',
   },
 });
 
