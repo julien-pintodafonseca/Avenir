@@ -15,9 +15,7 @@ const Connexion = props => {
           <Input placeholder="Password" secureTextEntry value="" />
         </Item>
       </Form>
-      <Button
-        block
-        style={styles.button}>
+      <Button block style={styles.button}>
         <Text>Log In</Text>
       </Button>
     </View>
@@ -31,7 +29,7 @@ const styles = StyleSheet.create({
     textAlignVertical: 'center',
     marginTop: 20,
   },
-  button:{margin: 15, marginTop: 25, backgroundColor: '#FF7F50'}
+  button: {margin: 15, marginTop: 25, backgroundColor: '#FF7F50'},
 });
 
 export default Connexion;

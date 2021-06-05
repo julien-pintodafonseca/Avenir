@@ -44,10 +44,10 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   separator: {borderColor: 'gray', borderWidth: 1, margin: 30},
-  text:{
-    color: '#FFF'
+  text: {
+    color: '#FFF',
   },
-  button:{margin: 15, backgroundColor: '#FF7F50'}
+  button: {margin: 15, backgroundColor: '#FF7F50'},
 });
 
 export default LoginSignup;
