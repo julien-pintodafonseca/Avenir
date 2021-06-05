@@ -1,7 +1,26 @@
-# Project
+# Description du projet
+
+Ce projet a pour but de créer une application mobile, "Avenir", fournissant aux utilisateurs un moyen simple de suivre leurs investissements en cryptomonnaies comme le Bitcoin, l'Ethereum ou encore le Litecoin.  
+
+* Avenir permet de tenir gratuitement un portefeuille personnel composé de vos cryptommonaies (à ajouter manuellement pour plus de flexibilité) ainsi que de suivre vos performances en direct.  
+* Avenir permet également de suivre en temps réel les données du marché des cryptommonaies souhaitées. (*)  
+
+(*) : fonctionnalité réservée aux utilisateurs premium.  
 
 Projet CAW, Ensimag.  
 Equipe G, 2021.  
+
+# Cas d'usage
+
+![Diagramme de cas d'usage](./doc/UseCase.png)
+
+# Maquette / les différents écrans
+
+![Maquette](./doc/MockUp.png)
+
+
+
+
 
 # Node-js-getting-started alternative for Ensimag/Phelma 
 
