@@ -1,11 +1,11 @@
 # Description du projet
 
-L'application mobile Avenir a pour objectif de fournir à ses utilisateurs un moyen simple de suivre leurs investissements en cryptomonnaies comme le Bitcoin, l'Ethereum ou encore le Litecoin.  
+L'application mobile Avenir a pour objectif de fournir à ses utilisateurs un moyen simple de suivre leurs investissements en cryptomonnaies comme le Bitcoin, l'Ethereum ou encore le Litecoin.
 
-* Avenir permet de **tenir gratuitement un portefeuille personnel** composé de vos cryptommonaies (à ajouter manuellement pour plus de flexibilité) ainsi que de **suivre vos performances en direct**.  
-* Avenir permet également de **suivre en temps réel les données du marché**. (*)  
+* Avenir permet de **tenir gratuitement un portefeuille personnel** composé de vos cryptommonaies (à ajouter manuellement pour plus de flexibilité) ainsi que de **suivre vos performances en direct**.
+* Avenir permet également de **suivre en temps réel les données du marché***.
 
-(*) : fonctionnalité réservée aux utilisateurs premium.  
+(*) : fonctionnalité réservée aux utilisateurs premium.
 
 Projet CAW, Ensimag, 2021.  
 
@@ -29,7 +29,17 @@ TODO
 
 ## Webservices utilisés
 
-TODO
+L'application Avenir utilise pour le moment l'**API de CoinMarketCap** sur le plan le plus basique, soit avec une clé gratuite.  
+Les limitations actuelles sont donc les suivantes :
+* 9 endpoints disponibles sur les 22 existants
+* 10.000 appels API par mois maximum
+* Aucune historisation des appels
+* Utilisation non commerciale
+
+De par l'objectif d'évolution de l'application Avenir et de l'arrivé de notre future boutique de vente de coupons premium très prochainement, il est prévu, dans un futur proche, d'investir dans un abonnement permettant de passer outre les contraintes citées ci-dessus.
+
+Les fonctions appelant l'**API de CoinMarketCap** se situent exclusivement au sein du fichier **avenir/services/coinMarket.js**.
+Celles-ci s'occupent principalement de récupérer les différentes données du marché (nom des cryptomonnaies, leur symbole, leur prix actuel, le volume des transactions sur 24h, le % d'évolution du prix sur les derières heures...) à intervalle régulier.
 
 ## Gestion des rôles
 
