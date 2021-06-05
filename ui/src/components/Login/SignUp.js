@@ -44,10 +44,7 @@ const SignUp = ({navigation}) => {
             style={{
               paddingTop: 20,
             }}>
-            <ConfirmInputItem
-              placeholder="E-mail"
-              title="E-mail"
-            />
+            <ConfirmInputItem placeholder="E-mail" title="E-mail" />
           </View>
           <View style={styles.spacing}>
             <ConfirmInputItem

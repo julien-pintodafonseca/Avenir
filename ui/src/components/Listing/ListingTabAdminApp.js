@@ -7,7 +7,7 @@ import {
   StatusBar,
   SafeAreaView,
   FlatList,
-  Image
+  Image,
 } from 'react-native';
 import {CheckBox} from 'native-base';
 import Header from '../Custom/Header';
