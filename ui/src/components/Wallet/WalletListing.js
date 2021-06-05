@@ -138,12 +138,9 @@ const ListingScreen = ({navigation}) => {
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Image
               source={{uri: data.item.link}}
-              style={{
-                width: 30,
-                height: 30,
-              }}
+              style={styles.imageSize}
             />
-            <View style={{marginLeft: 20, width: 70}}>
+            <View style={styles.cryptoName}>
               <Text style={styles.stockSymbol} numberOfLines={1}>
                 {data.item.stockSymbol}
               </Text>
@@ -370,4 +367,9 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#999',
   },
+  imageSize:{
+    width: 30,
+    height: 30,
+  },
+  cryptoName:{marginLeft: 20, width: 70}
 });

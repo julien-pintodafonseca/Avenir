@@ -53,19 +53,11 @@ const WalletView = ({navigation}) => {
   return (
     <Container style={{backgroundColor: '#303030'}}>
       <Header
-        style={{
-          backgroundColor: '#303030',
-          borderBottomColor: 'gray',
-          borderBottomWidth: 1,
-        }}>
+        style={styles.general}>
         <Left />
         <Body>
           <Title
-            style={{
-              color: '#FF7F50',
-              fontSize: 20,
-              fontWeight: 'bold',
-            }}>
+            style={styles.title}>
             Total Balance
           </Title>
         </Body>
@@ -73,43 +65,22 @@ const WalletView = ({navigation}) => {
       </Header>
       <Container style={{backgroundColor: '#303030', margin: 10}}>
         <View
-          style={{
-            borderBottomColor: 'gray',
-            borderBottomWidth: 1,
-            paddingBottom: 20,
-          }}>
+          style={styles.walletAsset}>
           <Text
-            style={{
-              color: '#FFF',
-              fontSize: 20,
-              fontWeight: 'bold',
-            }}>
+            style={styles.subtitle}>
             Asset Allocation
           </Text>
           <Text
-            style={{
-              color: '#FFF',
-              fontSize: 20,
-              fontWeight: 'bold',
-              height: 200,
-            }}>
+            style={styles.tmpText}>
             {' '}
             path to graph
           </Text>
         </View>
         <View
-          style={{
-            height: 250,
-            paddingTop: 20,
-          }}>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          style={styles.walletListing}>
+          <View style={styles.walletListingBanner}>
             <Text
-              style={{
-                color: '#FFF',
-                fontSize: 20,
-                fontWeight: 'bold',
-                paddingBottom: 30,
-              }}>
+              style={styles.subtitle}>
               Assets
             </Text>
             <Button
@@ -120,17 +91,14 @@ const WalletView = ({navigation}) => {
                 console.log('pressed');
                 navigation.navigate('WalletListingAdd', {AddCryptoRoute: true});
               }}>
-              <Text style={{color: '#FFF', fontSize: 15, marginRight: 10}}>
+              <Text style={styles.walletAddText}>
                 Add
               </Text>
-              <Icon style={{color: '#FFF'}} size={40} name="add-circle" />
+              <Icon style={styles.addIcon} size={40} name="add-circle" />
             </Button>
           </View>
           <CustomCryptoList
-            style={{
-              paddingBottom: 20,
-              paddingTop: 20,
-            }}
+            style={styles.walletList}
             navigation={navigation}
           />
         </View>
@@ -165,6 +133,43 @@ const styles = StyleSheet.create({
     height: 60,
     padding: 10,
   },
+  general: {
+    backgroundColor: '#303030',
+    borderBottomColor: 'gray',
+    borderBottomWidth: 1,
+  },
+  title: {
+    color: '#FF7F50',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  walletAsset: {
+    borderBottomColor: 'gray',
+    borderBottomWidth: 1,
+    paddingBottom: 20,
+  },
+  tmpText:{
+    color: '#FFF',
+    fontSize: 20,
+    fontWeight: 'bold',
+    height: 200,
+  },
+  subtitle:{
+    color: '#FFF',
+    fontSize: 20,
+    fontWeight: 'bold',
+  }, 
+  walletListing:{
+    height: 250,
+    paddingTop: 20,
+  }, 
+  walletListingBanner:{flexDirection: 'row', alignItems: 'center'},
+  walletAddText:{color: '#FFF', fontSize: 15, marginRight: 10},
+  addIcon:{color: '#FFF'},
+  walletList: {
+    paddingBottom: 20,
+    paddingTop: 20,
+  }
 });
 
 export default WalletView;

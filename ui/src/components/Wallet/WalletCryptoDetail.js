@@ -30,44 +30,26 @@ const WalletCryptoDetail = ({route, navigation}) => {
   return (
     <Container style={{backgroundColor: '#303030'}}>
       <Header
-        style={{
-          backgroundColor: '#303030',
-          borderBottomColor: 'gray',
-          borderBottomWidth: 1,
-        }}>
+        style={styles.headerBanner}>
         <Left>
           <Button transparent onPress={() => navigation.goBack()}>
-            <Icon style={{color: '#FF7F50'}} name="arrow-back" />
+            <Icon style={styles.headerIcon} name="arrow-back" />
           </Button>
         </Left>
         <Body>
           <Title
-            style={{
-              color: '#FF7F50',
-              fontSize: 20,
-              fontWeight: 'bold',
-            }}>
+            style={styles.title}>
             Amount
           </Title>
         </Body>
         <Right />
       </Header>
-      {/* <Header goBack="true" title="Amount"/> */}
       <Container style={{backgroundColor: '#303030', margin: 10}}>
         <View style={{flexDirection: 'row'}}>
-          <Text
-            style={{
-              fontSize: 30,
-              backgroundColor: 'red',
-              color: '#FFF',
-              fontWeight: 'bold',
-            }}>
-            {Crypto.Symbol}
-          </Text>
-          <Text style={{fontSize: 30, color: '#FFF', fontWeight: 'bold'}}>
+          <Text style={styles.subtitle}>
             {Crypto.stockSymbol}
           </Text>
-          <Text style={{fontSize: 30, color: '#FFF', fontWeight: 'bold'}}>
+          <Text style={styles.subtitle}>
             {Crypto.fullname}
           </Text>
         </View>
@@ -84,7 +66,7 @@ const WalletCryptoDetail = ({route, navigation}) => {
           <Button
             onPress={() =>{ console.log('pressed'); navigation.goBack();}}
             block
-            style={{margin: 15, marginTop: 25, backgroundColor: '#FF7F50'}}>
+            style={styles.button}>
             <Text style={{color: '#FFF'}}>Confirm</Text>
           </Button>
         </View>
@@ -93,6 +75,20 @@ const WalletCryptoDetail = ({route, navigation}) => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  headerBanner:{
+    backgroundColor: '#303030',
+    borderBottomColor: 'gray',
+    borderBottomWidth: 1
+  }, 
+  headerIcon:{color: '#FF7F50'},
+  title: {
+    color: '#FF7F50',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  subtitle:{fontSize: 30, color: '#FFF', fontWeight: 'bold'},
+button: {margin: 15, marginTop: 25, backgroundColor: '#FF7F50'}
+});
 
 export default WalletCryptoDetail;
