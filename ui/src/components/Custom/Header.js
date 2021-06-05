@@ -1,17 +1,6 @@
-import React, {Component, useState} from 'react';
-import {StyleSheet, View} from 'react-native';
-import {
-  Button,
-  Item,
-  Input,
-  Form,
-  Text,
-  Left,
-  Icon,
-  Body,
-  Title,
-  Right,
-} from 'native-base';
+import React from 'react';
+import {StyleSheet} from 'react-native';
+import {Button, Left, Icon, Body, Title, Right} from 'native-base';
 
 const Header = props => {
   return (

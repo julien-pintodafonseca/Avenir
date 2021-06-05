@@ -1,9 +1,8 @@
 import React from 'react';
-import {StyleSheet, View, TouchableOpacity} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import IoniconsIcons from 'react-native-vector-icons/Ionicons';
 import {
-  LoginStack,
   ListingStack,
   WalletStack,
   ProfileStack,

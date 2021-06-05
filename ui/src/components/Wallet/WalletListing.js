@@ -6,22 +6,11 @@ import {
   Animated,
   TouchableHighlight,
   TouchableOpacity,
-  StatusBar,
   Image,
 } from 'react-native';
 
 import {SwipeListView} from 'react-native-swipe-list-view';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {
-  Header,
-  Body,
-  Right,
-  Title,
-  Icon,
-  Item,
-  Input,
-  Button as Btn,
-} from 'native-base';
 
 const Cryptos = [
   {
