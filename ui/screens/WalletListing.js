@@ -7,6 +7,7 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   StatusBar,
+  Image,
 } from 'react-native';
 
 import {SwipeListView} from 'react-native-swipe-list-view';
@@ -72,7 +73,7 @@ const ListingScreen = ({navigation}) => {
       id: CryptoItem.id,
       stockSymbol: CryptoItem.stockSymbol,
       fullname: CryptoItem.fullname,
-      symbol: CryptoItem.symbol,
+      link: `https://s2.coinmarketcap.com/static/img/coins/64x64/${CryptoItem.id}.png`,
       amount: CryptoItem.amount,
       amountConverted: CryptoItem.amountConverted,
     })),
@@ -129,41 +130,35 @@ const ListingScreen = ({navigation}) => {
       <Animated.View
         style={[styles.rowFront, {height: rowHeightAnimatedValue}]}>
         <TouchableHighlight
-        style={styles.rowFrontVisible}
-        onPress={() => {
-          console.log('Element touched');
-          navigation.navigate('WalletCrypto', {cryptoId: data.item.id});
-        }}
-        underlayColor={'#aaa'}>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Text
-            style={{
-              backgroundColor: 'yellow',
+          style={styles.rowFrontVisible}
+          onPress={() => {
+            console.log('Element touched');
+            navigation.navigate('WalletCrypto', {cryptoId: data.item.id});
+          }}
+          underlayColor={'#aaa'}>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <Image source={{uri: data.item.link}} style={{
               width: 30,
               height: 30,
-              marginLeft: 10,
-            }}
-            numberOfLines={1}>
-            {data.item.symbol}
-          </Text>
-          <View style={{marginLeft: 20, width: 70}}>
-            <Text style={styles.stockSymbol} numberOfLines={1}>
-              {data.item.stockSymbol}
-            </Text>
-            <Text style={styles.fullname} numberOfLines={1}>
-              {data.item.fullname}
-            </Text>
-          </View>
-          <View style={{marginLeft: 'auto', width: 50}}>
+            }}/>
+            <View style={{marginLeft: 20, width: 70}}>
+              <Text style={styles.stockSymbol} numberOfLines={1}>
+                {data.item.stockSymbol}
+              </Text>
+              <Text style={styles.fullname} numberOfLines={1}>
+                {data.item.fullname}
+              </Text>
+            </View>
+            {/* <View style={{marginLeft: 'auto', width: 50}}> */}
             <Text style={styles.rawValue} numberOfLines={1}>
               {data.item.amount}
             </Text>
             <Text style={styles.rawValue} numberOfLines={1}>
               ${data.item.amountConverted}
             </Text>
+            {/* </View> */}
           </View>
-        </View>
-      </TouchableHighlight>
+        </TouchableHighlight>
       </Animated.View>
     );
   };
@@ -294,7 +289,6 @@ const ListingScreen = ({navigation}) => {
         onRightAction={onRightAction}
         onLeftActionStatusChange={onLeftActionStatusChange}
         onRightActionStatusChange={onRightActionStatusChange}
-        style={{backgroundColor: 'black'}}
       />
     </View>
   );
@@ -304,16 +298,16 @@ export default ListingScreen;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#f4f4f4',
+    backgroundColor: '#303030',
     flex: 1,
   },
   backTextWhite: {
     color: '#FFF',
   },
   rowFront: {
-    backgroundColor: '#000000',
+    // backgroundColor: '#303030',
     borderRadius: 5,
-    height: 50,
+    // height: 60,
     margin: 5,
     // marginBottom: 15,
     shadowColor: '#999',
@@ -323,9 +317,9 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   rowFrontVisible: {
-    backgroundColor: '#000000',
+    backgroundColor: '#303030',
     borderRadius: 5,
-    height: 50,
+    height: 60,
     padding: 10,
     // marginBottom: 15,
   },
@@ -339,6 +333,7 @@ const styles = StyleSheet.create({
     margin: 5,
     marginBottom: 15,
     borderRadius: 5,
+    // height: 60
   },
   backRightBtn: {
     alignItems: 'flex-end',
@@ -375,6 +370,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 5,
     color: '#FFF',
+    marginLeft: 30,
   },
   fullname: {
     fontSize: 12,

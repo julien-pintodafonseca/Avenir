@@ -110,10 +110,10 @@ const WalletView = ({navigation}) => {
   );
 
   return (
-    <Container style={{backgroundColor: 'black'}}>
+    <Container style={{backgroundColor: '#303030'}}>
       <Header
         style={{
-          backgroundColor: 'black',
+          backgroundColor: '#303030',
           borderBottomColor: 'gray',
           borderBottomWidth: 1,
         }}>
@@ -121,7 +121,7 @@ const WalletView = ({navigation}) => {
         <Body>
           <Title
             style={{
-              color: 'orange',
+              color: '#FF7F50',
               fontSize: 20,
               fontWeight: 'bold',
             }}>
@@ -130,7 +130,7 @@ const WalletView = ({navigation}) => {
         </Body>
         <Right />
       </Header>
-      <Container style={{backgroundColor: 'black', margin: 10}}>
+      <Container style={{backgroundColor: '#303030', margin: 10}}>
         <View
           style={{
             borderBottomColor: 'gray',
@@ -164,36 +164,45 @@ const WalletView = ({navigation}) => {
             // paddingBottom: 20,
             paddingTop: 20,
           }}>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Text
-                style={{
-                  color: '#FFF',
-                  fontSize: 20,
-                  fontWeight: 'bold',
-                  paddingBottom: 30,
-                }}>
-                Assets
+              style={{
+                color: '#FFF',
+                fontSize: 20,
+                fontWeight: 'bold',
+                paddingBottom: 30,
+              }}>
+              Assets
+            </Text>
+            <Button
+              iconRight
+              transparent
+              style={{marginLeft: 'auto'}}
+              onPress={() => {
+                console.log('pressed');
+                navigation.navigate('WalletListingAdd', {AddCryptoRoute: true});
+              }}>
+              <Text style={{color: '#FFF', fontSize: 15, marginRight: 10}}>
+                Add
               </Text>
-                <Button iconRight transparent style={{marginLeft:'auto'}} onPress={() => console.log('pressed')}>
-                  <Text style={{color:"#FFF", fontSize: 15, marginRight: 10}}>Add</Text>
-                  <Icon style={{color: '#FFF'}} size={40} name="add-circle" />
-                </Button>
-            </View>
+              <Icon style={{color: '#FFF'}} size={40} name="add-circle" />
+            </Button>
+          </View>
           {/* <FlatList
             data={userWallet.assets}
             renderItem={renderItem}
             keyExtractor={item => item.id}
-            style={{backgroundColor: 'black'}}
+            style={{backgroundColor: '#303030'}}
           /> */}
-          <CustomCryptoList style={{
-            // height: 250,
-            // borderBottomColor: 'gray',
-            // borderBottomWidth: 1,
-            paddingBottom: 20,
-            paddingTop: 20,
-            
-          }}
-          navigation={navigation}
+          <CustomCryptoList
+            style={{
+              // height: 250,
+              // borderBottomColor: 'gray',
+              // borderBottomWidth: 1,
+              paddingBottom: 20,
+              paddingTop: 20,
+            }}
+            navigation={navigation}
           />
         </View>
         {/* <View
@@ -203,19 +212,19 @@ const WalletView = ({navigation}) => {
             justifyContent: 'space-evenly',
           }}>
           <Button
-            style={{backgroundColor: 'orange'}}
+            style={{backgroundColor: '#FF7F50'}}
             transparent
             onPress={() => console.log('pressed')}>
             <Icon style={{color: '#FFF'}} name="remove" />
           </Button>
           <Button
-            style={{backgroundColor: 'orange'}}
+            style={{backgroundColor: '#FF7F50'}}
             transparent
             onPress={() => console.log('pressed')}>
             <Icon style={{color: '#FFF'}} name="create-outline" />
           </Button>
           <Button
-            style={{backgroundColor: 'orange'}}
+            style={{backgroundColor: '#FF7F50'}}
             transparent
             onPress={() => console.log('pressed')}>
             <Icon style={{color: '#FFF'}} name="add" />

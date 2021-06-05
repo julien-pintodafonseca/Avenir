@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 import {
   Container,
   Header,
@@ -17,12 +13,13 @@ import {
   Input,
   Item,
 } from 'native-base';
-const SettingView = ({navigation}) => {
+const user = {};
+const ProfileView = ({navigation}) => {
   return (
-    <Container style={{backgroundColor: 'black'}}>
+    <Container style={{backgroundColor: '#303030'}}>
       <Header
         style={{
-          backgroundColor: 'black',
+          backgroundColor: '#303030',
           borderBottomColor: 'gray',
           borderBottomWidth: 1,
         }}>
@@ -30,16 +27,16 @@ const SettingView = ({navigation}) => {
         <Body>
           <Title
             style={{
-              color: 'orange',
+              color: '#FF7F50',
               fontSize: 20,
               fontWeight: 'bold',
             }}>
-            Settings
+            Profile
           </Title>
         </Body>
         <Right />
       </Header>
-      <Container style={{backgroundColor: 'black', margin: 10}}>
+      <Container style={{backgroundColor: '#303030', margin: 10}}>
         <View
           style={{
             borderBottomColor: 'gray',
@@ -56,45 +53,55 @@ const SettingView = ({navigation}) => {
           </Text>
           <Form>
             <Item stackedLabel>
-              <Label>Password</Label>
-              <Input style={{color: '#FFF'}} placeholder="Password" />
+              <Input
+                style={{color: '#FFF'}}
+                secureTextEntry
+                placeholder="Password"
+              />
             </Item>
             <Item stackedLabel>
-              <Label>Confirm password</Label>
-              <Input style={{color: '#FFF'}} placeholder="Password" />
+              <Input
+                style={{color: '#FFF'}}
+                secureTextEntry
+                placeholder="Confirm Password"
+              />
             </Item>
           </Form>
           <Button
             onPress={() => console.log('pressed')}
             block
-            style={{margin: 15, marginTop: 25, backgroundColor: 'orange'}}>
+            style={{margin: 15, marginTop: 25, backgroundColor: '#FF7F50'}}>
             <Text style={{color: '#FFF'}}>Change password</Text>
           </Button>
         </View>
-        <View
-          style={{
-            marginTop: 20,
-          }}>
-          <Text
+        {!user.is_admin ? (
+          <View
             style={{
-              color: '#FFF',
-              fontSize: 20,
-              fontWeight: 'bold',
+              marginTop: 20,
             }}>
-            Voucher
-          </Text>
-          <Form>
-            <Item>
-              <Input style={{color: '#FFF'}} placeholder="Voucher code" />
-            </Item>
-          </Form>
-          <Button
-            onPress={() => console.log('pressed')}
-            block
-            style={{margin: 15, marginTop: 25, backgroundColor: 'orange'}}>
-            <Text style={{color: '#FFF'}}>Confirm</Text>
-          </Button>
-        </View>
+            <Text
+              style={{
+                color: '#FFF',
+                fontSize: 20,
+                fontWeight: 'bold',
+              }}>
+              Voucher
+            </Text>
+            <Form>
+              <Item>
+                <Input style={{color: '#FFF'}} placeholder="Voucher code" />
+              </Item>
+            </Form>
+            <Button
+              onPress={() => console.log('pressed')}
+              block
+              style={{margin: 15, marginTop: 25, backgroundColor: '#FF7F50'}}>
+              <Text style={{color: '#FFF'}}>Confirm</Text>
+            </Button>
+          </View>
+        ) : (
+          ''
+        )}
       </Container>
     </Container>
   );
@@ -128,4 +135,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SettingView;
+export default ProfileView;
