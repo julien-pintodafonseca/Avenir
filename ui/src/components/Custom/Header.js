@@ -1,14 +1,24 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import {Button, Left, Icon, Body, Title, Right} from 'native-base';
+import {
+  Button,
+  Left,
+  Icon,
+  Body,
+  Title,
+  Right,
+  View,
+  Container,
+  Header,
+} from 'native-base';
 
-const Header = props => {
+const HeaderCustom = props => {
   return (
     <Header style={styles.general}>
-      {props.goBack ? (
+      {props.navigation ? (
         <Left>
           <Button transparent onPress={() => props.navigation.goBack()}>
-            <Icon style={styles.Icon} name="arrow-back" />
+            <Icon style={styles.arrow} name="arrow-back" />
           </Button>
         </Left>
       ) : (
@@ -38,4 +48,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Header;
+export default HeaderCustom;

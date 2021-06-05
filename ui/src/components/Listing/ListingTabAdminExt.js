@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import {
   Left,
-  Header,
   Body,
   Right,
   Title,
@@ -20,6 +19,7 @@ import {
   Item as Itm,
   CheckBox,
 } from 'native-base';
+import Header from '../Custom/Header';
 
 const Cryptos = [
   {
@@ -133,21 +133,7 @@ const ListingScreen = ({navigation, route}) => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" />
-
-      <Header style={{backgroundColor: '#303030'}}>
-        <Left />
-        <Body>
-          <Title
-            style={{
-              color: '#FF7F50',
-              fontSize: 20,
-              fontWeight: 'bold',
-            }}>
-            All Crypto
-          </Title>
-        </Body>
-        <Right />
-      </Header>
+      <Header title="All Crypto" />
       <FlatList
         data={Cryptos}
         renderItem={renderItem}

@@ -1,16 +1,9 @@
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
-import {
-  Container,
-  Header,
-  Left,
-  Body,
-  Right,
-  Title,
-  Icon,
-  Button,
-} from 'native-base';
+import {Container, Left, Body, Right, Title, Icon, Button} from 'native-base';
 import CustomCryptoList from './WalletListing';
+
+import Header from '../Custom/Header';
 // fetch de user selon l'iduser
 const userWallet = {
   id: 1,
@@ -46,13 +39,7 @@ const userWallet = {
 const WalletView = ({navigation}) => {
   return (
     <Container style={styles.bgColor}>
-      <Header style={styles.general}>
-        <Left />
-        <Body>
-          <Title style={styles.title}>Total Balance</Title>
-        </Body>
-        <Right />
-      </Header>
+      <Header title="Total Balance" />
       <Container style={{backgroundColor: '#303030', margin: 10}}>
         <View style={styles.walletAsset}>
           <Text style={styles.subtitle}>Asset Allocation</Text>

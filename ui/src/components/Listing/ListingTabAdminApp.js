@@ -8,7 +8,8 @@ import {
   SafeAreaView,
   FlatList,
 } from 'react-native';
-import {Left, Header, Body, Right, Title, CheckBox} from 'native-base';
+import {Left, Body, Right, Title, CheckBox} from 'native-base';
+import Header from '../Custom/Header';
 
 const Cryptos = [
   {
@@ -122,21 +123,7 @@ const ListingScreen = ({navigation, route}) => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" />
-
-      <Header style={{backgroundColor: '#303030'}}>
-        <Left />
-        <Body>
-          <Title
-            style={{
-              color: '#FF7F50',
-              fontSize: 20,
-              fontWeight: 'bold',
-            }}>
-            Our Crypto
-          </Title>
-        </Body>
-        <Right />
-      </Header>
+      <Header title="Our Crypto" />
       <FlatList
         data={Cryptos}
         renderItem={renderItem}
