@@ -9,7 +9,6 @@ import {
   Title,
   Button,
   Form,
-  Label,
   Input,
   Item,
 } from 'native-base';

@@ -3,8 +3,6 @@ import {
   StyleSheet,
   View,
   Text,
-  FlatList,
-  TouchableHighlight,
 } from 'react-native';
 import {
   Container,

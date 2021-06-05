@@ -9,17 +9,7 @@ import {
   FlatList,
   Image,
 } from 'react-native';
-import {
-  Left,
-  Header,
-  Body,
-  Right,
-  Title,
-  Icon,
-  Input,
-  Button,
-  Item as Itm,
-} from 'native-base';
+import {Left, Header, Body, Right, Title, Icon, Button} from 'native-base';
 
 const Cryptos = [
   {
