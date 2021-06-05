@@ -1,16 +1,6 @@
-# Node build artifacts
-node_modules
-npm-debug.log
-db.*sqlite
-# Local development
-*.env
-*.dev
+# OSX
+#
 .DS_Store
-package-lock.json
-
-# Docker
-Dockerfile
-docker-compose.yml
 
 # Android/IntelliJ
 #
@@ -19,3 +9,20 @@ build/
 .gradle
 local.properties
 *.iml
+
+# node.js
+#
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# SQLite
+db.*sqlite
+
+# Local development
+*.env
+*.dev
+
+# Docker
+Dockerfile
+docker-compose.yml
