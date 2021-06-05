@@ -1,15 +1,6 @@
 import React from 'react';
-import {Text, StyleSheet, View} from 'react-native';
-import {
-  Icon,
-  Button,
-  Container,
-  // Header,
-  Left,
-  Body,
-  Right,
-  Title,
-} from 'native-base';
+import {Text, StyleSheet} from 'react-native';
+import {Container} from 'native-base';
 
 import Header from '../Custom/Header';
 

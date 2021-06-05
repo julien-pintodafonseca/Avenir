@@ -1,16 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
-import {
-  Container,
-  Left,
-  Body,
-  Right,
-  Title,
-  Button,
-  Form,
-  Input,
-  Item,
-} from 'native-base';
+import {Container, Button, Form, Input, Item} from 'native-base';
 import Header from '../Custom/Header';
 const user = {};
 const ProfileView = ({navigation}) => {

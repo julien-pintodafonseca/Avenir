@@ -1,18 +1,6 @@
 import React from 'react';
 import {Text, StyleSheet, View} from 'react-native';
-import {
-  Icon,
-  Button,
-  Container,
-  // Header,
-  Left,
-  Body,
-  Right,
-  Title,
-  Form,
-  Item,
-  Input,
-} from 'native-base';
+import {Button, Container, Form, Item, Input} from 'native-base';
 
 import Header from '../Custom/Header';
 

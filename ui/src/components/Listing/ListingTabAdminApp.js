@@ -8,7 +8,7 @@ import {
   SafeAreaView,
   FlatList,
 } from 'react-native';
-import {Left, Body, Right, Title, CheckBox} from 'native-base';
+import {CheckBox} from 'native-base';
 import Header from '../Custom/Header';
 
 const Cryptos = [
