@@ -84,10 +84,13 @@ const ListingScreen = ({navigation, route}) => {
         }}
         underlayColor={'#aaa'}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Image source={{uri: link}} style={{
+          <Image
+            source={{uri: link}}
+            style={{
               width: 30,
               height: 30,
-            }}/>
+            }}
+          />
           <View style={{marginLeft: 20, width: 70}}>
             <Text style={styles.stockSymbol} numberOfLines={1}>
               {stockSymbol}
@@ -116,7 +119,11 @@ const ListingScreen = ({navigation, route}) => {
       id={item.id}
       stockSymbol={item.stockSymbol}
       fullname={item.fullname}
-      link={"https://s2.coinmarketcap.com/static/img/coins/64x64/"+item.id+".png"}
+      link={
+        'https://s2.coinmarketcap.com/static/img/coins/64x64/' +
+        item.id +
+        '.png'
+      }
       graph={item.graph}
       rawValue={item.rawValue}
       variation={item.variation}

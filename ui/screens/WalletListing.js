@@ -137,10 +137,13 @@ const ListingScreen = ({navigation}) => {
           }}
           underlayColor={'#aaa'}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Image source={{uri: data.item.link}} style={{
-              width: 30,
-              height: 30,
-            }}/>
+            <Image
+              source={{uri: data.item.link}}
+              style={{
+                width: 30,
+                height: 30,
+              }}
+            />
             <View style={{marginLeft: 20, width: 70}}>
               <Text style={styles.stockSymbol} numberOfLines={1}>
                 {data.item.stockSymbol}
