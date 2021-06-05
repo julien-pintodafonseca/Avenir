@@ -6,11 +6,13 @@ import {
   LoginStack,
   ListingStack,
   WalletStack,
-  SettingStack,
+  ProfileStack,
+  ListingAdminAppStack,
+  ListingAdminExtStack,
 } from './StackNavigator';
 
 const Tab = createBottomTabNavigator();
-
+const user = {};
 const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
@@ -22,7 +24,7 @@ const BottomTabNavigator = () => {
           elevation: 0,
           borderColor: 'blue',
           height: 60,
-          backgroundColor: 'black',
+          backgroundColor: '#303030',
         },
       }}>
       <Tab.Screen
@@ -55,8 +57,68 @@ const BottomTabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Setting"
-        component={SettingStack}
+        name="Profile"
+        component={ProfileStack}
+        options={{
+          tabBarIcon: ({focused, size}) => (
+            <IoniconsIcons
+              name="person"
+              color={focused ? '#FF7F50' : '#fef6ef'}
+              size={focused ? size * 1.5 : size * 1.2}
+            />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
+};
+
+const BottomTabNavigatorAdmin = () => {
+  return (
+    <Tab.Navigator
+      initialRouteName="ListingApp"
+      tabBarOptions={{
+        showLabel: false,
+        style: {
+          position: 'absolute',
+          elevation: 0,
+          borderColor: 'blue',
+          height: 60,
+          backgroundColor: '#303030',
+        },
+      }}>
+      <Tab.Screen
+        name="ListingExt"
+        component={ListingAdminExtStack}
+        options={{
+          tabBarIcon: ({focused, size}) => (
+            <IoniconsIcons
+              name="stats-chart"
+              color={focused ? '#FF7F50' : '#fef6ef'}
+              size={focused ? size * 1.5 : size * 1.2}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="ListingApp"
+        component={ListingAdminAppStack}
+        options={{
+          tabBarIcon: ({focused, size}) => (
+            <IoniconsIcons
+              name="star"
+              color={focused ? '#FF7F50' : '#fef6ef'}
+              style={{
+                marginLeft: 5,
+              }}
+              size={focused ? size * 1.5 : size * 1.2}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={ProfileStack}
         options={{
           tabBarIcon: ({focused, size}) => (
             <IoniconsIcons
@@ -84,4 +146,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BottomTabNavigator;
+export {BottomTabNavigator, BottomTabNavigatorAdmin};

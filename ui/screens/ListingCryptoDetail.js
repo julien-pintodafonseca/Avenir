@@ -16,7 +16,6 @@ const Crypto = {
   id: 1,
   stockSymbol: 'BTC',
   fullname: 'Bitcoin',
-  symbol: 'U+20BF',
   graph: 'pathtograph',
   rawValue: 25,
   variation: 2,
@@ -24,22 +23,22 @@ const Crypto = {
 
 const CryptoDetail = ({route, navigation}) => {
   return (
-    <Container style={{backgroundColor: 'black'}}>
+    <Container style={{backgroundColor: '#303030'}}>
       <Header
         style={{
-          backgroundColor: 'black',
+          backgroundColor: '#303030',
           borderBottomColor: 'gray',
           borderBottomWidth: 1,
         }}>
         <Left>
           <Button transparent onPress={() => navigation.goBack()}>
-            <Icon style={{color: 'orange'}} name="arrow-back" />
+            <Icon style={{color: '#FF7F50'}} name="arrow-back" />
           </Button>
         </Left>
         <Body>
           <Title
             style={{
-              color: 'orange',
+              color: '#FF7F50',
               fontSize: 20,
               fontWeight: 'bold',
             }}>
@@ -48,7 +47,7 @@ const CryptoDetail = ({route, navigation}) => {
         </Body>
         <Right />
       </Header>
-      <Container style={{backgroundColor: 'black', margin: 10}}>
+      <Container style={{backgroundColor: '#303030', margin: 10}}>
         <Text style={{fontSize: 30, color: '#FFF', fontWeight: 'bold'}}>
           ${Crypto.rawValue}
         </Text>

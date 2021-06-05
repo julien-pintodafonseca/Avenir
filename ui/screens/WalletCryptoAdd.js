@@ -141,12 +141,12 @@ const ListingScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" />
-      <Header style={{backgroundColor: 'black'}}>
+      <Header style={{backgroundColor: '#303030'}}>
         <Left />
         <Body>
           <Title
             style={{
-              color: 'orange',
+              color: '#FF7F50',
               fontSize: 20,
               fontWeight: 'bold',
             }}>
@@ -156,11 +156,11 @@ const ListingScreen = ({navigation}) => {
         <Right />
       </Header>
 
-      <Header
+      {/* <Header
         searchBar
         rounded
         style={{
-          backgroundColor: 'black',
+          backgroundColor: '#303030',
           borderBottomColor: 'gray',
           borderBottomWidth: 1,
           paddingBottom: 20,
@@ -172,12 +172,12 @@ const ListingScreen = ({navigation}) => {
         <Button transparent>
           <Text>Search</Text>
         </Button>
-      </Header>
+      </Header> */}
       <FlatList
         data={Cryptos}
         renderItem={renderItem}
         keyExtractor={item => item.id}
-        style={{backgroundColor: 'black'}}
+        // style={{backgroundColor: '#303030'}}
       />
     </SafeAreaView>
   );
@@ -186,6 +186,7 @@ const ListingScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#303030',
   },
   item: {
     backgroundColor: '#f9c2ff',
@@ -213,10 +214,16 @@ const styles = StyleSheet.create({
     color: '#999',
   },
   rowFrontVisible: {
-    backgroundColor: '#000000',
+    backgroundColor: '#303030',
     borderRadius: 5,
     height: 60,
     padding: 10,
+    shadowColor: '#999',
+    shadowOffset: {width: 0, height: 1},
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 5,
+    margin: 2,
   },
 });
 

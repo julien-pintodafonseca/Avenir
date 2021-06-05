@@ -9,7 +9,7 @@ import {
   Body,
   Right,
   Title,
-  Form, 
+  Form,
   Item,
   Input,
 } from 'native-base';
@@ -26,22 +26,22 @@ const Crypto = {
 
 const WalletCrypto = ({route, navigation}) => {
   return (
-    <Container style={{backgroundColor: 'black'}}>
+    <Container style={{backgroundColor: '#303030'}}>
       <Header
         style={{
-          backgroundColor: 'black',
+          backgroundColor: '#303030',
           borderBottomColor: 'gray',
           borderBottomWidth: 1,
         }}>
         <Left>
           <Button transparent onPress={() => navigation.goBack()}>
-            <Icon style={{color: 'orange'}} name="arrow-back" />
+            <Icon style={{color: '#FF7F50'}} name="arrow-back" />
           </Button>
         </Left>
         <Body>
           <Title
             style={{
-              color: 'orange',
+              color: '#FF7F50',
               fontSize: 20,
               fontWeight: 'bold',
             }}>
@@ -50,28 +50,38 @@ const WalletCrypto = ({route, navigation}) => {
         </Body>
         <Right />
       </Header>
-      <Container style={{backgroundColor: 'black', margin: 10}}>
-        <View style={{flexDirection: 'row',}}>
-          <Text style={{fontSize: 30, backgroundColor:'red',color: '#FFF', fontWeight: 'bold'}}>
-          {Crypto.Symbol} 
+      <Container style={{backgroundColor: '#303030', margin: 10}}>
+        <View style={{flexDirection: 'row'}}>
+          <Text
+            style={{
+              fontSize: 30,
+              backgroundColor: 'red',
+              color: '#FFF',
+              fontWeight: 'bold',
+            }}>
+            {Crypto.Symbol}
           </Text>
           <Text style={{fontSize: 30, color: '#FFF', fontWeight: 'bold'}}>
-          {Crypto.stockSymbol} 
+            {Crypto.stockSymbol}
           </Text>
           <Text style={{fontSize: 30, color: '#FFF', fontWeight: 'bold'}}>
-          {Crypto.fullname} 
+            {Crypto.fullname}
           </Text>
         </View>
         <View>
           <Form>
             <Item>
-              <Input style={{color: '#FFF'}} placeholder="Amount" value={`${Crypto.amount}`}/>
+              <Input
+                style={{color: '#FFF'}}
+                placeholder="Amount"
+                value={`${Crypto.amount}`}
+              />
             </Item>
           </Form>
           <Button
             onPress={() => console.log('pressed')}
             block
-            style={{margin: 15, marginTop: 25, backgroundColor: 'orange'}}>
+            style={{margin: 15, marginTop: 25, backgroundColor: '#FF7F50'}}>
             <Text style={{color: '#FFF'}}>Confirm</Text>
           </Button>
         </View>

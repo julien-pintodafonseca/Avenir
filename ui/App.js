@@ -4,8 +4,11 @@
  */
 import React, {useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import ConnexionInscription from './src/components/ConnexionInscription';
-import BottomTabNavigator from './navigation/TabNavigator';
+import {
+  BottomTabNavigator,
+  BottomTabNavigatorAdmin,
+} from './navigation/TabNavigator';
+import {LoginStack} from './navigation/StackNavigator';
 const App = () => {
   function connect(username, password) {
     console.log('login', username, password);
@@ -23,11 +26,14 @@ const App = () => {
   const [token, setToken] = useState('');
   return (
     <NavigationContainer>
-      {token === '' ? (
-        <ConnexionInscription onConnect={connect} />
-      ) : (
-        <BottomTabNavigator />
-      )}
+      {/* {token === '' ? (
+        // <ConnexionInscription onConnect={connect} />
+        <LoginStack onConnect={connect} />
+      ) : ( */}
+      {/* // <LoginStack/> */}
+      <BottomTabNavigator />
+      {/* <BottomTabNavigatorAdmin /> */}
+      {/* )} */}
     </NavigationContainer>
   );
 };
