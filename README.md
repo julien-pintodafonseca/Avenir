@@ -33,6 +33,7 @@ TODO
 # Screencast
 
 TODO
+
 # Back-end
 
 Open a terminal :
@@ -60,10 +61,10 @@ Open another terminal :
 
 ```sh
 $ cd avenir/ui
-$ npm run android
+$ npm run android # or npm run ios for ios
 ```
 
-Your app should now be running on your emulator.
+Your app should now be running on your emulator/device.
 
 # Tests
 
