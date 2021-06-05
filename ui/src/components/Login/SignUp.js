@@ -24,19 +24,10 @@ const SignUp = ({navigation}) => {
     <Container style={styles.container}>
       <Content style={{margin: 10}}>
         <Header
-          style={{
-            backgroundColor: '#303030',
-            height: 150,
-            borderBottomColor: 'gray',
-            borderBottomWidth: 1,
-            paddingBottom: 20,
-          }}>
+          style={styles.headerBanner}>
           <Left>
             <Button
-              style={{
-                textAlign: 'center',
-                textAlignVertical: 'center',
-              }}
+              style={styles.center}
               transparent
               onPress={() => navigation.goBack()}>
               <Icon style={{color: '#FF7F50'}} name="arrow-back" />
@@ -45,14 +36,7 @@ const SignUp = ({navigation}) => {
           <Body>
             <Title style={styles.title}>Avenir</Title>
             <Subtitle
-              style={{
-                fontFamily: 'Helvetica',
-                fontSize: 30,
-                color: 'white',
-                textAlign: 'center',
-                textAlignVertical: 'center',
-                width: 150,
-              }}>
+              style={styles.subtitle}>
               Signing up
             </Subtitle>
           </Body>
@@ -65,56 +49,38 @@ const SignUp = ({navigation}) => {
               paddingTop: 20,
             }}>
             <Text
-              style={{
-                color: '#FFF',
-                fontSize: 20,
-                fontWeight: 'bold',
-              }}>
+              style={styles.sectionTitle}>
               E-Mail
             </Text>
             <Item>
-              <Input style={{color: '#FFF'}} placeholder="E-mail" />
+              <Input style={styles.text} placeholder="E-mail" />
             </Item>
             <Item>
-              <Input style={{color: '#FFF'}} placeholder="Confirm E-mail" />
+              <Input style={styles.text} placeholder="Confirm E-mail" />
             </Item>
           </View>
           <View
-            style={{
-              borderBottomColor: 'gray',
-              borderBottomWidth: 1,
-              paddingBottom: 20,
-              paddingTop: 20,
-            }}>
+            style={styles.spacing}>
             <Text
-              style={{
-                color: '#FFF',
-                fontSize: 20,
-                fontWeight: 'bold',
-              }}>
+              style={styles.sectionTitle}>
               Password
             </Text>
             <Item>
               <Input
-                style={{color: '#FFF'}}
+                style={styles.text}
                 secureTextEntry
                 placeholder="Password"
               />
             </Item>
             <Item>
               <Input
-                style={{color: '#FFF'}}
+                style={styles.text}
                 secureTextEntry
                 placeholder="Confirm Password"
               />
             </Item>
             <Text
-              style={{
-                color: 'gray',
-                fontSize: 12,
-                margin: 15,
-                marginBottom: 0,
-              }}>
+              style={styles.infoText}>
               The password must contain at least three character categories
               among the following: Uppercase characters (A-Z) Lowercase
               characters (a-z) Digits (0-9)
@@ -123,12 +89,12 @@ const SignUp = ({navigation}) => {
         </Form>
         <Button
           block
-          style={{margin: 15, backgroundColor: '#FF7F50'}}
+          style={styles.button}
           onPress={() => {
             console.log('Element touched sending form');
             navigation.goBack();
           }}>
-          <Text style={{color: '#FFF'}}>CONFIRM & SIGN UP</Text>
+          <Text style={styles.text}>CONFIRM & SIGN UP</Text>
         </Button>
       </Content>
     </Container>
@@ -152,6 +118,46 @@ const styles = StyleSheet.create({
     borderTopColor: 'white',
     color: 'white',
   },
+  headerBanner:{
+    backgroundColor: '#303030',
+    height: 150,
+    borderBottomColor: 'gray',
+    borderBottomWidth: 1,
+    paddingBottom: 20,
+  },
+  center: {
+    textAlign: 'center',
+    textAlignVertical: 'center',
+  },
+  subtitle:{
+    fontFamily: 'Helvetica',
+    fontSize: 30,
+    color: 'white',
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    width: 150,
+  },
+  sectionTitle:{
+    color: '#FFF',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  spacing:{
+    borderBottomColor: 'gray',
+    borderBottomWidth: 1,
+    paddingBottom: 20,
+    paddingTop: 20,
+  },
+  text: {
+    color:'#FFF'
+  },
+  infoText:{
+    color: 'gray',
+    fontSize: 12,
+    margin: 15,
+    marginBottom: 0,
+  },
+  button:{margin: 15, backgroundColor: '#FF7F50'}
 });
 
 export default SignUp;
