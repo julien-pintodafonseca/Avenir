@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import {Container, Button, Form, Input, Item} from 'native-base';
 import Header from '../Custom/Header';
+import ConfirmInputItem from '../Custom/ConfirmInputItem';
 const user = {};
 const ProfileView = ({navigation}) => {
   return (
@@ -9,22 +10,12 @@ const ProfileView = ({navigation}) => {
       <Header title="Profile" />
       <Container style={{backgroundColor: '#303030', margin: 10}}>
         <View style={styles.passwordBorder}>
-          <Text style={styles.sectionTitle}>Reset password</Text>
           <Form>
-            <Item stackedLabel>
-              <Input
-                style={styles.text}
-                secureTextEntry
-                placeholder="Password"
-              />
-            </Item>
-            <Item stackedLabel>
-              <Input
-                style={styles.text}
-                secureTextEntry
-                placeholder="Confirm Password"
-              />
-            </Item>
+            <ConfirmInputItem
+              placeholder="Password"
+              secureTextEntry="true"
+              title="Reset password"
+            />
           </Form>
           <Button
             onPress={() => console.log('pressed')}
