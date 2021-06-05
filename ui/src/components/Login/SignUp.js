@@ -121,12 +121,6 @@ const SignUp = ({navigation}) => {
             </Text>
           </View>
         </Form>
-        {/* <Button
-            onPress={() => console.log('pressed')}
-            block
-            style={{margin: 15, marginTop: 25, backgroundColor: '#FF7F50'}}>
-            <Text style={{color: '#FFF'}}>Change password</Text>
-          </Button> */}
         <Button
           block
           style={{margin: 15, backgroundColor: '#FF7F50'}}

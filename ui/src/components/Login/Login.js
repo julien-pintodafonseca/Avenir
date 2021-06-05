@@ -14,17 +14,8 @@ const Connexion = props => {
         <Item>
           <Input placeholder="Password" secureTextEntry value="" />
         </Item>
-        {/* <Button
-          transparent
-          light
-          onPress={() => {
-            console.log('Forgot PWD');
-          }}>
-          <Text>Forgot my password</Text>
-        </Button> */}
       </Form>
       <Button
-        // onPress={() => props.onConnect(mail, password)}
         block
         style={{margin: 15, marginTop: 25, backgroundColor: '#FF7F50'}}>
         <Text>Log In</Text>
