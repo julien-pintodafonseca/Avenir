@@ -17,7 +17,7 @@ const Connexion = props => {
       </Form>
       <Button
         block
-        style={{margin: 15, marginTop: 25, backgroundColor: '#FF7F50'}}>
+        style={styles.button}>
         <Text>Log In</Text>
       </Button>
     </View>
@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     textAlignVertical: 'center',
     marginTop: 20,
   },
+  button:{margin: 15, marginTop: 25, backgroundColor: '#FF7F50'}
 });
 
 export default Connexion;
