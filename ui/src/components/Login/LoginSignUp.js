@@ -6,18 +6,6 @@ import SignUp from './SignUp';
 
 const appName = 'Avenir';
 
-// const ConnexionInscription = props => {
-//   return (
-//     <Container style={styles.container}>
-//       <Content>
-//         <Title style={styles.title}>{appName}</Title>
-//         <Connexion></Connexion>
-//         <Text style={styles.separator}></Text>
-//         <Inscription></Inscription>
-//       </Content>
-//     </Container>
-//   );
-// };
 const LoginSignup = props => {
   console.log(props.onConnect);
   return (
