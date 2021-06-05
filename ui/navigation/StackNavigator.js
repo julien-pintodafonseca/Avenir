@@ -1,17 +1,17 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import CryptoDetail from '../screens/ListingCryptoDetail';
-import ListingScreen from '../screens/ListingTab';
-import ListingAdminAppScreen from '../screens/ListingTabAdminApp';
-import ListingAdminExtScreen from '../screens/ListingTabAdminExt';
-import WalletScreen from '../screens/WalletTab';
-import WalletCryptoScreen from '../screens/WalletCrypto';
+import CryptoDetail from '../src/components/Listing/ListingCryptoDetail';
+import ListingScreen from '../src/components/Listing/ListingTab';
+import ListingAdminAppScreen from '../src/components/Listing/ListingTabAdminApp';
+import ListingAdminExtScreen from '../src/components/Listing/ListingTabAdminExt';
+import WalletScreen from '../src/components/Wallet/WalletTab';
+import WalletCryptoScreen from '../src/components/Wallet/WalletCrypto';
 
-import ProfileScreen from '../screens/ProfileTab';
+import ProfileScreen from '../src/components/Profile/ProfileTab';
 
-import LoginScreen from '../screens/LoginSignUp';
-import SignUpScreen from '../screens/SignUp';
+import LoginScreen from '../src/components/Login/LoginSignUp';
+import SignUpScreen from '../src/components/Login/SignUp';
 
 const Stack = createStackNavigator();
 
