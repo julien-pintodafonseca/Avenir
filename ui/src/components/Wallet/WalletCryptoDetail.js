@@ -28,7 +28,7 @@ const Crypto = {
 
 const WalletCryptoDetail = ({route, navigation}) => {
   return (
-    <Container style={{backgroundColor: '#303030'}}>
+    <Container style={styles.bgColor}>
       <Header style={styles.headerBanner}>
         <Left>
           <Button transparent onPress={() => navigation.goBack()}>
@@ -71,6 +71,7 @@ const WalletCryptoDetail = ({route, navigation}) => {
 };
 
 const styles = StyleSheet.create({
+  bgColor: {backgroundColor: '#303030'},
   headerBanner: {
     backgroundColor: '#303030',
     borderBottomColor: 'gray',

@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 import {
   Container,
   Header,
@@ -49,7 +45,7 @@ const userWallet = {
 
 const WalletView = ({navigation}) => {
   return (
-    <Container style={{backgroundColor: '#303030'}}>
+    <Container style={styles.bgColor}>
       <Header style={styles.general}>
         <Left />
         <Body>
@@ -147,6 +143,7 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     paddingTop: 20,
   },
+  bgColor: {backgroundColor: '#303030'},
 });
 
 export default WalletView;
