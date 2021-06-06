@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router()
 const validatePassword = require('./account.js').validatePassword
-const login = require('./account.js').login
 const bcrypt = require('bcrypt')
 
 const salt = require('./account.js').SALT

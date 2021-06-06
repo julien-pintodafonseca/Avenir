@@ -20,11 +20,9 @@ global.db = new sqlite.Database(process.env.DB)
 
 const app = express()
 
-/*
 setInterval(() => {
-  coinMarketService.selectCryptocurrencies();
-}, coinMarketService.CALL_TIMER);
-*/
+  coinMarketService.selectCryptocurrencies()
+}, coinMarketService.CALL_TIMER)
 
 app
   .use(require('cookie-parser')())
