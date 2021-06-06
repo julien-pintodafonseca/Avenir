@@ -1,128 +1,80 @@
-import React from 'react';
-import {Text, View} from 'react-native';
-import {LineChart, PieChart} from 'react-native-chart-kit';
-import {Dimensions} from 'react-native';
+/**
+ * Avenir
+ * https://gitlab.ensimag.fr/pintodaj/avenir
+ */
+import React, {useEffect, useMemo, useState} from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+// import {
+//   BottomTabNavigator,
+//   BottomTabNavigatorAdmin,
+// } from './src/navigation/TabNavigator';
+// import {LoginStack} from './src/navigation/StackNavigator';
 
-const line = {
-  labels: [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-  ],
-  datasets: [
-    {
-      data: [
-        20, 45, 28, 80, 99, 43, 20, 45, 28, 80, 99, 43, 20, 45, 28, 80, 99, 43,
-      ],
-      strokeWidth: 5, // optional
-    },
-  ],
-};
+import {Splash} from './src/components/Custom/Splash';
+import {AuthContext} from './src/Context';
+import RootStackScreen from './src/navigation/RootStack';
 
-const data = [
-  {
-    name: 'Seoul',
-    population: 21500000,
-    color: 'rgba(131, 167, 234, 1)',
-    legendFontColor: '#7F7F7F',
-    legendFontSize: 15,
-  },
-  {
-    name: 'Toronto',
-    population: 2800000,
-    color: '#F00',
-    legendFontColor: '#7F7F7F',
-    legendFontSize: 15,
-  },
-  {
-    name: 'Beijing',
-    population: 527612,
-    color: 'red',
-    legendFontColor: '#7F7F7F',
-    legendFontSize: 15,
-  },
-  {
-    name: 'New York',
-    population: 8538000,
-    color: 'green',
-    legendFontColor: '#7F7F7F',
-    legendFontSize: 15,
-  },
-  {
-    name: 'Moscow',
-    population: 11920000,
-    color: 'rgb(0, 0, 255)',
-    legendFontColor: '#7F7F7F',
-    legendFontSize: 15,
-  },
-];
+const BACKEND = 'http://10.0.2.2:5000';
+const App = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [userToken, setUserToken] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(null);
 
-const HelloWorldApp = () => {
-  return (
-    <View>
-      <Text>Bezier Line Chart</Text>
-      <LineChart
-        data={line}
-        withVerticalLabels={false}
-        width={Dimensions.get('window').width} // from react-native
-        height={300}
-        yAxisLabel={'$'}
-        onDataPointClick={({value, dataset, getColor}) =>
-          console.log('value:', value)
+  const authContext = useMemo(() => {
+    return {
+      logIn: (email, password) => {
+        connect(email, password);
+      },
+      logOut: () => {
+        setIsLoading(true);
+        setUserToken(null);
+        setIsAdmin(null);
+      },
+      BACKEND,
+    };
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, [isLoading]);
+
+  if (isLoading) {
+    return <Splash />;
+  }
+
+  async function connect(email, password) {
+    return fetch(`${BACKEND}/account/login`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: `${JSON.stringify({email, password})}`,
+    })
+      .then(response => response.json())
+      .then(data => {
+        setIsLoading(data.token ? true : false);
+        setUserToken(data.token ? data.token : null);
+        AsyncStorage.setItem('@userToken', JSON.stringify(data.token));
+        if (data.is_admin) {
+          setIsAdmin(data.is_admin);
+          AsyncStorage.setItem('@is_admin', JSON.stringify(data.is_admin));
         }
-        withDots={true}
-        chartConfig={{
-          backgroundColor: '#e26a00',
-          backgroundGradientFrom: '#fb8c00',
-          backgroundGradientTo: '#ffa726',
-          decimalPlaces: 2, // optional, defaults to 2dp
-          color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-          style: {
-            borderRadius: 16,
-          },
-        }}
-        style={{
-          marginVertical: 8,
-          borderRadius: 16,
-        }}
-      />
-      <PieChart
-        data={data}
-        width={Dimensions.get('window').width}
-        height={220}
-        chartConfig={{
-          backgroundColor: '#e26a00',
-          backgroundGradientFrom: '#fb8c00',
-          backgroundGradientTo: '#ffa726',
-          decimalPlaces: 2, // optional, defaults to 2dp
-          color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-          style: {
-            borderRadius: 16,
-          },
-        }}
-        accessor={'population'}
-        backgroundColor={'transparent'}
-        paddingLeft={'15'}
-        center={[10, 50]}
-        absolute
-      />
-    </View>
+        if (data.is_premium) {
+          AsyncStorage.setItem('@is_premium', JSON.stringify(data.is_premium));
+        }
+      })
+      .catch(error => console.log(error));
+  }
+
+  return (
+    <AuthContext.Provider value={authContext}>
+      <NavigationContainer>
+        {/* {!userToken ? <LoginStack/> : !user.is_admin ? <BottomTabNavigator/>: <BottomTabNavigatorAdmin/>} */}
+        <RootStackScreen userToken={userToken} isAdmin={isAdmin} />
+      </NavigationContainer>
+    </AuthContext.Provider>
   );
 };
 
-export default HelloWorldApp;
+export default App;

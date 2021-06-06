@@ -1,152 +1,311 @@
-import React from 'react';
+/* eslint-disable no-alert, react-hooks/exhaustive-deps */
+import React, {useContext, useEffect, useState} from 'react';
 import {
   View,
   Text,
   StyleSheet,
+  Animated,
   TouchableHighlight,
-  StatusBar,
-  SafeAreaView,
-  FlatList,
+  TouchableOpacity,
   Image,
 } from 'react-native';
-import {CheckBox} from 'native-base';
 import Header from '../Custom/Header';
+import {SwipeListView} from 'react-native-swipe-list-view';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {AuthContext} from '../../Context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+const ListingScreen = ({navigation}) => {
+  const [listData, setListData] = useState({});
+  const {BACKEND} = useContext(AuthContext);
+  const [token, setToken] = useState('');
 
-const Cryptos = [
-  {
-    id: 1,
-    stockSymbol: 'BTC',
-    fullname: 'Bitcoin',
-    graph: 'pathtograph',
-    rawValue: 25,
-    variation: 2,
-  },
-  {
-    id: 2,
-    stockSymbol: 'DOGE',
-    fullname: 'Doge',
-    graph: 'pathtograph',
-    rawValue: 2,
-    variation: 4,
-  },
-  {
-    id: 3,
-    stockSymbol: 'ETH',
-    fullname: 'Etherum',
-    graph: 'pathtograph',
-    rawValue: 225,
-    variation: 6,
-  },
-  {
-    id: 4,
-    stockSymbol: 'CHA',
-    fullname: 'Chia',
-    graph: 'pathtograph',
-    rawValue: 12,
-    variation: -1,
-  },
-  {
-    id: 5,
-    stockSymbol: 'SHBA',
-    fullname: 'Shiba',
-    graph: 'pathtograph',
-    rawValue: 25,
-    variation: -4,
-  },
-];
+  async function getCryptos(assToken) {
+    return fetch(`${BACKEND}/api/admin`, {
+      method: 'GET',
+      headers: {'Content-Type': 'application/json', authorization: assToken},
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.list_crypto) {
+          setListData(
+            data.list_crypto.map((CryptoItem, index) => ({
+              key: `${index}`,
+              id: CryptoItem.id,
+              stockSymbol: CryptoItem.symbol,
+              fullname: CryptoItem.name,
+              link: `https://s2.coinmarketcap.com/static/img/coins/64x64/${CryptoItem.id}.png`,
+            })),
+          );
+          return;
+        }
+        alert(data.error);
+      })
+      .catch(error => alert(error));
+  }
 
-const ListingScreen = ({navigation, route}) => {
-  const Item = ({
-    id,
-    stockSymbol,
-    fullname,
-    link,
-    graph,
-    rawValue,
-    variation,
-  }) => (
-    <View>
-      <TouchableHighlight
-        style={styles.rowFrontVisible}
-        onPress={() => {
-          console.log('Element touched');
-          console.log('setcolor to red if green ');
-          console.log('setcolor to green if red');
-        }}
-        underlayColor={'#aaa'}>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Image
-            source={{uri: link}}
-            style={{
-              width: 30,
-              height: 30,
-            }}
-          />
-          <View style={{marginLeft: 20, width: 70}}>
-            <Text style={styles.stockSymbol} numberOfLines={1}>
-              {stockSymbol}
-            </Text>
-            <Text style={styles.fullname} numberOfLines={1}>
-              {fullname}
-            </Text>
+  function saveCrypto(rowItem) {
+    fetch(
+      `${BACKEND}/api/admin/${rowItem.id}/${rowItem.fullname}/${rowItem.stockSymbol}`,
+      {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json', authorization: token},
+      },
+    )
+      .then(response => response.json())
+      .then(data => {
+        if (data.msg === 'ok') {
+          return data.msg;
+        }
+        alert(data.error);
+      })
+      .catch(error => alert(error));
+    return 'ok';
+  }
+  useEffect(() => {
+    const init = async () => {
+      await AsyncStorage.getItem('@userToken').then(data => {
+        setToken(JSON.parse(data));
+        return getCryptos(JSON.parse(data));
+      });
+    };
+    init();
+  }, []);
+
+  const closeRow = (rowMap, rowItem) => {
+    if (rowMap[rowItem.key]) {
+      rowMap[rowItem.key].closeRow();
+    }
+  };
+
+  const deleteRow = (rowMap, rowItem) => {
+    if (saveCrypto(rowItem) === 'ok') {
+      closeRow(rowMap, rowItem.key);
+      const newData = [...listData];
+      const prevIndex = listData.findIndex(item => item.key === rowItem.key);
+      newData.splice(prevIndex, 1);
+      setListData(newData);
+    }
+  };
+
+  const VisibleItem = props => {
+    const {data, rowHeightAnimatedValue, removeRow, rightActionState} = props;
+    if (rightActionState) {
+      Animated.timing(rowHeightAnimatedValue, {
+        toValue: 0,
+        duration: 200,
+        useNativeDriver: false,
+      }).start(() => {
+        removeRow();
+      });
+    }
+
+    return (
+      <Animated.View
+        style={[styles.rowFront, {height: rowHeightAnimatedValue}]}>
+        <TouchableHighlight
+          style={styles.rowFrontVisible}
+          underlayColor={'#aaa'}>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <Image source={{uri: data.item.link}} style={styles.imageSize} />
+            <View style={styles.cryptoName}>
+              <Text style={styles.stockSymbol} numberOfLines={1}>
+                {data.item.stockSymbol}
+              </Text>
+              <Text style={styles.fullname} numberOfLines={1}>
+                {data.item.fullname}
+              </Text>
+            </View>
           </View>
-          <View style={{marginLeft: 'auto', width: 50}}>
-            <CheckBox
-              onPress={() => {
-                console.log('Element touched');
-                console.log('setcolor to red if green ');
-                console.log('setcolor to green if red');
-              }}
+        </TouchableHighlight>
+      </Animated.View>
+    );
+  };
+
+  const renderItem = (data, rowMap) => {
+    const rowHeightAnimatedValue = new Animated.Value(60);
+
+    return (
+      <VisibleItem
+        data={data}
+        rowHeightAnimatedValue={rowHeightAnimatedValue}
+        removeRow={() => deleteRow(rowMap, data.item)}
+      />
+    );
+  };
+
+  const HiddenItemWithActions = props => {
+    const {
+      swipeAnimatedValue,
+      leftActionActivated,
+      rightActionActivated,
+      rowActionAnimatedValue,
+      rowHeightAnimatedValue,
+      onClose,
+      onDelete,
+    } = props;
+
+    if (rightActionActivated) {
+      Animated.spring(rowActionAnimatedValue, {
+        toValue: 500,
+        useNativeDriver: false,
+      }).start();
+    } else {
+      Animated.spring(rowActionAnimatedValue, {
+        toValue: 75,
+        useNativeDriver: false,
+      }).start();
+    }
+
+    return (
+      <Animated.View style={[styles.rowBack, {height: rowHeightAnimatedValue}]}>
+        <Text>Left</Text>
+        {!leftActionActivated && (
+          <TouchableOpacity
+            style={[styles.backRightBtn, styles.backRightBtnLeft]}
+            onPress={onClose}>
+            <MaterialCommunityIcons
+              name="close-circle-outline"
+              size={25}
+              style={styles.trash}
+              color="#fff"
             />
-          </View>
-        </View>
-      </TouchableHighlight>
-    </View>
-  );
+          </TouchableOpacity>
+        )}
+        {!leftActionActivated && (
+          <Animated.View
+            style={[
+              styles.backRightBtn,
+              styles.backRightBtnRight,
+              {
+                flex: 1,
+                width: rowActionAnimatedValue,
+              },
+            ]}>
+            <TouchableOpacity
+              style={[styles.backRightBtn, styles.backRightBtnRight]}
+              onPress={onDelete}>
+              <Animated.View
+                style={[
+                  styles.trash,
+                  {
+                    transform: [
+                      {
+                        scale: swipeAnimatedValue.interpolate({
+                          inputRange: [-90, -45],
+                          outputRange: [1, 0],
+                          extrapolate: 'clamp',
+                        }),
+                      },
+                    ],
+                  },
+                ]}>
+                <MaterialCommunityIcons
+                  name="plus-circle-outline"
+                  size={25}
+                  color="#fff"
+                />
+              </Animated.View>
+            </TouchableOpacity>
+          </Animated.View>
+        )}
+      </Animated.View>
+    );
+  };
 
-  const renderItem = ({item}) => (
-    <Item
-      title={item.title}
-      id={item.id}
-      stockSymbol={item.stockSymbol}
-      fullname={item.fullname}
-      link={
-        'https://s2.coinmarketcap.com/static/img/coins/64x64/' +
-        item.id +
-        '.png'
-      }
-      graph={item.graph}
-      rawValue={item.rawValue}
-      variation={item.variation}
-    />
-  );
+  const renderHiddenItem = (data, rowMap) => {
+    const rowActionAnimatedValue = new Animated.Value(75);
+    const rowHeightAnimatedValue = new Animated.Value(60);
+
+    return (
+      <HiddenItemWithActions
+        data={data}
+        rowMap={rowMap}
+        rowActionAnimatedValue={rowActionAnimatedValue}
+        rowHeightAnimatedValue={rowHeightAnimatedValue}
+        onClose={() => closeRow(rowMap, data.item)}
+        onDelete={() => deleteRow(rowMap, data.item)}
+      />
+    );
+  };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" />
+    <View style={styles.container}>
       <Header title="All Crypto" />
-      <FlatList
-        data={Cryptos}
+      <SwipeListView
+        data={listData}
         renderItem={renderItem}
-        keyExtractor={item => item.id}
+        renderHiddenItem={renderHiddenItem}
+        leftOpenValue={75}
+        rightOpenValue={-150}
+        disableRightSwipe
+        leftActivationValue={100}
+        rightActivationValue={-200}
+        leftActionValue={0}
+        rightActionValue={-500}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 
+export default ListingScreen;
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#303030',
+    flex: 1,
   },
-  item: {
-    backgroundColor: '#f9c2ff',
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
+  backTextWhite: {
+    color: '#FFF',
   },
-  title: {
-    fontSize: 32,
+  rowFront: {
+    borderRadius: 5,
+    margin: 5,
+    shadowColor: '#999',
+    shadowOffset: {width: 0, height: 1},
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 5,
+  },
+  rowFrontVisible: {
+    backgroundColor: '#303030',
+    borderRadius: 5,
+    height: 60,
+    padding: 10,
+  },
+  rowBack: {
+    alignItems: 'center',
+    backgroundColor: '#DDD',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingLeft: 15,
+    margin: 5,
+    marginBottom: 15,
+    borderRadius: 5,
+  },
+  backRightBtn: {
+    alignItems: 'flex-end',
+    bottom: 0,
+    justifyContent: 'center',
+    position: 'absolute',
+    top: 0,
+    width: 75,
+    paddingRight: 17,
+  },
+  backRightBtnLeft: {
+    backgroundColor: '#1f65ff',
+    right: 75,
+  },
+  backRightBtnRight: {
+    backgroundColor: 'green',
+    right: 0,
+    borderTopRightRadius: 5,
+    borderBottomRightRadius: 5,
+  },
+  trash: {
+    height: 25,
+    width: 25,
+    marginRight: 7,
   },
   stockSymbol: {
     fontSize: 14,
@@ -159,23 +318,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 5,
     color: '#FFF',
+    marginLeft: 30,
   },
   fullname: {
     fontSize: 12,
     color: '#999',
   },
-  rowFrontVisible: {
-    backgroundColor: '#303030',
-    borderRadius: 5,
-    height: 60,
-    padding: 10,
-    shadowColor: '#999',
-    shadowOffset: {width: 0, height: 1},
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 5,
-    margin: 2,
+  imageSize: {
+    width: 30,
+    height: 30,
   },
+  cryptoName: {marginLeft: 20, width: 70},
 });
-
-export default ListingScreen;

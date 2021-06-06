@@ -12,5 +12,13 @@ module.exports = {
     ecmaVersion: 12
   },
   rules: {
-  }
+  },
+  overrides: [
+    {
+      "files": ["*"],
+      "rules": {
+        "camelcase": "off"
+      }
+    }
+  ]
 }

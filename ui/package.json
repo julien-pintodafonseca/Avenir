@@ -3,14 +3,15 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "start": "react-native start",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "start": "react-native start",
-    "test": "jest __tests__",
-    "lint": "eslint __tests__ src App.js",
-    "test-detox": "detox test"
+    "test": "jest ui/__tests__ --coverage",
+    "test-detox": "detox test",
+    "lint": "eslint __tests__ src App.js"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.15.5",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-navigation/bottom-tabs": "^5.11.11",
     "@react-navigation/native": "^5.9.4",
@@ -20,6 +21,7 @@
     "react-base": "^0.2.0",
     "react-native": "0.64.0",
     "react-native-chart-kit": "^6.11.0",
+    "react-native-elements": "^3.4.1",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-modal": "^11.10.0",
     "react-native-reanimated": "^2.2.0",
