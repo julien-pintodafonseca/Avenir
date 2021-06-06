@@ -13,13 +13,23 @@ Projet CAW, Ensimag, 2021.
 
 ![Diagramme de cas d'usage](./doc/UseCase.png)
 
-# Maquette / les différents écrans
+# Diagrammes de séquence
+
+## Se connecter
+
+![Diagramme de séquence - Se connecter](./doc/SequenceLogin.png)
+
+## S'inscrire
+
+![Diagramme de séquence - S'inscrire](./doc/SequenceSignUp.png)
+
+# Maquette
 
 ![Maquette](./doc/MockUp.png)
 
 # Modèle de données
 
-![DataModel](./doc/DataModel.png)
+![Modèle de données](./doc/DataModel.png)
 
 # API back-end
 
@@ -43,17 +53,23 @@ Projet CAW, Ensimag, 2021.
 
 ## Webservices utilisés
 
-L'application Avenir utilise pour le moment l'**API de CoinMarketCap** sur le plan le plus basique, soit avec une clé gratuite.  
+L'application Avenir utilise pour le moment l'**API de CoinMarketCap** sur le plan le plus basique, soit avec une clé gratuite.
+
 Les limitations actuelles sont donc les suivantes :
 * 9 endpoints disponibles sur les 22 existants
 * 10.000 appels API par mois maximum
 * Aucune historisation des appels
 * Utilisation non commerciale
 
-De par l'objectif d'évolution de l'application Avenir et de l'arrivé de notre future boutique de vente de coupons premium très prochainement, il est prévu, dans un futur proche, d'investir dans un abonnement permettant de passer outre les contraintes citées ci-dessus.
+De par l'objectif d'évolution de l'application Avenir et de l'arrivé de notre future boutique de vente de coupons premium très prochainement, il est cependant prévu, dans un futur proche, d'investir dans un abonnement permettant de passer outre les contraintes citées ci-dessus.
 
 Les fonctions appelant l'**API de CoinMarketCap** se situent exclusivement au sein du fichier **avenir/services/coinMarket.js**.
 Celles-ci s'occupent principalement de récupérer les différentes données du marché (nom des cryptomonnaies, leur symbole, leur prix actuel, le volume des transactions sur 24h, le % d'évolution du prix sur les derières heures...) à intervalle régulier.
+
+En effet, au sein du fichier **avenir/App.js** se trouve un appel à **coinMarketService.selectCryptocurrencies()**, qui s'effectue toutes les **coinMarketService.CALL_TIMER** millisecondes.  
+**CALL_TIMER** étant une constante égale à **60000** millisecondes, cela équivaut à un intervalle d'une minute.  
+
+La fonction **selectCryptocurrencies()** va ensuite appeler de façon asynchrone **insertCryptocurrenciesMarket(cryptocurrenciesSelected)**, fonction communiquant avec l'**API de CoinMarketBase** pour obtenir les dernières données disponibles concernant les cryptommonaies actives au sein de notre application.
 
 ## Gestion des rôles
 
