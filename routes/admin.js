@@ -67,7 +67,7 @@ router
     if (isNaN(id) || id <= 0) {
       res.status(400).send({ error: ':id must be a number higher or equal to 1' }); return
     }
-    if (isNaN(active) || active != 0 && active != 1) {
+    if (isNaN(active) || (active !== 0 && active !== 1)) {
       res.status(400).send({ error: ':active is 0 or 1' }); return
     }
     global.db.run('UPDATE cryptocurrencies SET is_active = ? where id = ?',

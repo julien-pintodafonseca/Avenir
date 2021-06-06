@@ -86,6 +86,10 @@ router.post('/registration', function (req, res) {
               }
               res.status(201).send({ msg: 'Account created' })
             })
+          if (err) {
+            console.debug(err)
+            res.status(500).send('Internal Server Error')
+          }
         })
       }
     })

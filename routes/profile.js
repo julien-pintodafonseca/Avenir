@@ -38,6 +38,10 @@ router
             }
             res.status(200).send({ msg: 'ok' })
           })
+        if (err) {
+          console.debug(err)
+          res.status(500).send('Internal Server Error')
+        }
       })
     }
   })
@@ -49,8 +53,8 @@ router
           res.status(500).send({ error: 'Internal Server Error' }); return
         }
         if (data) {
-          if (data.is_valid == 1) {
-            if (data.date_of_use == 0) {
+          if (data.is_valid === 1) {
+            if (data.date_of_use === 0) {
               if (req.voucher == null) {
                 updateVoucher(data.id, req.user)
                   .then(resolve => {
