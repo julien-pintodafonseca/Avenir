@@ -171,6 +171,7 @@ Pour les tests Detox, saisir :
 
 ```sh
 $ cd avenir
+$ avdmanager create avd -n pixel3A -d 23  -k "system-images;android-28;default;x86_64"
 $ npm run test-detox
 ```
 
