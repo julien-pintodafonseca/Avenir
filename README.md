@@ -93,6 +93,14 @@ $ npm start
 
 Le back-end de l'application devrait maintenant être lancé sur [localhost:5000](http://localhost:5000/).
 
+## Lint
+
+TODO
+
+## Tests
+
+TODO
+
 # Front-end
 
 ## Lancer l'application
@@ -123,7 +131,11 @@ $ cd avenir/ui
 $ npm run lint
 ```
 
-# Tests
+Le rapport listant les éventuels problèmes devrait maintenant apparaître dans le terminal.
+
+Note : la règle "react-native/no-inline-styles" a été désactivée au sein du fichier avenir/ui/.eslintrc.js.
+
+## Tests
 
 TODO
 
