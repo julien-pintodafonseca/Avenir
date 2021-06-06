@@ -29,7 +29,21 @@ router
                         const last_historical_data = crypto.last_historical_data;
                         list_crypto.push({ id, rank, name, symbol, first_historical_data, last_historical_data})
                     }
-                    res.status(200).send({ list_crypto }); return
+                    global.db.all('SELECT id FROM cryptocurrencies', [], 
+                        (error, data) => {
+                        if (error)
+                        {
+                            console.debug(error)
+                            res.status(500).send({ error: 'Internal Server Error' }); return
+                        }
+                        for (const o of data)
+                        {
+                            let removeIndex = list_crypto.map(function(item) { return item.id; }).indexOf(o.id);
+                            list_crypto.splice(removeIndex, 1)
+                        }
+                        res.status(200).send({ list_crypto }); return
+                    });
+                    
                 }
             })
             .catch(error => {
