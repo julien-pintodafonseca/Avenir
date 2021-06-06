@@ -32,10 +32,10 @@ async function init () {
   await dbExec("INSERT OR IGNORE INTO cryptocurrencies (id, name, symbol, is_active) VALUES (1, 'Bitcoin', 'BTC', 1);")
   await dbExec("INSERT OR IGNORE INTO cryptocurrencies (id, name, symbol, is_active) VALUES (1027, 'Ethereum', 'ETH', 0);")
   await dbExec("INSERT OR IGNORE INTO cryptocurrencies (id, name, symbol, is_active) VALUES (4000, 'Cardano', 'ADA', 1);")
-  await dbExec("INSERT OR IGNORE INTO wallets_cryptocurrencies (id_user, id_cryptocurrency, quantity) VALUES (2, 1, 10);")
-  await dbExec("INSERT OR IGNORE INTO wallets_cryptocurrencies (id_user, id_cryptocurrency, quantity) VALUES (2, 1478, 100);")
-  await dbExec("INSERT OR IGNORE INTO market (id, timestamp, price, volume_24h, cmc_rank, percent_change_1h, percent_change_24h, percent_change_7d, id_cryptocurrency) VALUES (1, 145725278, 100.25, 125, 1, 48, 45, 69, 4000);")
-  await dbExec("INSERT OR IGNORE INTO market (id, timestamp, price, volume_24h, cmc_rank, percent_change_1h, percent_change_24h, percent_change_7d, id_cryptocurrency) VALUES (2, 2572728727, 257.25, 257, 1, 27, 455, 629, 4000);")
+  await dbExec('INSERT OR IGNORE INTO wallets_cryptocurrencies (id_user, id_cryptocurrency, quantity) VALUES (2, 1, 10);')
+  await dbExec('INSERT OR IGNORE INTO wallets_cryptocurrencies (id_user, id_cryptocurrency, quantity) VALUES (2, 1478, 100);')
+  await dbExec('INSERT OR IGNORE INTO market (id, timestamp, price, volume_24h, cmc_rank, percent_change_1h, percent_change_24h, percent_change_7d, id_cryptocurrency) VALUES (1, 145725278, 100.25, 125, 1, 48, 45, 69, 4000);')
+  await dbExec('INSERT OR IGNORE INTO market (id, timestamp, price, volume_24h, cmc_rank, percent_change_1h, percent_change_24h, percent_change_7d, id_cryptocurrency) VALUES (2, 2572728727, 257.25, 257, 1, 27, 455, 629, 4000);')
 }
 
 init()
