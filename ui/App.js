@@ -25,14 +25,12 @@ const App = () => {
       logIn: (email, password) => {
         connect(email, password);
       },
-      signUp: (email, password) => {
-        connect(email, password);
-      },
       logOut: () => {
         setIsLoading(true);
         setUserToken(null);
         setIsAdmin(null);
       },
+      BACKEND,
     };
   }, []);
 

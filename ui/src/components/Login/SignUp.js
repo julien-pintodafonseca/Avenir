@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {
   Button,
@@ -13,11 +13,45 @@ import {
   Body,
   Right,
   Subtitle,
+  Item,
+  Input,
 } from 'native-base';
-import ConfirmInputItem from '../Custom/ConfirmInputItem';
 import {AuthContext} from '../../Context';
 const SignUp = ({navigation}) => {
+  const [email, setEmail] = useState('');
+  const [confirmEmail, setConfirmEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
   const {logIn} = useContext(AuthContext);
+  const {BACKEND} = useContext(AuthContext);
+
+  function submitSignUpForm() {
+    if (
+      email &&
+      password &&
+      email === confirmEmail &&
+      password === confirmPassword
+    ) {
+      fetch(`${BACKEND}/account/registration`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: `${JSON.stringify({
+          email,
+          password,
+          password2: confirmPassword,
+        })}`,
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.msg) {
+            logIn(email, password);
+          }
+        })
+        .catch(error => console.log(error));
+    }
+  }
+
   return (
     <Container style={styles.container}>
       <Content style={{margin: 10}}>
@@ -42,14 +76,48 @@ const SignUp = ({navigation}) => {
             style={{
               paddingTop: 20,
             }}>
-            <ConfirmInputItem placeholder="E-mail" title="E-mail" />
+            <View>
+              <Text style={styles.sectionTitle}>E-mail</Text>
+              <Item>
+                <Input
+                  style={styles.text}
+                  placeholder="E-mail"
+                  value={email}
+                  onChangeText={setEmail}
+                />
+              </Item>
+              <Item>
+                <Input
+                  style={styles.text}
+                  placeholder="Confirm E-mail"
+                  value={confirmEmail}
+                  onChangeText={setConfirmEmail}
+                />
+              </Item>
+            </View>
           </View>
           <View style={styles.spacing}>
-            <ConfirmInputItem
-              placeholder="Password"
-              secureTextEntry="true"
-              title="Password"
-            />
+            <View>
+              <Text style={styles.sectionTitle}>Password</Text>
+              <Item>
+                <Input
+                  style={styles.text}
+                  placeholder="Password"
+                  secureTextEntry
+                  value={password}
+                  onChangeText={setPassword}
+                />
+              </Item>
+              <Item>
+                <Input
+                  style={styles.text}
+                  placeholder="Confirm Password"
+                  secureTextEntry
+                  value={confirmPassword}
+                  onChangeText={setConfirmPassword}
+                />
+              </Item>
+            </View>
             <Text style={styles.infoText}>
               The password must contain at least three character categories
               among the following: Uppercase characters (A-Z) Lowercase
@@ -61,7 +129,7 @@ const SignUp = ({navigation}) => {
           block
           style={styles.button}
           onPress={() => {
-            logIn();
+            submitSignUpForm();
           }}>
           <Text style={styles.text}>CONFIRM & SIGN UP</Text>
         </Button>
