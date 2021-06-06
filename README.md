@@ -66,7 +66,9 @@ TODO
 
 # Back-end
 
-Open a terminal :
+## Lancer le serveur
+
+Ouvrir un terminal et saisir :
 
 ```sh
 $ git clone https://gitlab.ensimag.fr/pintodaj/avenir # or clone your own fork
@@ -75,11 +77,13 @@ $ npm install
 $ npm start
 ```
 
-Your app should now be running on [localhost:5000](http://localhost:5000/).
+Le back-end de l'application devrait maintenant être lancé sur [localhost:5000](http://localhost:5000/).
 
 # Front-end
 
-Open a terminal :
+## Lancer l'application
+
+Ouvrir un premier terminal et saisir :
 
 ```sh
 $ cd avenir/ui
@@ -87,14 +91,23 @@ $ npm install
 $ npm start
 ```
 
-Open another terminal :
+Ouvrir un second terminal et saisir :
 
 ```sh
 $ cd avenir/ui
 $ npm run android # or "npm run ios" for ios
 ```
 
-Your app should now be running on your emulator/device.
+L'application devrait maintenant être lancée sur votre émulateur/appareil.
+
+## Lint
+
+Ouvrir un terminal et saisir :
+
+```sh
+$ cd avenir/ui
+$ npm run lint
+```
 
 # Tests
 
