@@ -3,9 +3,8 @@ require('mandatoryenv').load(['COIN_MARKET_API_KEY'])
 
 const CALL_TIMER = 60000;
 
-function getCryptocurrenciesMarket(cryptocurrenciesSelected) 
+function getCryptocurrenciesMarket(path) 
 {
-    const path = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest'.concat(cryptocurrenciesSelected);
     try 
     {
         return axios.get(path, {
@@ -22,7 +21,8 @@ function getCryptocurrenciesMarket(cryptocurrenciesSelected)
 
 async function insertCryptocurrenciesMarket(cryptocurrenciesSelected)
 {
-    const cryptocurrencies = getCryptocurrenciesMarket(cryptocurrenciesSelected);
+    const path = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest".concat(cryptocurrenciesSelected)
+    const cryptocurrencies = getCryptocurrenciesMarket(path);
     cryptocurrencies
         .then(response => {
             
@@ -65,10 +65,12 @@ function selectCryptocurrencies()
         insertCryptocurrenciesMarket(symbols.slice(0, -1))
         return
     })
-    
 }
+
+
 
 module.exports = {
     selectCryptocurrencies,
-    CALL_TIMER
+    CALL_TIMER,
+    getCryptocurrenciesMarket
 }

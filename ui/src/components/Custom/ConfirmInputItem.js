@@ -1,19 +1,6 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import {
-  Button,
-  Left,
-  Icon,
-  Body,
-  Title,
-  Right,
-  View,
-  Container,
-  Header,
-  Item,
-  Input,
-  Text,
-} from 'native-base';
+import {View, Item, Input, Text} from 'native-base';
 
 const ConfirmInputItem = props => {
   const confirmPlaceholder = `Confirm ${props.placeholder}`;

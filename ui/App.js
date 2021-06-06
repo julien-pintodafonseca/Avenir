@@ -64,7 +64,7 @@ const App = () => {
     setUserToken('null');
     setUser({
       id: 2,
-      is_admin: 1,
+      is_admin: 0,
     });
   }
 

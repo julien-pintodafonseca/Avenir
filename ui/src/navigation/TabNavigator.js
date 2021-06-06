@@ -11,7 +11,6 @@ import {
 } from './StackNavigator';
 
 const Tab = createBottomTabNavigator();
-const user = {};
 const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
