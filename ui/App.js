@@ -4,11 +4,11 @@
  */
 import React, {useEffect, useMemo, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {
-  BottomTabNavigator,
-  BottomTabNavigatorAdmin,
-} from './src/navigation/TabNavigator';
-import {LoginStack} from './src/navigation/StackNavigator';
+// import {
+//   BottomTabNavigator,
+//   BottomTabNavigatorAdmin,
+// } from './src/navigation/TabNavigator';
+// import {LoginStack} from './src/navigation/StackNavigator';
 
 import {Splash} from './src/components/Custom/Splash';
 import {AuthContext} from './src/Context';
@@ -23,7 +23,7 @@ const App = () => {
       logIn: (username, password) => {
         connect(username, password);
       },
-      signUp: () => {
+      signUp: (username, password) => {
         connect(username, password);
       },
       logOut: () => {

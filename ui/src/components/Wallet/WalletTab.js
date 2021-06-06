@@ -5,36 +5,36 @@ import CustomCryptoList from './WalletListing';
 
 import Header from '../Custom/Header';
 // fetch de user selon l'iduser
-const userWallet = {
-  id: 1,
-  totalAssets: 2034,
-  assets: [
-    {
-      id: 1,
-      stockSymbol: 'BTC',
-      fullname: 'Bitcoin',
-      symbol: 'U+20BF',
-      amount: 10,
-      amountConverted: 272727,
-    },
-    {
-      id: 2,
-      stockSymbol: 'ETH',
-      fullname: 'ether',
-      symbol: 'U+20BF',
-      amount: 20,
-      amountConverted: 272,
-    },
-    {
-      id: 3,
-      stockSymbol: 'doge',
-      fullname: 'doge',
-      symbol: 'U+20BF',
-      amount: 20,
-      amountConverted: 272,
-    },
-  ],
-};
+// const userWallet = {
+//   id: 1,
+//   totalAssets: 2034,
+//   assets: [
+//     {
+//       id: 1,
+//       stockSymbol: 'BTC',
+//       fullname: 'Bitcoin',
+//       symbol: 'U+20BF',
+//       amount: 10,
+//       amountConverted: 272727,
+//     },
+//     {
+//       id: 2,
+//       stockSymbol: 'ETH',
+//       fullname: 'ether',
+//       symbol: 'U+20BF',
+//       amount: 20,
+//       amountConverted: 272,
+//     },
+//     {
+//       id: 3,
+//       stockSymbol: 'doge',
+//       fullname: 'doge',
+//       symbol: 'U+20BF',
+//       amount: 20,
+//       amountConverted: 272,
+//     },
+//   ],
+// };
 
 const WalletView = ({navigation}) => {
   return (
