@@ -1,4 +1,4 @@
-const app = require('../app')
+const app = require('../App')
 const request = require('supertest')
 const jws = require('jws')
 require('mandatoryenv').load(['SECRETJWS', 'BACKEND'])

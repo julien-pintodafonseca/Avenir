@@ -1,7 +1,7 @@
 /**
  * @jest-environment node
  */
-const app = require('../app')
+const app = require('../App')
 const request = require('supertest')
 
 let token
