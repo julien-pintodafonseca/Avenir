@@ -6,7 +6,7 @@
     "start": "react-native start",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "test": "jest ui/__tests__",
+    "test": "jest ui/__tests__ --coverage",
     "test-detox": "detox test",
     "lint": "eslint __tests__ src App.js"
   },
