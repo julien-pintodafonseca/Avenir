@@ -4,6 +4,7 @@
  */
 import React, {useEffect, useMemo, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // import {
 //   BottomTabNavigator,
 //   BottomTabNavigatorAdmin,
@@ -55,6 +56,22 @@ const App = () => {
         setIsLoading(data.token ? true : false);
         setUserToken(data.token ? data.token : null);
         setIsAdmin(data.is_admin);
+        AsyncStorage.setItem(
+          '@userToken',
+          JSON.stringify(data.token),
+        );
+        if (data.is_admin) {
+          AsyncStorage.setItem(
+            '@is_admin',
+            JSON.stringify(data.is_admin),
+          );
+        }
+        if (data.is_premium) {
+          AsyncStorage.setItem(
+            '@is_premium',
+            JSON.stringify(data.is_premium),
+          );
+        }
       })
       .catch(error => console.log(error));
   }

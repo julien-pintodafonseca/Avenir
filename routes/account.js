@@ -19,7 +19,7 @@ router.post('/login', function(req, res) {
                 {
                     const token = tokenService.getToken(data.email, data.id, 'api', data.is_admin, data.id_premium_voucher)
                     console.debug(`Acceptée avec le token ${token}`)
-                    res.status(202).send({ token, is_admin: data.is_admin}); return
+                    res.status(202).send({ token, is_admin: data.is_admin, is_premium: data.id_premium_voucher}); return
                 }
             }
             res.status(403).send({ error: 'Connection refused' }); return
