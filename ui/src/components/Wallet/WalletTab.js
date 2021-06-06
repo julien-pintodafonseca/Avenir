@@ -5,6 +5,7 @@ import CustomCryptoList from './WalletListing';
 
 import Header from '../Custom/Header';
 // fetch de user selon l'iduser
+/*
 const userWallet = {
   id: 1,
   totalAssets: 2034,
@@ -35,6 +36,7 @@ const userWallet = {
     },
   ],
 };
+*/
 
 const WalletView = ({navigation}) => {
   return (

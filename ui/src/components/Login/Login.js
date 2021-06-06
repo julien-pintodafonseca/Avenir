@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Button, Item, Input, Form, Text} from 'native-base';
-import ConfirmInputItem from '../Custom/ConfirmInputItem';
+// import ConfirmInputItem from '../Custom/ConfirmInputItem';
 const Connexion = props => {
-  const [mail, setMail] = useState('');
-  const [password, setPWD] = useState('');
+  // const [mail, setMail] = useState('');
+  // const [password, setPWD] = useState('');
   return (
     <View>
       <Form>

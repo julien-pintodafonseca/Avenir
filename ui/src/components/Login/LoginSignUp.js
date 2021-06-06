@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import {Container, Title, Content, Button} from 'native-base';
 import Login from './Login';
-import SignUp from './SignUp';
+// import SignUp from './SignUp';
 
-const appName = 'Avenir';
+// const appName = 'Avenir';
 
 const LoginSignup = props => {
   console.log(props.onConnect);

@@ -1,16 +1,6 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import {
-  Button,
-  Left,
-  Icon,
-  Body,
-  Title,
-  Right,
-  View,
-  Container,
-  Header,
-} from 'native-base';
+import {Button, Left, Icon, Body, Title, Right, Header} from 'native-base';
 
 const HeaderCustom = props => {
   return (

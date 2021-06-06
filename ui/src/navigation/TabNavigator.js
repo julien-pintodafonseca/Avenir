@@ -1,5 +1,4 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import IoniconsIcons from 'react-native-vector-icons/Ionicons';
 import {
@@ -11,7 +10,7 @@ import {
 } from './StackNavigator';
 
 const Tab = createBottomTabNavigator();
-const user = {};
+// const user = {};
 const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
@@ -131,18 +130,5 @@ const BottomTabNavigatorAdmin = () => {
     </Tab.Navigator>
   );
 };
-
-const styles = StyleSheet.create({
-  shadow: {
-    shadowColor: '#7F5DF0',
-    shadowOffset: {
-      width: 0,
-      height: 10,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.5,
-    elevation: 5,
-  },
-});
 
 export {BottomTabNavigator, BottomTabNavigatorAdmin};

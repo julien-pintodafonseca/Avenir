@@ -1,16 +1,12 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {
   Button,
   Container,
   Text,
-  Item,
-  Label,
-  Input,
   Form,
   Content,
   Title,
-  Login,
   Header,
   Left,
   Icon,

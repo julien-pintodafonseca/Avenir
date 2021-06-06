@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 /**
  * Avenir
  * https://gitlab.ensimag.fr/pintodaj/avenir
