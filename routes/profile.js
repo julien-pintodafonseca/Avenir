@@ -98,13 +98,13 @@ function updateVoucher (id, email) {
       [Math.round(Date.now() / 1000), id], function (error) {
         if (error) {
           console.debug(error)
-          reject(); return
+          reject(new Error(error)); return
         }
         global.db.run('UPDATE users SET id_premium_voucher = ? WHERE email = ?',
           [id, email], function (error) {
             if (error) {
               console.debug(error)
-              reject(); return
+              reject(new Error(error)); return
             }
             resolve()
           })

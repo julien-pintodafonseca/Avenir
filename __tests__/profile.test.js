@@ -31,7 +31,7 @@ describe('PUT /api/profile', () => {
   })
 
   afterAll(async () => {
-    const response = await request(app)
+    await request(app)
       .put('/api/profile')
       .send({ password: 'Azerty123!', password2: 'Azerty123!' })
       .set('authorization', token)
