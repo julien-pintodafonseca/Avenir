@@ -4,18 +4,18 @@ import {Container, Button, Form, Input, Item} from 'native-base';
 import Header from '../Custom/Header';
 import {AuthContext} from '../../Context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const user = {};
+
 const ProfileView = ({navigation}) => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
   const {logOut} = useContext(AuthContext);
   const {BACKEND} = useContext(AuthContext);
-  const [token, setToken] =useState('');
-  const [is_admin, setIsAdmin] =useState('');
-  const [is_premium, setIsPremium] =useState('');
-  const [voucher, setVoucher]= useState('');
+  const [token, setToken] = useState('');
+  const [is_admin, setIsAdmin] = useState('');
+  const [is_premium, setIsPremium] = useState('');
+  const [voucher, setVoucher] = useState('');
 
-  useEffect(() => { 
+  useEffect(() => {
     AsyncStorage.getItem('@userToken').then(data => {
       setToken(JSON.parse(data));
     });
@@ -25,15 +25,15 @@ const ProfileView = ({navigation}) => {
     AsyncStorage.getItem('@is_premium').then(data => {
       setIsPremium(JSON.parse(data));
     });
-  },[]);
-  function changePassword(){
-    if (
-      newPassword &&
-      newPassword === confirmNewPassword
-    ) {
+  }, []);
+  function changePassword() {
+    if (newPassword && newPassword === confirmNewPassword) {
       fetch(`${BACKEND}/api/profile`, {
         method: 'PUT',
-        headers: {'Content-Type': 'application/json', 'authorization': `${token}`},
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `${token}`,
+        },
         body: `${JSON.stringify({
           password: newPassword,
           password2: confirmNewPassword,
@@ -42,7 +42,8 @@ const ProfileView = ({navigation}) => {
         .then(response => response.json())
         .then(data => {
           if (data.msg === 'ok') {
-            alert("SUCCESS");
+            /* eslint-disable no-alert */
+            alert('SUCCESS');
           }
         })
         .catch(error => alert(error));
@@ -52,7 +53,10 @@ const ProfileView = ({navigation}) => {
     if (voucher) {
       fetch(`${BACKEND}/api/profile`, {
         method: 'POST',
-        headers: {'Content-Type': 'application/json', 'authorization': `${token}`},
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `${token}`,
+        },
         body: `${JSON.stringify({
           voucher,
         })}`,
@@ -60,7 +64,8 @@ const ProfileView = ({navigation}) => {
         .then(response => response.json())
         .then(data => {
           if (data.msg === 'ok') {
-            alert("SUCCESS");return;
+            alert('SUCCESS');
+            return;
           }
           alert(data.error);
         })
@@ -70,7 +75,7 @@ const ProfileView = ({navigation}) => {
 
   return (
     <Container style={styles.bgColor}>
-      <Header title={is_premium?"Premium Profile":"Profile"} />
+      <Header title={is_premium ? 'Premium Profile' : 'Profile'} />
       <Container style={{backgroundColor: '#303030', margin: 10}}>
         <View style={styles.border}>
           <Form>
@@ -96,10 +101,7 @@ const ProfileView = ({navigation}) => {
               </Item>
             </View>
           </Form>
-          <Button
-            onPress={() => changePassword()}
-            block
-            style={styles.button}>
+          <Button onPress={() => changePassword()} block style={styles.button}>
             <Text style={styles.text}>Change password</Text>
           </Button>
         </View>
@@ -108,13 +110,15 @@ const ProfileView = ({navigation}) => {
             <Text style={styles.sectionTitle}>Voucher</Text>
             <Form>
               <Item>
-                <Input style={styles.text} placeholder="Voucher code" value={voucher} onChangeText={setVoucher}/>
+                <Input
+                  style={styles.text}
+                  placeholder="Voucher code"
+                  value={voucher}
+                  onChangeText={setVoucher}
+                />
               </Item>
             </Form>
-            <Button
-              onPress={() => verifyVoucher()}
-              block
-              style={styles.button}>
+            <Button onPress={() => verifyVoucher()} block style={styles.button}>
               <Text style={styles.text}>Confirm</Text>
             </Button>
           </View>

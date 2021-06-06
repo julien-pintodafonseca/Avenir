@@ -45,8 +45,8 @@ const App = () => {
     return <Splash />;
   }
 
-  function connect(email, password) {
-    fetch(`${BACKEND}/account/login`, {
+  async function connect(email, password) {
+    return fetch(`${BACKEND}/account/login`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: `${JSON.stringify({email, password})}`,
@@ -55,22 +55,13 @@ const App = () => {
       .then(data => {
         setIsLoading(data.token ? true : false);
         setUserToken(data.token ? data.token : null);
-        setIsAdmin(data.is_admin);
-        AsyncStorage.setItem(
-          '@userToken',
-          JSON.stringify(data.token),
-        );
+        AsyncStorage.setItem('@userToken', JSON.stringify(data.token));
         if (data.is_admin) {
-          AsyncStorage.setItem(
-            '@is_admin',
-            JSON.stringify(data.is_admin),
-          );
+          setIsAdmin(data.is_admin);
+          AsyncStorage.setItem('@is_admin', JSON.stringify(data.is_admin));
         }
         if (data.is_premium) {
-          AsyncStorage.setItem(
-            '@is_premium',
-            JSON.stringify(data.is_premium),
-          );
+          AsyncStorage.setItem('@is_premium', JSON.stringify(data.is_premium));
         }
       })
       .catch(error => console.log(error));
