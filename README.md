@@ -111,7 +111,16 @@ Le back-end de l'application devrait maintenant être lancé sur [localhost:5000
 
 ## Lint
 
-TODO
+Ouvrir un terminal et saisir :
+
+```sh
+$ cd avenir
+$ npm run lint
+```
+
+Le rapport listant les éventuels problèmes devrait maintenant apparaître dans le terminal.
+
+Note : la règle "camelcase" a été désactivée au sein du fichier avenir/.eslintrc.js.
 
 ## Tests
 
