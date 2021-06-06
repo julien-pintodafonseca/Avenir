@@ -88,7 +88,7 @@ Pour plus de précisions, se référer à la section "Cas d'usage", "Maquette" e
 
 ## Structure projet
 
-![ProjectStructure](./doc/ProjectStructure.png)
+![Structure projet](./doc/ProjectStructure.png)
 
 # Screencast
 
@@ -117,6 +117,12 @@ Dans un terminal, saisir :
 $ cd avenir
 $ npm run test # or "npm run testWindows" for windows
 ```
+
+---
+
+Dernière analyse de couverture de code (07/06/2021) :
+
+![Couverture de code - Back-End](./doc/CodeCoverageBack.png)
 
 ## Lint
 
