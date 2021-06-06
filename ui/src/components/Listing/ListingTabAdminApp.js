@@ -1,4 +1,4 @@
-/* eslint-disable no-alert */
+/* eslint-disable no-alert, react-hooks/exhaustive-deps */
 import React, {useContext, useEffect, useState} from 'react';
 import {
   View,
@@ -59,7 +59,7 @@ const ListingScreen = ({navigation}) => {
       .catch(error => alert({error}));
     return 'ok';
   }
-  
+
   useEffect(() => {
     const init = async () => {
       await AsyncStorage.getItem('@userToken').then(data => {

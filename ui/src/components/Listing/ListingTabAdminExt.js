@@ -1,4 +1,4 @@
-/* eslint-disable no-alert */
+/* eslint-disable no-alert, react-hooks/exhaustive-deps */
 import React, {useContext, useEffect, useState} from 'react';
 import {
   View,
