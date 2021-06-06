@@ -10,7 +10,6 @@
     "start": "rm -f db.sqlite && node initdb.js && node index.js",
     "test": "rm -f db.test.sqlite && DB=db.test.sqlite node initdb-test.js && DB=db.test.sqlite jest",
     "testWindows": "del db.test.sqlite && set DB=db.test.sqlite && node initdb-test.js && jest",
-    "install": "npm install && cd ui && npm install",
     "lint": "eslint __tests__ routes services App.js index.js initdb-test.js initdb.js"
   },
   "dependencies": {
