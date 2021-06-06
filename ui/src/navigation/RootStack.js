@@ -5,8 +5,8 @@ import {BottomTabNavigator, BottomTabNavigatorAdmin} from './TabNavigator';
 
 const RootStack = createStackNavigator();
 
-const RootStackScreen = ({userToken, user}) => {
-  console.log({userToken, user});
+const RootStackScreen = ({userToken, isAdmin}) => {
+  console.log({userToken, isAdmin});
   return (
     <RootStack.Navigator headerMode="none">
       {!userToken ? (
@@ -17,7 +17,7 @@ const RootStackScreen = ({userToken, user}) => {
             animationEnabled: false,
           }}
         />
-      ) : !user.is_admin ? (
+      ) : !isAdmin ? (
         <RootStack.Screen
           name="userScreen"
           component={BottomTabNavigator}
