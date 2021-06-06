@@ -1,21 +1,33 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Button, Item, Input, Form, Text} from 'native-base';
-import ConfirmInputItem from '../Custom/ConfirmInputItem';
+import {AuthContext} from '../../Context';
 const Connexion = props => {
   const [mail, setMail] = useState('');
   const [password, setPWD] = useState('');
+  const {logIn} = useContext(AuthContext);
+
   return (
     <View>
       <Form>
         <Item>
-          <Input placeholder="E-mail" value="" />
+          <Input placeholder="E-mail" onChangeText={setMail} value={mail} />
         </Item>
         <Item>
-          <Input placeholder="Password" secureTextEntry value="" />
+          <Input
+            onChangeText={setPWD}
+            placeholder="Password"
+            secureTextEntry
+            value={password}
+          />
         </Item>
       </Form>
-      <Button block style={styles.button}>
+      <Button
+        block
+        style={styles.button}
+        onPress={() => {
+          logIn(mail, password);
+        }}>
         <Text>Log In</Text>
       </Button>
     </View>

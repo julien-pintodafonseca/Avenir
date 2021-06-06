@@ -1,16 +1,12 @@
-import React, {Component} from 'react';
+import React, {useContext} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {
   Button,
   Container,
   Text,
-  Item,
-  Label,
-  Input,
   Form,
   Content,
   Title,
-  Login,
   Header,
   Left,
   Icon,
@@ -19,7 +15,9 @@ import {
   Subtitle,
 } from 'native-base';
 import ConfirmInputItem from '../Custom/ConfirmInputItem';
+import {AuthContext} from '../../Context';
 const SignUp = ({navigation}) => {
+  const {logIn} = useContext(AuthContext);
   return (
     <Container style={styles.container}>
       <Content style={{margin: 10}}>
@@ -63,8 +61,7 @@ const SignUp = ({navigation}) => {
           block
           style={styles.button}
           onPress={() => {
-            console.log('Element touched sending form');
-            navigation.goBack();
+            logIn();
           }}>
           <Text style={styles.text}>CONFIRM & SIGN UP</Text>
         </Button>
