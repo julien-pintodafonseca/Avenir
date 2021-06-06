@@ -72,5 +72,8 @@ app
   .use('/api/wallet', wallet)
   .use('/api/profile', profile)
   .use('/api/admin', admin)
+  .all('*', (req, res) => {
+    res.status(405).send({msg: 'Method not allowed'})
+  })
 
 module.exports = app

@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node initdb.js && node index.js",
     "test": "rm -f db.test.sqlite && DB=db.test.sqlite node initdb.js && DB=db.test.sqlite jest",
-    "testWindows": "del db.test.sqlite && set DB=db.test.sqlite && node initdb.js && jest"
+    "testWindows": "del db.test.sqlite && set DB=db.test.sqlite && node initdb-test.js && jest"
   },
   "dependencies": {
     "axios": "^0.21.1",

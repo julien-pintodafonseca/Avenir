@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var validatePassword = require('./account.js').validatePassword
+var login = require('./account.js').login
 const bcrypt = require('bcrypt');
 
 const salt = require('./account.js').SALT
@@ -16,7 +17,6 @@ router
                 if (data) {
                     res.status(200).send({ data }); return
                 }
-                res.status(403).send({ error: 'Connection refused' })
             }
         )
     })
@@ -39,7 +39,7 @@ router
                         console.debug(error); 
                         res.status(500).send('Internal Server Error'); return
                     }
-                    res.status(201).send({ msg: 'ok' }); return
+                    res.status(200).send({ msg: 'ok' }); return
                 })
             });
         }

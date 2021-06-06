@@ -4,17 +4,11 @@ const coinMarketService = require('../services/coinMarket');
 
 router
     .use(function isAdmin(req, res, next){
-        try{
-            if (req.admin !== 1)
-            {
-                res.status(403).send('Forbidden !'); return 
-            }
-            next()
-        }
-        catch
+        if (req.admin !== 1)
         {
-            res.status(403).send('Forbidden !'); return 
+            res.status(403).send({ error: 'Forbidden !' }); return 
         }
+        next()
     })
     .get("/", function(req, res) {
         const path = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/map"
@@ -35,32 +29,49 @@ router
                         const last_historical_data = crypto.last_historical_data;
                         list_crypto.push({ id, rank, name, symbol, first_historical_data, last_historical_data})
                     }
-                    res.status(202).send( list_crypto ); return
+                    res.status(200).send({ list_crypto }); return
                 }
             })
             .catch(error => {
-                console.log(error);
+                console.debug(error);
                 res.status(500).send({ error: 'Internal Server Error' }); return
             })
     })
     .post("/:id/:name/:symbol", function(req, res){
+        const id = Number(req.params.id);
+        if (isNaN(id) || id <= 0)
+        {
+            res.status(400).send({ error: ":id must be a number higher or equal to 1" }); return
+        }
+
         global.db.run("INSERT INTO cryptocurrencies(id, name, symbol, is_active) values(?, ?, ?, ?)",
         [req.params.id, req.params.name, req.params.symbol, 1], function (error) {
             if (error) {
                 console.debug(error);
                 res.status(500).send('Internal Server Error'); return
             }
-            res.status(201).send({ msg: 'ok' })
+            res.status(201).send({ msg: "ok" })
         })
     })
     .put("/:id/:active", function(req, res) {
+        const id = Number(req.params.id);
+        const active = Number(req.params.active);
+
+        if (isNaN(id) || id <= 0)
+        {
+            res.status(400).send({ error: ":id must be a number higher or equal to 1" }); return
+        }
+        if (isNaN(active) || active != 0 && active != 1)
+        {
+            res.status(400).send({ error: ":active is 0 or 1" }); return
+        }
         global.db.run("UPDATE cryptocurrencies SET is_active = ? where id = ?",
-        [ req.params.active, req.params.id], function (error) {
+        [ active, id], function (error) {
             if (error) {
                 console.debug(error);
-                res.status(500).send('Internal Server Error'); return
+                res.status(500).send({ error: 'Internal Server Error'}); return
             }
-            res.status(201).send({ msg: 'ok' })
+            res.status(200).send({ msg: "ok" }); return
         })
     })
     .get('/symbols', function(req, res) {
@@ -69,9 +80,9 @@ router
             if (error)
             {
                 console.debug(error)
-                res.status(500).send('Internal Server Error'); return
+                res.status(500).send({ error: 'Internal Server Error' }); return
             }
-            res.status(202).send({ data }); return
+            res.status(200).send({ data }); return
         })
     })
 

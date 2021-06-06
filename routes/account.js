@@ -7,56 +7,51 @@ const SALT = 10;
 
 router.post('/login', function(req, res) {
     global.db.get('select id, email, is_admin, id_premium_voucher, password from users where email = ?', [req.body.email],
-        (error, data) => {
+        async (error, data) => {
             if (error) {
                 console.debug(error)
                 res.status(500).send({ error: 'Internal Server Error' }); return
             }
-            if (data) {
-                bcrypt.compare(req.body.password, data.password, function(err, result) {
-                    if (result === true)
-                    {
-                        const token = tokenService.getToken(data.email, data.id, 'api', data.is_admin, data.id_premium_voucher)
-                        console.debug(`Acceptée avec le token ${token}`)
-                        res.status(202).send({ token }); return
-                    }
-                    else
-                    {
-                        res.status(403).send({ error: 'Connection refused' }); return
-                    }
-                })
+            if (data)
+            {
+                const result = await bcrypt.compare(req.body.password, data.password)
+                if (result === true)
+                {
+                    const token = tokenService.getToken(data.email, data.id, 'api', data.is_admin, data.id_premium_voucher)
+                    console.debug(`Acceptée avec le token ${token}`)
+                    res.status(202).send({ token }); return
+                }
             }
+            res.status(403).send({ error: 'Connection refused' }); return
         }
     )
 });
 
-function validateEmail(errors, email, callback)
+async function validateEmail(errors, email)
 {
     const re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     const email_valid =  re.test(email);
     return new Promise((resolve,reject)=>{
-        if(email_valid)
+        if(!email_valid)
         {
-                global.db.get('SELECT email FROM users where email = ?', [email],
-                (error, data) => {
-                if (error) {
-                    console.debug(error)
-                    errors.push('Internal Server Error')
-                }
-                if (data && data.email === email) {
-                    console.debug("Email already used")
-                    errors.push('Email already used')
-                }
-                
-            })
-        }
-        else
-        {
-            console.debug("Email invalid");
+            console.debug("Email invalid")
             errors.push('Email invalid')
+            resolve(errors);
         }
-    resolve(errors);
+        global.db.get('SELECT email FROM users where email = ?', [email],
+        (error, data) => {
+            if (error) {
+                console.debug(error)
+                errors.push('Internal Server Error')
+            }
+            if (data && data.email === email) {
+                console.debug("Email already used")
+                errors.push('Email already used')
+            }
+            resolve(errors);
+        })
     })
+
 }
 
 
@@ -72,7 +67,7 @@ function validatePassword(errors, password, password2)
     if(!password_valid)
     {
         console.debug("Invalid password");
-        errors.push('Invalid password: min 8 characters')
+        errors.push('Invalid password: Password must contain at least 8 characters, 1 special character, 1 number, one lowercase and 1 one uppercase alphabetical')
     }
 }
 
@@ -88,18 +83,18 @@ router.post('/registration', function(req, res) {
         .then(errors => {
             if (errors.length !== 0)
             {
-                res.status(403).send({ errors }); return
+                res.status(400).send({ errors }); return
             }
             else
             {
-                bcrypt.hash(password, salt, (err, hash) => {
+                bcrypt.hash(password, SALT, (err, hash) => {
                     global.db.run("INSERT INTO users(email, password, is_admin, id_premium_voucher) values(?, ?, 0, NULL)",
                     [email, hash], function (error) {
                         if (error) {
                             console.debug(error); 
                             res.status(500).send('Internal Server Error'); return
                         }
-                        res.status(201).send({ msg: 'ok' }); return
+                        res.status(201).send({ msg: 'Account created' }); return
                     })
                 });
             }

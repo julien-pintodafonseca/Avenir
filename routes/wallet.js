@@ -10,7 +10,7 @@ router
                 console.debug(error)
                 res.status(500).send('Internal Server Error'); return
             }
-            res.status(202).send({ data }); return
+            res.status(200).send({ data }); return
         })
     })
     .get('/symbols', function(req, res) {
@@ -21,12 +21,22 @@ router
                 console.debug(error)
                 res.status(500).send('Internal Server Error'); return
             }
-            res.status(202).send({ data }); return
+            res.status(200).send({ data }); return
         })
     })
     .post('/:id/:amount', function(req, res) {
+        const id = Number(req.params.id);
+        const amount = Number(req.params.amount);
+        if (isNaN(id) || id <= 0)
+        {
+            res.status(400).send({ error: ":id must be a number higher or equal to 1" }); return
+        }
+        if (isNaN(amount) || amount <= 0)
+        {
+            res.status(400).send({ error: ":amount must be a number higher to 0" }); return
+        }
         global.db.run("INSERT INTO wallets_cryptocurrencies(id_user, id_cryptocurrency, quantity) values(?, ?, ?)",
-        [req.id, req.params.id, req.params.amount], function (error) {
+        [req.id, id, amount], function (error) {
             if (error) {
                 console.debug(error);
                 res.status(500).send('Internal Server Error'); return
@@ -41,17 +51,27 @@ router
                 console.debug(error);
                 res.status(500).send('Internal Server Error'); return
             }
-            res.status(201).send({ msg: 'ok' })
+            res.status(200).send({ msg: 'ok' })
         })
     })
     .put('/:id', function(req, res) {
+        const id = Number(req.params.id);
+        const amount = Number(req.body.amount);
+        if (isNaN(id) || id <= 0)
+        {
+            res.status(400).send({ error: ":id must be a number higher or equal to 1" }); return
+        }
+        if (isNaN(amount) || amount <= 0)
+        {
+            res.status(400).send({ error: ":amount must be a number higher to 0" }); return
+        }
         global.db.run("UPDATE wallets_cryptocurrencies SET quantity = ? where id_user = ? and id_cryptocurrency = ?",
-        [req.body.amount, req.id, req.params.id], function (error) {
+        [amount, req.id, id], function (error) {
             if (error) {
                 console.debug(error);
                 res.status(500).send('Internal Server Error'); return
             }
-            res.status(201).send({ msg: 'ok' })
+            res.status(200).send({ msg: 'ok' })
         })
     })
 
