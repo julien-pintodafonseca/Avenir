@@ -28,13 +28,12 @@ describe('POST /account/login BAD ', () => {
   })
 })
 
-
 describe('POST /account/registration', () => {
   const expected = 'Account created'
   test('Account created', async () => {
     const response = await request(app)
       .post('/account/registration')
-      .send({ email: 'newaccount@avenir.fr', password: 'Working123!', password2: 'Working123!'})
+      .send({ email: 'newaccount@avenir.fr', password: 'Working123!', password2: 'Working123!' })
       .set('Accept', 'application/json')
     expect(response.statusCode).toBe(201)
     expect(response.body.msg).toBe(expected)
@@ -42,53 +41,53 @@ describe('POST /account/registration', () => {
 })
 
 describe('POST /account/registration BAD', () => {
-  const expected = "Email invalid"
+  const expected = 'Email invalid'
   test('Email invalid', async () => {
     const response = await request(app)
       .post('/account/registration')
-      .send({ email: 'emailinvalid.fr', password: 'NotWorking123!', password2: 'NotWorking123!'})
+      .send({ email: 'emailinvalid.fr', password: 'NotWorking123!', password2: 'NotWorking123!' })
       .set('Accept', 'application/json')
     expect(response.statusCode).toBe(400)
-    expect(response.body.errors).toContain(expected);
+    expect(response.body.errors).toContain(expected)
   })
 
-  const expected2 = "Passwords do not match"
-  test("Passwords do not match", async () => {
+  const expected2 = 'Passwords do not match'
+  test('Passwords do not match', async () => {
     const response = await request(app)
       .post('/account/registration')
-      .send({ email: 'email@invalid.fr', password: 'NotWorking123!', password2: 'NotSame123!'})
+      .send({ email: 'email@invalid.fr', password: 'NotWorking123!', password2: 'NotSame123!' })
       .set('Accept', 'application/json')
     expect(response.statusCode).toBe(400)
-    expect(response.body.errors).toContain(expected2);
+    expect(response.body.errors).toContain(expected2)
   })
 
-  const expected3 = "Invalid password: Password must contain at least 8 characters, 1 special character, 1 number, one lowercase and 1 one uppercase alphabetical"
-  test("Invalid password", async () => {
+  const expected3 = 'Invalid password: Password must contain at least 8 characters, 1 special character, 1 number, one lowercase and 1 one uppercase alphabetical'
+  test('Invalid password', async () => {
     const response = await request(app)
       .post('/account/registration')
-      .send({ email: 'email@invalid.fr', password: 'Not', password2: 'Not'})
+      .send({ email: 'email@invalid.fr', password: 'Not', password2: 'Not' })
       .set('Accept', 'application/json')
     expect(response.statusCode).toBe(400)
-    expect(response.body.errors).toContain(expected3);
+    expect(response.body.errors).toContain(expected3)
   })
 
-  const expected4 = ["Passwords do not match", "Invalid password: Password must contain at least 8 characters, 1 special character, 1 number, one lowercase and 1 one uppercase alphabetical", "Email invalid"]
-  test("All errors", async () => {
+  const expected4 = ['Passwords do not match', 'Invalid password: Password must contain at least 8 characters, 1 special character, 1 number, one lowercase and 1 one uppercase alphabetical', 'Email invalid']
+  test('All errors', async () => {
     const response = await request(app)
       .post('/account/registration')
-      .send({ email: 'emailinvalid.fr', password: 'Not', password2: 'NotSame'})
+      .send({ email: 'emailinvalid.fr', password: 'Not', password2: 'NotSame' })
       .set('Accept', 'application/json')
     expect(response.statusCode).toBe(400)
-    expect(response.body.errors).toMatchObject(expected4);
+    expect(response.body.errors).toMatchObject(expected4)
   })
 
-  const expected5 = "Email already used"
-  test("Email already used", async () => {
+  const expected5 = 'Email already used'
+  test('Email already used', async () => {
     const response = await request(app)
       .post('/account/registration')
-      .send({ email: 'root@avenir.fr', password: 'Azerty123!', password2: 'Azerty123!'})
+      .send({ email: 'root@avenir.fr', password: 'Azerty123!', password2: 'Azerty123!' })
       .set('Accept', 'application/json')
     expect(response.statusCode).toBe(400)
-    expect(response.body.errors).toContain(expected5);
+    expect(response.body.errors).toContain(expected5)
   })
 })
