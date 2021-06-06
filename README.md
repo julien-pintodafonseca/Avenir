@@ -25,19 +25,19 @@ Projet CAW, Ensimag, 2021.
 
 | Path | GET | POST | PUT | DELETE |
 | --- | --- | --- | --- | --- |
-| /account/login | CR 405 | Permet de soumettre son email et son mot de passe pour se connecterCR 202 ou 403 | CR 405 | CR 405 |
-| /account/registration | CR 405 | Créé un nouvel utilisateur en envoyant trois variables : email, password1, password2CR 201 ou 400 | CR 405 | CR 405 |
-| /api/cryptocurrency | Donne toutes les données du marché de toutes les cryptomonnaiesCR 200 | CR 405 | CR 405 | CR 405 |
-| /api/cryptocurrency/id | Donne la description d&#39;une cryptomonnaie dont l&#39;ID est IDCR 200 | CR 405 | CR 405 | CR 405 |
-| /api/wallet | Donne la description du portefeuille de l&#39;utilisateur en fonction du token de connexionCR 200 | CR 405 | CR 405 | CR 405 |
-| /api/wallet/symbols | Donne la description de toutes les cryptomonnaiesCR 200 | CR 405 | CR 405 | CR 405 |
-| /api/wallet/id/amount | CR 405 | Créé une cryptomonnaie dont l&#39;ID est id et le montant est amount dans le portefeuille de l&#39;utilisateurCR 201 ou 400 | CR 405 | CR 405 |
-| /api/wallet/id | CR 405 | CR 405 | Modifie le montant de la cryptomonnaie du portefeuille de l&#39;utilisateur. Le montant est renseigné par la variable amountCR 200 ou 400 | Supprime la cryptomonnaie dont l&#39;ID est id du portefeuille de l&#39;utilisateurCR 200 |
-| /api/profile | Donne la description du profil de l&#39;utilisateurCR 200 | Ajoute un coupon premium pour l&#39;utilisateur dont le code coupon est renseigné dans la variable voucherCR 200 ou 400 | Modifie le mot de passe de l&#39;utilisateur renseigné dans les variables password1 et password2CR 200 ou 400 | CR 405 |
-| /api/admin | Donne la description complète de toutes les cryptomonnaies de l&#39;API externe coinmarketCR 200 | CR 405 | CR 405 | CR 405 |
-| /api/admin/symbols | Donne la description complète de toutes les cryptomonnaiesCR 200 | CR 405 | CR 405 | CR 405 |
-| /api/admin/id/name/symbol | CR 405 | Ajoute une cryptomonnaie dans notre API en renseignant l&#39;ID, son nom et son symboleCR 201 ou 400 | CR 405 | CR 405 |
-| /api/admin/id/active | CR 405 | CR 405 | Modifie la visibilité de la cryptomonnaie dont l&#39;ID est idCR 200 ou 400 | CR 405 |
+| /account/login | CR 405 | Permet de soumettre son email et son mot de passe pour se connecter.<br />CR 202 ou 403 | CR 405 | CR 405 |
+| /account/registration | CR 405 | Créé un nouvel utilisateur en envoyant trois variables : email, password1, password2.<br />CR 201 ou 400 | CR 405 | CR 405 |
+| /api/cryptocurrency | Donne toutes les données du marché de toutes les cryptomonnaies.<br />CR 200 | CR 405 | CR 405 | CR 405 |
+| /api/cryptocurrency/id | Donne la description d&#39;une cryptomonnaie dont l&#39;ID est ID.<br />CR 200 | CR 405 | CR 405 | CR 405 |
+| /api/wallet | Donne la description du portefeuille de l&#39;utilisateur en fonction du token de connexion.<br />CR 200 | CR 405 | CR 405 | CR 405 |
+| /api/wallet/symbols | Donne la description de toutes les cryptomonnaies.<br />CR 200 | CR 405 | CR 405 | CR 405 |
+| /api/wallet/id/amount | CR 405 | Créé une cryptomonnaie dont l&#39;ID est id et le montant est amount dans le portefeuille de l&#39;utilisateur.<br />CR 201 ou 400 | CR 405 | CR 405 |
+| /api/wallet/id | CR 405 | CR 405 | Modifie le montant de la cryptomonnaie du portefeuille de l&#39;utilisateur. Le montant est renseigné par la variable amount.<br />CR 200 ou 400 | Supprime la cryptomonnaie dont l&#39;ID est id du portefeuille de l&#39;utilisateur.<br />CR 200 |
+| /api/profile | Donne la description du profil de l&#39;utilisateur.<br />CR 200 | Ajoute un coupon premium pour l&#39;utilisateur dont le code coupon est renseigné dans la variable voucher.<br />CR 200 ou 400 | Modifie le mot de passe de l&#39;utilisateur renseigné dans les variables password1 et password2.<br />CR 200 ou 400 | CR 405 |
+| /api/admin | Donne la description complète de toutes les cryptomonnaies de l&#39;API externe coinmarket.<br />CR 200 | CR 405 | CR 405 | CR 405 |
+| /api/admin/symbols | Donne la description complète de toutes les cryptomonnaies.<br />CR 200 | CR 405 | CR 405 | CR 405 |
+| /api/admin/id/name/symbol | CR 405 | Ajoute une cryptomonnaie dans notre API en renseignant l&#39;ID, son nom et son symbole.<br />CR 201 ou 400 | CR 405 | CR 405 |
+| /api/admin/id/active | CR 405 | CR 405 | Modifie la visibilité de la cryptomonnaie dont l&#39;ID est id.<br />CR 200 ou 400 | CR 405 |
 
 # Choix techniques
 
