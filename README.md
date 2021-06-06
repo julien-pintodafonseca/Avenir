@@ -98,7 +98,7 @@ TODO
 
 ## Lancer le serveur
 
-Ouvrir un terminal et saisir :
+Ouvrir un terminal, et saisir :
 
 ```sh
 $ git clone https://gitlab.ensimag.fr/pintodaj/avenir # or clone your own fork
@@ -109,9 +109,18 @@ $ npm start
 
 Le back-end de l'application devrait maintenant être lancé sur [localhost:5000](http://localhost:5000/).
 
+## Tests
+
+Dans un terminal, saisir :
+
+```sh
+$ cd avenir
+$ npm run test # or "npm run testWindows" for windows
+```
+
 ## Lint
 
-Ouvrir un terminal et saisir :
+Dans un terminal, saisir :
 
 ```sh
 $ cd avenir
@@ -122,15 +131,11 @@ Le rapport listant les éventuels problèmes devrait maintenant apparaître dans
 
 Note : la règle "camelcase" a été désactivée au sein du fichier avenir/.eslintrc.js.
 
-## Tests
-
-TODO
-
 # Front-end
 
 ## Lancer l'application
 
-Ouvrir un premier terminal et saisir :
+Ouvrir un premier terminal, et saisir :
 
 ```sh
 $ cd avenir/ui
@@ -138,7 +143,7 @@ $ npm install
 $ npm start
 ```
 
-Ouvrir un second terminal et saisir :
+Ouvrir un second terminal (en gardant le précédent ouvert), et saisir :
 
 ```sh
 $ cd avenir/ui
@@ -147,9 +152,25 @@ $ npm run android # or "npm run ios" for ios
 
 L'application devrait maintenant être lancée sur votre émulateur/appareil.
 
+## Tests
+
+Pour les tests Jest, dans un terminal, saisir :
+
+```sh
+$ cd avenir
+$ npm run test
+```
+
+Pour les tests Detox, saisir :
+
+```sh
+$ cd avenir
+$ npm run test-detox
+```
+
 ## Lint
 
-Ouvrir un terminal et saisir :
+Dans un terminal, saisir :
 
 ```sh
 $ cd avenir/ui
@@ -159,8 +180,3 @@ $ npm run lint
 Le rapport listant les éventuels problèmes devrait maintenant apparaître dans le terminal.
 
 Note : la règle "react-native/no-inline-styles" a été désactivée au sein du fichier avenir/ui/.eslintrc.js.
-
-## Tests
-
-TODO
-
