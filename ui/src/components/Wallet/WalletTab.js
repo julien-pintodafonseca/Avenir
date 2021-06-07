@@ -22,7 +22,7 @@ const WalletView = ({navigation}) => {
     })
       .then(response => response.json())
       .then(data => {
-        if (data.data) {
+        if (data.data.length !== 0) {
           setListData(
             data.data.map((CryptoItem, index) => ({
               key: `${index}`,
@@ -45,8 +45,9 @@ const WalletView = ({navigation}) => {
             ) / 100,
           );
           return;
+        } else {
+          setSum(0);
         }
-        alert(data.error);
       })
       .catch(error => alert(error));
   };
