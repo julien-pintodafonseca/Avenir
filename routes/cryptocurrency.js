@@ -53,7 +53,10 @@ router
         }
         const list_time = []
         const list_price = []
-        data.map(function (item) { list_time.push(item.timestamp), list_price.push(item.price) })
+        data.forEach((item) => {
+          list_time.push(item.timestamp)
+          list_price.push(item.price)
+        })
         res.status(200).send({ list_time, list_price })
       }
     )
