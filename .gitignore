@@ -23,7 +23,6 @@ coverage/
 db.*sqlite
 
 # Local development
-*.env
 *.dev
 
 # Docker
