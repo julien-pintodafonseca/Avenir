@@ -31,7 +31,7 @@ router
     }
   })
   .get('/', function (req, res) {
-    global.db.all('SELECT c.name, c.symbol, m.id_cryptocurrency, max(m.id), m.price, m.volume_24h, m.cmc_rank, m.percent_change_1h, m.percent_change_24h, m.percent_change_7d FROM market m inner join cryptocurrencies c on m.id_cryptocurrency = c.id group by m.id_cryptocurrency order by m.cmc_rank', [],
+    global.db.all('SELECT c.name, c.symbol, m.id_cryptocurrency, max(m.id), m.price, m.volume_24h, m.cmc_rank, m.percent_change_1h, m.percent_change_24h, m.percent_change_7d FROM market m inner join cryptocurrencies c on m.id_cryptocurrency = c.id where c.is_active = 1 group by m.id_cryptocurrency order by m.cmc_rank', [],
       (error, data) => {
         if (error) {
           console.debug(error)
