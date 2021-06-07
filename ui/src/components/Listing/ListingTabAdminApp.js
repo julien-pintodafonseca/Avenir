@@ -60,22 +60,14 @@ const ListingScreen = ({navigation}) => {
     return 'ok';
   }
 
-  useEffect(() => {
-    return navigation.addListener('focus', () => {
-      if (token) {
-        getCryptos(token);
-      }
+  useEffect(async () => {
+    await AsyncStorage.getItem('@userToken').then(data => {
+      setToken(JSON.parse(data));
+      return navigation.addListener('focus', () => {
+        getCryptos(JSON.parse(data));
+      });
     });
   }, [navigation]);
-
-  useEffect(() => {
-    const init = async () => {
-      await AsyncStorage.getItem('@userToken').then(data => {
-        setToken(JSON.parse(data));
-      });
-    };
-    init();
-  }, []);
 
   useEffect(() => {
     if (token) {
