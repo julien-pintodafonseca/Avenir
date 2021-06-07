@@ -5,18 +5,22 @@ import {AuthContext} from '../../Context';
 const Connexion = props => {
   const [mail, setMail] = useState('');
   const [password, setPWD] = useState('');
-  // const [mail, setMail] = useState('guest@avenir.fr');
-  // const [password, setPWD] = useState('Azerty123!');
   const {logIn} = useContext(AuthContext);
 
   return (
     <View>
       <Form>
         <Item>
-          <Input placeholder="E-mail" onChangeText={setMail} value={mail} />
+          <Input
+            style={styles.text}
+            placeholder="E-mail"
+            onChangeText={setMail}
+            value={mail}
+          />
         </Item>
         <Item>
           <Input
+            style={styles.text}
             onChangeText={setPWD}
             placeholder="Password"
             secureTextEntry
@@ -44,6 +48,9 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   button: {margin: 15, marginTop: 25, backgroundColor: '#FF7F50'},
+  text: {
+    color: '#FFF',
+  },
 });
 
 export default Connexion;
