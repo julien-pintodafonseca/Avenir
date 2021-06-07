@@ -86,7 +86,7 @@ const ListingScreen = ({navigation, route}) => {
   }, [navigation]);
 
   useEffect(() => {
-    if (premium) {
+    if (premium || route.params) {
       AsyncStorage.getItem('@userToken').then(data => {
         if (route.params) {
           getCryptosWallet(JSON.parse(data));
