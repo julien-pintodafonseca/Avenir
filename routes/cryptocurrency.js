@@ -40,24 +40,23 @@ router
         res.status(200).send({ data })
       })
   })
-  .get('/:id', function(req, res){
-    const id = Number(req.params.id);
-    if (isNaN(id) || id < 1)
-    {
-        res.status(400).send({ error: ":id must be a number higher or equal to 1" }); return
+  .get('/:id', function (req, res) {
+    const id = Number(req.params.id)
+    if (isNaN(id) || id < 1) {
+      res.status(400).send({ error: ':id must be a number higher or equal to 1' }); return
     }
     global.db.all('select timestamp, price from market where id_cryptocurrency = ?', [id],
-        (error, data) => {
-            if (error) {
-                console.debug(error)
-                res.status(500).send({ error: 'Internal Server Error' }); return
-            }
-            let list_time = []
-            let list_price = []
-            data.map(function (item) { list_time.push(item.timestamp), list_price.push(item.price) })
-            res.status(200).send({ list_time, list_price }); return
+      (error, data) => {
+        if (error) {
+          console.debug(error)
+          res.status(500).send({ error: 'Internal Server Error' }); return
         }
+        const list_time = []
+        const list_price = []
+        data.map(function (item) { list_time.push(item.timestamp), list_price.push(item.price) })
+        res.status(200).send({ list_time, list_price })
+      }
     )
-})
+  })
 
 module.exports = router
