@@ -1,70 +1,51 @@
-import React from 'react';
-import {Text, View} from 'react-native';
+import React, {useState} from 'react';
+import {Text, View, StyleSheet} from 'react-native';
 import {LineChart} from 'react-native-chart-kit';
 import {Dimensions} from 'react-native';
 
-const line = {
-  labels: [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-  ],
-  datasets: [
-    {
-      data: [
-        20, 45, 28, 80, 99, 43, 20, 45, 28, 80, 99, 43, 20, 45, 28, 80, 99, 43,
-      ],
-      strokeWidth: 5, // optional
-    },
-  ],
-};
-
-const Line = () => {
+const Line = props => {
+  const [showValue, setShowValue] = useState('');
   return (
     <View>
-      <Text>Bezier Line Chart</Text>
       <LineChart
-        data={line}
+        data={props.line}
         withVerticalLabels={false}
-        width={Dimensions.get('window').width} // from react-native
+        width={Dimensions.get('window').width * 0.95} // from react-native
         height={300}
         yAxisLabel={'$'}
-        onDataPointClick={({value, dataset, getColor}) =>
-          console.log('value:', value)
-        }
+        onDataPointClick={({value, dataset, getColor}) => setShowValue(value)}
         withDots={true}
         chartConfig={{
-          backgroundColor: '#e26a00',
+          backgroundColor: '#fb8c00',
           backgroundGradientFrom: '#fb8c00',
           backgroundGradientTo: '#ffa726',
           decimalPlaces: 2, // optional, defaults to 2dp
           color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
           style: {
-            borderRadius: 16,
+            borderRadius: 5,
           },
         }}
         style={{
-          marginVertical: 8,
-          borderRadius: 16,
+          margin: 5,
+          borderRadius: 5,
         }}
       />
+      <Text style={styles.cryptoValue}>
+        $ {Math.round(showValue * 100) / 100}
+      </Text>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  cryptoValue: {
+    marginTop: 20,
+    fontSize: 26,
+    color: '#FFF',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    textAlignVertical: 'center',
+  },
+});
 
 export default Line;

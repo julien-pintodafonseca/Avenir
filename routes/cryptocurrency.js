@@ -31,7 +31,7 @@ router
     }
   })
   .get('/', function (req, res) {
-    global.db.all('SELECT id_cryptocurrency, max(id), price, volume_24h, cmc_rank, percent_change_1h, percent_change_24h, percent_change_7d FROM market group by id_cryptocurrency order by cmc_rank', [],
+    global.db.all('SELECT c.name, c.symbol, m.id_cryptocurrency, max(m.id), m.price, m.volume_24h, m.cmc_rank, m.percent_change_1h, m.percent_change_24h, m.percent_change_7d FROM market m inner join cryptocurrencies c on m.id_cryptocurrency = c.id group by m.id_cryptocurrency order by m.cmc_rank', [],
       (error, data) => {
         if (error) {
           console.debug(error)
@@ -40,20 +40,24 @@ router
         res.status(200).send({ data })
       })
   })
-  .get('/:id', function (req, res) {
-    const id = Number(req.params.id)
-    if (isNaN(id) || id <= 1) {
-      res.status(400).send({ error: ':id must be a number higher or equal to 1' }); return
+  .get('/:id', function(req, res){
+    const id = Number(req.params.id);
+    if (isNaN(id) || id < 1)
+    {
+        res.status(400).send({ error: ":id must be a number higher or equal to 1" }); return
     }
-    global.db.get('select timestamp, price from market where id_cryptocurrency = ?', [id],
-      (error, data) => {
-        if (error) {
-          console.debug(error)
-          res.status(500).send({ error: 'Internal Server Error' }); return
+    global.db.all('select timestamp, price from market where id_cryptocurrency = ?', [id],
+        (error, data) => {
+            if (error) {
+                console.debug(error)
+                res.status(500).send({ error: 'Internal Server Error' }); return
+            }
+            let list_time = []
+            let list_price = []
+            data.map(function (item) { list_time.push(item.timestamp), list_price.push(item.price) })
+            res.status(200).send({ list_time, list_price }); return
         }
-        res.status(202).send({ data })
-      }
     )
-  })
+})
 
 module.exports = router

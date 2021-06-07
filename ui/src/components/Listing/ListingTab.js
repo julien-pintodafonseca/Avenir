@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable no-alert, react-hooks/exhaustive-deps */
+import React, {useContext, useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -10,72 +11,65 @@ import {
   Image,
 } from 'react-native';
 import Header from '../Custom/Header';
-const Cryptos = [
-  {
-    id: 1,
-    stockSymbol: 'BTC',
-    fullname: 'Bitcoin',
-    graph: 'pathtograph',
-    rawValue: 25,
-    variation: 2,
-  },
-  {
-    id: 2,
-    stockSymbol: 'DOGE',
-    fullname: 'Doge',
-    graph: 'pathtograph',
-    rawValue: 2,
-    variation: 4,
-  },
-  {
-    id: 3,
-    stockSymbol: 'ETH',
-    fullname: 'Etherum',
-    graph: 'pathtograph',
-    rawValue: 225,
-    variation: 6,
-  },
-  {
-    id: 4,
-    stockSymbol: 'CHA',
-    fullname: 'Chia',
-    graph: 'pathtograph',
-    rawValue: 12,
-    variation: -1,
-  },
-  {
-    id: 5,
-    stockSymbol: 'SHBA',
-    fullname: 'Shiba',
-    graph: 'pathtograph',
-    rawValue: 25,
-    variation: -4,
-  },
-];
+import {AuthContext} from '../../Context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ListingScreen = ({navigation, route}) => {
-  if (route.params) {
-    console.log(route.params.AddCryptoRoute);
+  const {BACKEND} = useContext(AuthContext);
+  const [Cryptos, setCryptos] = useState([]);
+
+  async function getCryptos(tkn) {
+    return fetch(`${BACKEND}/api/cryptocurrency`, {
+      method: 'GET',
+      headers: {'Content-Type': 'application/json', authorization: tkn},
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.data) {
+          setCryptos(
+            data.data.map((CryptoItem, index) => ({
+              key: `${index}`,
+              id: CryptoItem.id_cryptocurrency,
+              stockSymbol: CryptoItem.symbol,
+              fullname: CryptoItem.name,
+              link: `https://s2.coinmarketcap.com/static/img/coins/64x64/${CryptoItem.id_cryptocurrency}.png`,
+              rawValue: CryptoItem.price.toFixed(2),
+              variation: CryptoItem.percent_change_1h.toFixed(2),
+            })),
+          );
+          return;
+        }
+        alert(data.error);
+      })
+      .catch(error => alert(error));
   }
 
-  const Item = ({
-    id,
-    stockSymbol,
-    fullname,
-    link,
-    graph,
-    rawValue,
-    variation,
-  }) => (
+  useEffect(() => {
+    const init = async () => {
+      await AsyncStorage.getItem('@userToken').then(data => {
+        getCryptos(JSON.parse(data));
+      });
+    };
+    init();
+  }, [navigation]);
+
+  const Item = ({id, stockSymbol, fullname, link, rawValue, variation}) => (
     <View>
       <TouchableHighlight
         style={styles.rowFrontVisible}
         onPress={() => {
-          console.log('Element touched');
           if (route.params) {
             navigation.navigate('WalletListingAddAmount');
           } else {
-            navigation.navigate('CryptoDetail', {AddCryptoRoute: true});
+            navigation.navigate('CryptoDetail', {
+              AddCryptoRoute: true,
+              idCrypto: id,
+              stockSymbol,
+              fullname,
+              rawValue,
+              variation,
+              link,
+            });
           }
         }}
         underlayColor={'#aaa'}>
@@ -95,12 +89,7 @@ const ListingScreen = ({navigation, route}) => {
               {fullname}
             </Text>
           </View>
-          <Text
-            style={{backgroundColor: 'red', marginLeft: 20, width: 100}}
-            numberOfLines={1}>
-            {graph}
-          </Text>
-          <View style={{marginLeft: 'auto', width: 50}}>
+          <View style={{marginLeft: 'auto', width: 100}}>
             <Text style={styles.rawValue} numberOfLines={1}>
               {rawValue}$
             </Text>

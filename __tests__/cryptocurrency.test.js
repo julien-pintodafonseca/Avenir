@@ -22,14 +22,17 @@ describe('GET /api/cryptocurrency', () => {
 })
 
 describe('GET /api/cryptocurrency/:id', () => {
-  const expected = 'data'
+  
   test('Get market from a specific crypto from id', async () => {
     const response = await request(app)
       .get('/api/cryptocurrency/4000')
       .set('authorization', token)
-    expect(response.statusCode).toBe(202)
-    expect(response.body).toHaveProperty(expected)
+    expect(response.statusCode).toBe(200)
+    expect(response.body).toHaveProperty('list_time')
+    expect(response.body).toHaveProperty('list_price')
+
   })
+  
 })
 
 describe('GET /api/cryptocurrency/:id BAD', () => {

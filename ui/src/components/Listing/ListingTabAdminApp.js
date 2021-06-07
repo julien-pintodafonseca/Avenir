@@ -19,10 +19,10 @@ const ListingScreen = ({navigation}) => {
   const {BACKEND} = useContext(AuthContext);
   const [token, setToken] = useState('');
 
-  async function getCryptos(assToken) {
+  async function getCryptos(tkn) {
     return fetch(`${BACKEND}/api/admin/symbols`, {
       method: 'GET',
-      headers: {'Content-Type': 'application/json', authorization: assToken},
+      headers: {'Content-Type': 'application/json', authorization: tkn},
     })
       .then(response => response.json())
       .then(data => {
