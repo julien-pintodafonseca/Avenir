@@ -60,7 +60,9 @@ const App = () => {
           setIsAdmin(data.is_admin);
           AsyncStorage.setItem('@is_admin', JSON.stringify(data.is_admin));
           AsyncStorage.setItem('@is_premium', JSON.stringify(data.is_premium));
+          return
         }
+        alert(data.error)
       })
       .catch(error => console.log(error));
   }

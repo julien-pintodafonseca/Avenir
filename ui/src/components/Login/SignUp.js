@@ -27,12 +27,7 @@ const SignUp = ({navigation}) => {
   const {BACKEND} = useContext(AuthContext);
 
   function submitSignUpForm() {
-    if (
-      email &&
-      password &&
-      email === confirmEmail &&
-      password === confirmPassword
-    ) {
+    
       fetch(`${BACKEND}/account/registration`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -46,10 +41,12 @@ const SignUp = ({navigation}) => {
         .then(data => {
           if (data.msg) {
             logIn(email, password);
+            return
           }
+          alert(data.errors.toString())
         })
         .catch(error => console.log(error));
-    }
+    
   }
 
   return (
