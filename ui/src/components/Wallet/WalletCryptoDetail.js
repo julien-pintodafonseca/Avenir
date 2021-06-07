@@ -24,10 +24,10 @@ const WalletCryptoDetail = ({route, navigation}) => {
         if (data.msg === 'ok') {
           return 1;
         }
-        alert(data.error);
+        alert('Please enter a valid number (>0)');
         return 0;
       })
-      .catch(error => alert(error));
+      .catch(error => console.log(error));
   }
 
   async function updateCrypto(tkn) {
@@ -39,11 +39,11 @@ const WalletCryptoDetail = ({route, navigation}) => {
       .then(response => response.json())
       .then(data => {
         if (data.msg === 'ok') {
-          return;
+          return data.msg;
         }
-        alert(data.error);
+        alert('Please enter a valid number (>0)');
       })
-      .catch(error => alert(error));
+      .catch(error => console.log(error));
   }
   useEffect(() => {
     const init = async () => {

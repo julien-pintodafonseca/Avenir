@@ -61,16 +61,27 @@ const ListingScreen = ({navigation}) => {
   }
 
   useEffect(() => {
+    return navigation.addListener('focus', () => {
+      if (token) {
+        getCryptos(token);
+      }
+    });
+  }, [navigation]);
+
+  useEffect(() => {
     const init = async () => {
       await AsyncStorage.getItem('@userToken').then(data => {
         setToken(JSON.parse(data));
-        return navigation.addListener('focus', () => {
-          getCryptos(JSON.parse(data));
-        });
       });
     };
     init();
-  }, [navigation]);
+  }, []);
+
+  useEffect(() => {
+    if (token) {
+      getCryptos(token);
+    }
+  }, [token]);
 
   const closeRow = (rowMap, rowItem) => {
     if (rowMap[rowItem.key]) {

@@ -52,13 +52,13 @@ const WalletView = ({navigation}) => {
       .catch(error => alert(error));
   };
 
-  useEffect(() => {
-    const init = async () => {
-      await AsyncStorage.getItem('@userToken').then(data => {
-        setToken(JSON.parse(data));
+  useEffect(async () => {
+    await AsyncStorage.getItem('@userToken').then(data => {
+      setToken(JSON.parse(data));
+      return navigation.addListener('focus', () => {
+        getWalletCryptoList(JSON.parse(data));
       });
-    };
-    init();
+    });
   }, [navigation]);
 
   useEffect(() => {
