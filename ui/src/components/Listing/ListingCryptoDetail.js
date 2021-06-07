@@ -5,15 +5,6 @@ import {Container, View} from 'native-base';
 
 import Header from '../Custom/Header';
 import LineChart from '../LineChart';
-// fetch de crypto selon le route.params.cryptoId
-const Crypto = {
-  id: 1,
-  stockSymbol: 'BTC',
-  fullname: 'Bitcoin',
-  graph: 'pathtograph',
-  rawValue: 25,
-  variation: 2,
-};
 
 import {AuthContext} from '../../Context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -70,10 +61,7 @@ const CryptoDetail = ({route, navigation}) => {
         <Text style={styles.cryptoValue}>$ {rawValue}</Text>
         <Text
           style={variation >= 0 ? styles.varValueGreen : styles.varValueRed}>
-          {Crypto.variation >= 0
-            ? '+ ' + Crypto.variation
-            : '- ' + Crypto.variation}
-          %
+          {variation}%
         </Text>
         {lineData && <LineChart line={lineData} />}
         <View
