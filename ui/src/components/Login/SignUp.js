@@ -27,26 +27,25 @@ const SignUp = ({navigation}) => {
   const {BACKEND} = useContext(AuthContext);
 
   function submitSignUpForm() {
-    
-      fetch(`${BACKEND}/account/registration`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: `${JSON.stringify({
-          email,
-          password,
-          password2: confirmPassword,
-        })}`,
+    fetch(`${BACKEND}/account/registration`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: `${JSON.stringify({
+        email,
+        password,
+        password2: confirmPassword,
+      })}`,
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.msg) {
+          logIn(email, password);
+          return;
+        }
+        /* eslint-disable-next-line no-alert */
+        alert(data.errors.toString());
       })
-        .then(response => response.json())
-        .then(data => {
-          if (data.msg) {
-            logIn(email, password);
-            return
-          }
-          alert(data.errors.toString())
-        })
-        .catch(error => console.log(error));
-    
+      .catch(error => console.log(error));
   }
 
   return (
