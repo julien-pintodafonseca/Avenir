@@ -18,6 +18,7 @@ const ListingScreen = ({navigation, route}) => {
   const {BACKEND} = useContext(AuthContext);
   const [Cryptos, setCryptos] = useState([]);
   const [premium, setPremium] = useState(null);
+  const [token, setToken] = useState('');
 
   async function getCryptos(tkn) {
     return fetch(`${BACKEND}/api/cryptocurrency`, {
@@ -71,24 +72,30 @@ const ListingScreen = ({navigation, route}) => {
 
   useEffect(() => {
     const init = async () => {
-      await AsyncStorage.getItem('@is_premium').then(data => {
+      AsyncStorage.getItem('@is_premium').then(data => {
         if (data > 0) {
           setPremium(data);
         }
       });
 
-      await AsyncStorage.getItem('@userToken').then(data => {
-        if (premium) {
-          if (route.params) {
-            getCryptosWallet(JSON.parse(data));
-          } else {
-            getCryptos(JSON.parse(data));
-          }
-        }
+      AsyncStorage.getItem('@userToken').then(data => {
+        setToken(JSON.parse(data));
       });
     };
     init();
   }, [navigation]);
+
+  useEffect(() => {
+    if (premium) {
+      AsyncStorage.getItem('@userToken').then(data => {
+        if (route.params) {
+          getCryptosWallet(JSON.parse(data));
+        } else {
+          getCryptos(JSON.parse(data));
+        }
+      });
+    }
+  }, [premium, token]);
 
   const Item = ({id, stockSymbol, fullname, link, rawValue, variation}) => (
     <View>
