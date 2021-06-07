@@ -142,16 +142,19 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 5,
     color: '#FFF',
+    fontFamily: 'Helvetica',
   },
   rawValue: {
     fontSize: 14,
     fontWeight: 'bold',
     marginBottom: 5,
     color: '#FFF',
+    fontFamily: 'Helvetica',
   },
   fullname: {
     fontSize: 12,
     color: '#999',
+    fontFamily: 'Helvetica',
   },
   rowFrontVisible: {
     backgroundColor: '#000000',
@@ -168,6 +171,7 @@ const styles = StyleSheet.create({
     color: '#FF7F50',
     fontSize: 20,
     fontWeight: 'bold',
+    fontFamily: 'Helvetica',
   },
   border: {
     borderBottomColor: 'gray',
@@ -178,11 +182,13 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontSize: 20,
     fontWeight: 'bold',
+    fontFamily: 'Helvetica',
   },
   button: {margin: 15, marginTop: 25, backgroundColor: '#FF7F50'},
   logOutButton: {margin: 15, marginTop: 25, backgroundColor: '#FF3C50'},
   text: {
     color: '#FFF',
+    fontFamily: 'Helvetica',
   },
   bgColor: {backgroundColor: '#303030'},
 });

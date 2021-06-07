@@ -3,8 +3,8 @@ import {StyleSheet, View} from 'react-native';
 import {Button, Item, Input, Form, Text} from 'native-base';
 import {AuthContext} from '../../Context';
 const Connexion = props => {
-  const [mail, setMail] = useState('');
-  const [password, setPWD] = useState('');
+  const [mail, setMail] = useState('guestpremium@avenir.fr');
+  const [password, setPWD] = useState('Azerty123!');
   const {logIn} = useContext(AuthContext);
 
   return (
@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
   button: {margin: 15, marginTop: 25, backgroundColor: '#FF7F50'},
   text: {
     color: '#FFF',
+    fontFamily: 'Helvetica',
   },
 });
 

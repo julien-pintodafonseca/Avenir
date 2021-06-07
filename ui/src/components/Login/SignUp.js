@@ -178,6 +178,7 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontSize: 20,
     fontWeight: 'bold',
+    fontFamily: 'Helvetica',
   },
   spacing: {
     borderBottomColor: 'gray',
@@ -187,12 +188,14 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#FFF',
+    fontFamily: 'Helvetica',
   },
   infoText: {
     color: 'gray',
     fontSize: 12,
     margin: 15,
     marginBottom: 0,
+    fontFamily: 'Helvetica',
   },
   button: {margin: 15, backgroundColor: '#FF7F50'},
 });

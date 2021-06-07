@@ -28,9 +28,11 @@ const ConfirmInputItem = props => {
 const styles = StyleSheet.create({
   text: {
     color: '#fff',
+    fontFamily: 'Helvetica',
   },
   sectionTitle: {
     color: '#FFF',
+    fontFamily: 'Helvetica',
     fontSize: 20,
     fontWeight: 'bold',
   },

@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
   separator: {borderColor: 'gray', borderWidth: 1, margin: 30},
   text: {
     color: '#FFF',
+    fontFamily: 'Helvetica',
   },
   button: {margin: 15, backgroundColor: '#FF7F50'},
 });

@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
     color: '#FF7F50',
     fontSize: 20,
     fontWeight: 'bold',
+    fontFamily: 'Helvetica',
   },
 });
 

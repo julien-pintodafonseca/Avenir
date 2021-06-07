@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
     color: '#FF7F50',
     fontSize: 20,
     fontWeight: 'bold',
+    fontFamily: 'Helvetica',
   },
   cryptoValue: {
     fontSize: 30,
@@ -100,18 +101,21 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     textAlignVertical: 'center',
+    fontFamily: 'Helvetica',
   },
   varValueRed: {
     color: 'red',
     textAlign: 'center',
     textAlignVertical: 'center',
     fontSize: 15,
+    fontFamily: 'Helvetica',
   },
   varValueGreen: {
     color: 'green',
     textAlign: 'center',
     textAlignVertical: 'center',
     fontSize: 25,
+    fontFamily: 'Helvetica',
   },
 });
 

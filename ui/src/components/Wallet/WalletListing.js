@@ -252,6 +252,7 @@ const styles = StyleSheet.create({
   },
   backTextWhite: {
     color: '#FFF',
+    fontFamily: 'Helvetica',
   },
   rowFront: {
     borderRadius: 5,
@@ -308,21 +309,24 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 5,
     color: '#FFF',
+    fontFamily: 'Helvetica',
   },
   rawValue: {
     fontSize: 14,
     fontWeight: 'bold',
     marginBottom: 5,
     color: '#FFF',
+    fontFamily: 'Helvetica',
     marginLeft: 30,
   },
   fullname: {
     fontSize: 12,
     color: '#999',
+    fontFamily: 'Helvetica',
   },
   imageSize: {
     width: 30,
     height: 30,
   },
-  cryptoName: {marginLeft: 20, width: 70},
+  cryptoName: {marginLeft: 20, width: 70, fontFamily: 'Helvetica'},
 });

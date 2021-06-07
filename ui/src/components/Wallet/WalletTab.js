@@ -121,16 +121,19 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 5,
     color: '#FFF',
+    fontFamily: 'Helvetica',
   },
   rawValue: {
     fontSize: 14,
     fontWeight: 'bold',
     marginBottom: 5,
     color: '#FFF',
+    fontFamily: 'Helvetica',
   },
   fullname: {
     fontSize: 12,
     color: '#999',
+    fontFamily: 'Helvetica',
   },
   rowFrontVisible: {
     backgroundColor: '#000000',
@@ -147,6 +150,7 @@ const styles = StyleSheet.create({
     color: '#FF7F50',
     fontSize: 20,
     fontWeight: 'bold',
+    fontFamily: 'Helvetica',
   },
   walletAsset: {
     borderBottomColor: 'gray',
@@ -158,11 +162,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     height: 200,
+    fontFamily: 'Helvetica',
   },
   subtitle: {
     color: '#FFF',
     fontSize: 20,
     fontWeight: 'bold',
+    fontFamily: 'Helvetica',
   },
   walletListing: {
     height: Dimensions.get('window').height * 0.7,

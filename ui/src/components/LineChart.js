@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     textAlignVertical: 'center',
+    fontFamily: 'Helvetica',
   },
 });
 

@@ -200,22 +200,26 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
+    fontFamily: 'Helvetica',
   },
   stockSymbol: {
     fontSize: 14,
     fontWeight: 'bold',
     marginBottom: 5,
     color: '#FFF',
+    fontFamily: 'Helvetica',
   },
   rawValue: {
     fontSize: 14,
     fontWeight: 'bold',
     marginBottom: 5,
     color: '#FFF',
+    fontFamily: 'Helvetica',
   },
   fullname: {
     fontSize: 12,
     color: '#999',
+    fontFamily: 'Helvetica',
   },
   rowFrontVisible: {
     backgroundColor: '#303030',

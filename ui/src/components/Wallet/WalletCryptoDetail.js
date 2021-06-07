@@ -68,7 +68,7 @@ const WalletCryptoDetail = ({route, navigation}) => {
           <Form>
             <Item>
               <Input
-                style={{color: '#FFF'}}
+                style={{color: '#FFF', fontFamily: 'Helvetica'}}
                 placeholder="Amount"
                 value={amount}
                 onChangeText={setAmount}
@@ -85,7 +85,9 @@ const WalletCryptoDetail = ({route, navigation}) => {
             }}
             block
             style={styles.button}>
-            <Text style={{color: '#FFF'}}>Confirm</Text>
+            <Text style={{color: '#FFF', fontFamily: 'Helvetica'}}>
+              Confirm
+            </Text>
           </Button>
         </View>
       </Container>
@@ -105,6 +107,7 @@ const styles = StyleSheet.create({
     color: '#FF7F50',
     fontSize: 20,
     fontWeight: 'bold',
+    fontFamily: 'Helvetica',
   },
   subtitle: {
     fontSize: 30,
@@ -112,6 +115,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     textAlignVertical: 'center',
+    fontFamily: 'Helvetica',
   },
   button: {margin: 15, marginTop: 25, backgroundColor: '#FF7F50'},
 });
