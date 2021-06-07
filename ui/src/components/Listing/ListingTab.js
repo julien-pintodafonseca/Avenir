@@ -44,10 +44,38 @@ const ListingScreen = ({navigation, route}) => {
       .catch(error => alert(error));
   }
 
+  async function getCryptosWallet(tkn) {
+    return fetch(`${BACKEND}/api/wallet/symbols`, {
+      method: 'GET',
+      headers: {'Content-Type': 'application/json', authorization: tkn},
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.data) {
+          setCryptos(
+            data.data.map((CryptoItem, index) => ({
+              key: `${index}`,
+              id: CryptoItem.id,
+              stockSymbol: CryptoItem.symbol,
+              fullname: CryptoItem.name,
+              link: `https://s2.coinmarketcap.com/static/img/coins/64x64/${CryptoItem.id}.png`,
+            })),
+          );
+          return;
+        }
+        alert(data.error);
+      })
+      .catch(error => alert(error));
+  }
+
   useEffect(() => {
     const init = async () => {
       await AsyncStorage.getItem('@userToken').then(data => {
-        getCryptos(JSON.parse(data));
+        if (route.params) {
+          getCryptosWallet(JSON.parse(data));
+        } else {
+          getCryptos(JSON.parse(data));
+        }
       });
     };
     init();
@@ -59,10 +87,14 @@ const ListingScreen = ({navigation, route}) => {
         style={styles.rowFrontVisible}
         onPress={() => {
           if (route.params) {
-            navigation.navigate('WalletListingAddAmount');
+            navigation.navigate('WalletListingAddAmount', {
+              AddCryptoRoute: true,
+              idCrypto: id,
+              stockSymbol,
+              fullname,
+            });
           } else {
             navigation.navigate('CryptoDetail', {
-              AddCryptoRoute: true,
               idCrypto: id,
               stockSymbol,
               fullname,
@@ -89,16 +121,18 @@ const ListingScreen = ({navigation, route}) => {
               {fullname}
             </Text>
           </View>
-          <View style={{marginLeft: 'auto', width: 100}}>
-            <Text style={styles.rawValue} numberOfLines={1}>
-              {rawValue}$
-            </Text>
-            <Text
-              style={variation >= 0 ? {color: 'green'} : {color: 'red'}}
-              numberOfLines={1}>
-              {variation}%
-            </Text>
-          </View>
+          {!route.params && (
+            <View style={{marginLeft: 'auto', width: 100}}>
+              <Text style={styles.rawValue} numberOfLines={1}>
+                {rawValue}$
+              </Text>
+              <Text
+                style={variation >= 0 ? {color: 'green'} : {color: 'red'}}
+                numberOfLines={1}>
+                {variation}%
+              </Text>
+            </View>
+          )}
         </View>
       </TouchableHighlight>
     </View>

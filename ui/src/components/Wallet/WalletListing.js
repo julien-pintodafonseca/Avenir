@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+/* eslint-disable no-alert, react-hooks/exhaustive-deps */
+import React, {useContext, useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -12,74 +13,55 @@ import {
 import {SwipeListView} from 'react-native-swipe-list-view';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const Cryptos = [
-  {
-    id: 1,
-    stockSymbol: 'BTC',
-    fullname: 'Bitcoin',
-    symbol: 'U+20BF',
-    amount: 10,
-    amountConverted: 272727,
-  },
-  {
-    id: 2,
-    stockSymbol: 'DOGE',
-    symbol: 'U+20BF',
-    fullname: 'Doge',
-    amount: 10,
-    amountConverted: 272727,
-  },
-  {
-    id: 3,
-    stockSymbol: 'ETH',
-    fullname: 'Etherum',
-    symbol: 'U+20BF',
-    amount: 10,
-    amountConverted: 272727,
-  },
-  {
-    id: 4,
-    stockSymbol: 'CHA',
-    fullname: 'Chia',
-    symbol: 'U+20BF',
-    amount: 10,
-    amountConverted: 272727,
-  },
-  {
-    id: 5,
-    stockSymbol: 'SHBA',
-    fullname: 'Shiba',
-    symbol: 'U+20BF',
-    amount: 10,
-    amountConverted: 272727,
-  },
-];
+import {AuthContext} from '../../Context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const ListingScreen = ({navigation}) => {
-  const [listData, setListData] = useState(
-    Cryptos.map((CryptoItem, index) => ({
-      key: `${index}`,
-      id: CryptoItem.id,
-      stockSymbol: CryptoItem.stockSymbol,
-      fullname: CryptoItem.fullname,
-      link: `https://s2.coinmarketcap.com/static/img/coins/64x64/${CryptoItem.id}.png`,
-      amount: CryptoItem.amount,
-      amountConverted: CryptoItem.amountConverted,
-    })),
-  );
-
+const ListingScreen = ({navigation, listData}, ...props) => {
+  const {BACKEND} = useContext(AuthContext);
+  const [token, setToken] = useState('');
+  const [listCrypto, setListCrypto] = useState([]);
   const closeRow = (rowMap, rowKey) => {
     if (rowMap[rowKey]) {
       rowMap[rowKey].closeRow();
     }
   };
+  const requestDelete = id => {
+    return fetch(`${BACKEND}/api/wallet/${id}`, {
+      method: 'DELETE',
+      headers: {'Content-Type': 'application/json', authorization: token},
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.msg === 'ok') {
+          return 1;
+        }
+        alert(data.error);
+        return 0;
+      })
+      .catch(error => {
+        alert(error);
+        return 0;
+      });
+  };
+  useEffect(() => {
+    const init = async () => {
+      await AsyncStorage.getItem('@userToken').then(data => {
+        setToken(JSON.parse(data));
+      });
+    };
+    init();
+    setListCrypto(listData);
+  }, [navigation]);
 
-  const deleteRow = (rowMap, rowKey) => {
-    closeRow(rowMap, rowKey);
-    const newData = [...listData];
-    const prevIndex = listData.findIndex(item => item.key === rowKey);
-    newData.splice(prevIndex, 1);
-    setListData(newData);
+  const deleteRow = (rowMap, rowKey, rowKeyId) => {
+    const res = requestDelete(rowKeyId);
+    if (res) {
+      closeRow(rowMap, rowKey);
+      const newData = [...listCrypto];
+      const prevIndex = listCrypto.findIndex(item => item.key === rowKey);
+      newData.splice(prevIndex, 1);
+      setListCrypto(newData);
+    }
   };
 
   const onRowDidOpen = rowKey => {
@@ -102,8 +84,8 @@ const ListingScreen = ({navigation}) => {
     console.log('onLeftAction', rowKey);
   };
 
-  const VisibleItem = props => {
-    const {data, rowHeightAnimatedValue, removeRow, rightActionState} = props;
+  const VisibleItem = p => {
+    const {data, rowHeightAnimatedValue, removeRow, rightActionState} = p;
     if (rightActionState) {
       Animated.timing(rowHeightAnimatedValue, {
         toValue: 0,
@@ -120,8 +102,13 @@ const ListingScreen = ({navigation}) => {
         <TouchableHighlight
           style={styles.rowFrontVisible}
           onPress={() => {
-            console.log('Element touched');
-            navigation.navigate('WalletCryptoDetail', {cryptoId: data.item.id});
+            console.log('Element touched oui');
+            navigation.navigate('WalletCryptoDetail', {
+              idCrypto: data.item.id,
+              quantity: data.item.quantity,
+              stockSymbol: data.item.stockSymbol,
+              fullname: data.item.fullname,
+            });
           }}
           underlayColor={'#aaa'}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -134,12 +121,18 @@ const ListingScreen = ({navigation}) => {
                 {data.item.fullname}
               </Text>
             </View>
-            <Text style={styles.rawValue} numberOfLines={1}>
-              {data.item.amount}
-            </Text>
-            <Text style={styles.rawValue} numberOfLines={1}>
-              ${data.item.amountConverted}
-            </Text>
+            <View
+              style={{
+                flexDirection: 'column',
+                marginLeft: 50,
+              }}>
+              <Text style={styles.rawValue} numberOfLines={1}>
+                {data.item.quantity}
+              </Text>
+              <Text style={styles.rawValue} numberOfLines={1}>
+                $ {data.item.amountConverted}
+              </Text>
+            </View>
           </View>
         </TouchableHighlight>
       </Animated.View>
@@ -153,12 +146,12 @@ const ListingScreen = ({navigation}) => {
       <VisibleItem
         data={data}
         rowHeightAnimatedValue={rowHeightAnimatedValue}
-        removeRow={() => deleteRow(rowMap, data.item.key)}
+        removeRow={() => deleteRow(rowMap, data.item.key, data.item.id)}
       />
     );
   };
 
-  const HiddenItemWithActions = props => {
+  const HiddenItemWithActions = p => {
     const {
       swipeAnimatedValue,
       leftActionActivated,
@@ -167,7 +160,7 @@ const ListingScreen = ({navigation}) => {
       rowHeightAnimatedValue,
       onClose,
       onDelete,
-    } = props;
+    } = p;
 
     if (rightActionActivated) {
       Animated.spring(rowActionAnimatedValue, {
@@ -248,7 +241,7 @@ const ListingScreen = ({navigation}) => {
         rowActionAnimatedValue={rowActionAnimatedValue}
         rowHeightAnimatedValue={rowHeightAnimatedValue}
         onClose={() => closeRow(rowMap, data.item.key)}
-        onDelete={() => deleteRow(rowMap, data.item.key)}
+        onDelete={() => deleteRow(rowMap, data.item.key, data.item.id)}
       />
     );
   };
@@ -256,7 +249,7 @@ const ListingScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <SwipeListView
-        data={listData}
+        data={listCrypto}
         renderItem={renderItem}
         renderHiddenItem={renderHiddenItem}
         leftOpenValue={75}

@@ -1,66 +1,103 @@
-import React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+/* eslint-disable no-alert, react-hooks/exhaustive-deps */
+import React, {useContext, useEffect, useState} from 'react';
+import {StyleSheet, View, Text, Dimensions} from 'react-native';
 import {Container, Icon, Button} from 'native-base';
 import CustomCryptoList from './WalletListing';
 
 import Header from '../Custom/Header';
-// fetch de user selon l'iduser
-// const userWallet = {
-//   id: 1,
-//   totalAssets: 2034,
-//   assets: [
-//     {
-//       id: 1,
-//       stockSymbol: 'BTC',
-//       fullname: 'Bitcoin',
-//       symbol: 'U+20BF',
-//       amount: 10,
-//       amountConverted: 272727,
-//     },
-//     {
-//       id: 2,
-//       stockSymbol: 'ETH',
-//       fullname: 'ether',
-//       symbol: 'U+20BF',
-//       amount: 20,
-//       amountConverted: 272,
-//     },
-//     {
-//       id: 3,
-//       stockSymbol: 'doge',
-//       fullname: 'doge',
-//       symbol: 'U+20BF',
-//       amount: 20,
-//       amountConverted: 272,
-//     },
-//   ],
-// };
+import {AuthContext} from '../../Context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const WalletView = ({navigation}) => {
+  const {BACKEND} = useContext(AuthContext);
+  const [sum, setSum] = useState('');
+  const [listData, setListData] = useState({});
+
+  const getWalletCryptoList = tkn => {
+    return fetch(`${BACKEND}/api/wallet`, {
+      method: 'GET',
+      headers: {'Content-Type': 'application/json', authorization: tkn},
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.data) {
+          setListData(
+            data.data.map((CryptoItem, index) => ({
+              key: `${index}`,
+              id: CryptoItem.id,
+              stockSymbol: CryptoItem.symbol,
+              fullname: CryptoItem.name,
+              link: `https://s2.coinmarketcap.com/static/img/coins/64x64/${CryptoItem.id}.png`,
+              quantity: CryptoItem.quantity,
+              amount: Math.round(CryptoItem.price * 100) / 100,
+              amountConverted: Math.round(CryptoItem.total * 100) / 100,
+            })),
+          );
+          setSum(
+            Math.round(
+              data.data
+                .map(item => item.total)
+                .reduce(
+                  (accumulator, currentValue) => accumulator + currentValue,
+                ) * 100,
+            ) / 100,
+          );
+          return;
+        }
+        alert(data.error);
+      })
+      .catch(error => alert(error));
+  };
+
+  useEffect(() => {
+    const init = async () => {
+      await AsyncStorage.getItem('@userToken').then(data => {
+        return navigation.addListener('focus', () => {
+          getWalletCryptoList(JSON.parse(data));
+        });
+      });
+    };
+    init();
+  }, [navigation]);
+
   return (
     <Container style={styles.bgColor}>
-      <Header title="Total Balance" />
+      <Header title={'Total Balance'} />
       <Container style={{backgroundColor: '#303030', margin: 10}}>
-        <View style={styles.walletAsset}>
+        {/* <View style={styles.walletAsset}>
           <Text style={styles.subtitle}>Asset Allocation</Text>
           <Text style={styles.tmpText}> path to graph</Text>
-        </View>
+        </View> */}
         <View style={styles.walletListing}>
           <View style={styles.walletListingBanner}>
-            <Text style={styles.subtitle}>Assets</Text>
+            <Text style={styles.subtitle}>Total Assets</Text>
+            <Text
+              style={[
+                styles.subtitle,
+                {
+                  textAlign: 'center',
+                  textAlignVertical: 'center',
+                  marginLeft: 30,
+                },
+              ]}>
+              {sum}
+            </Text>
             <Button
               iconRight
               transparent
               style={{marginLeft: 'auto'}}
               onPress={() => {
-                console.log('pressed');
                 navigation.navigate('WalletListingAdd', {AddCryptoRoute: true});
               }}>
               <Text style={styles.walletAddText}>Add</Text>
               <Icon style={styles.addIcon} size={40} name="add-circle" />
             </Button>
           </View>
-          <CustomCryptoList style={styles.walletList} navigation={navigation} />
+          <CustomCryptoList
+            style={styles.walletList}
+            navigation={navigation}
+            listData={listData}
+          />
         </View>
       </Container>
     </Container>
@@ -120,7 +157,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   walletListing: {
-    height: 250,
+    height: Dimensions.get('window').height * 0.7,
     paddingTop: 20,
   },
   walletListingBanner: {flexDirection: 'row', alignItems: 'center'},

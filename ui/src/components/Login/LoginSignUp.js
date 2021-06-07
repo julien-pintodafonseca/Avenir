@@ -4,7 +4,6 @@ import {Container, Title, Content, Button} from 'native-base';
 import Login from './Login';
 
 const LoginSignup = props => {
-  console.log(props.onConnect);
   return (
     <Container style={styles.container}>
       <Content>
@@ -16,7 +15,6 @@ const LoginSignup = props => {
             block
             style={styles.button}
             onPress={() => {
-              console.log('Element touched sending form');
               props.navigation.navigate('SignUp');
             }}>
             <Text style={styles.text}>SIGN UP</Text>
