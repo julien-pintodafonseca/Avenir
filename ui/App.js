@@ -53,12 +53,14 @@ const App = () => {
     })
       .then(response => response.json())
       .then(data => {
-        setIsLoading(data.token ? true : false);
-        setUserToken(data.token ? data.token : null);
-        AsyncStorage.setItem('@userToken', JSON.stringify(data.token));
-        setIsAdmin(data.is_admin);
-        AsyncStorage.setItem('@is_admin', JSON.stringify(data.is_admin));
-        AsyncStorage.setItem('@is_premium', JSON.stringify(data.is_premium));
+        if (!data.error) {
+          setIsLoading(data.token ? true : false);
+          setUserToken(data.token ? data.token : null);
+          AsyncStorage.setItem('@userToken', JSON.stringify(data.token));
+          setIsAdmin(data.is_admin);
+          AsyncStorage.setItem('@is_admin', JSON.stringify(data.is_admin));
+          AsyncStorage.setItem('@is_premium', JSON.stringify(data.is_premium));
+        }
       })
       .catch(error => console.log(error));
   }

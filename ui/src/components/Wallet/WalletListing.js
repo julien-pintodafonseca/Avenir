@@ -1,4 +1,4 @@
-/* eslint-disable no-alert, react-hooks/exhaustive-deps */
+/* eslint-disable no-alert */
 import React, {useContext, useEffect, useState} from 'react';
 import {
   View,
@@ -16,15 +16,15 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {AuthContext} from '../../Context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const ListingScreen = ({navigation, listData}, ...props) => {
+const ListingScreen = ({navigation, listData, setListData}, ...props) => {
   const {BACKEND} = useContext(AuthContext);
   const [token, setToken] = useState('');
-  const [listCrypto, setListCrypto] = useState([]);
   const closeRow = (rowMap, rowKey) => {
     if (rowMap[rowKey]) {
       rowMap[rowKey].closeRow();
     }
   };
+
   const requestDelete = id => {
     return fetch(`${BACKEND}/api/wallet/${id}`, {
       method: 'DELETE',
@@ -50,38 +50,17 @@ const ListingScreen = ({navigation, listData}, ...props) => {
       });
     };
     init();
-    setListCrypto(listData);
   }, [navigation]);
 
   const deleteRow = (rowMap, rowKey, rowKeyId) => {
     const res = requestDelete(rowKeyId);
     if (res) {
       closeRow(rowMap, rowKey);
-      const newData = [...listCrypto];
-      const prevIndex = listCrypto.findIndex(item => item.key === rowKey);
+      const newData = [...listData];
+      const prevIndex = listData.findIndex(item => item.key === rowKey);
       newData.splice(prevIndex, 1);
-      setListCrypto(newData);
+      setListData(newData);
     }
-  };
-
-  const onRowDidOpen = rowKey => {
-    console.log('This row opened', rowKey);
-  };
-
-  const onLeftActionStatusChange = rowKey => {
-    console.log('onLeftActionStatusChange', rowKey);
-  };
-
-  const onRightActionStatusChange = rowKey => {
-    console.log('onRightActionStatusChange', rowKey);
-  };
-
-  const onRightAction = rowKey => {
-    console.log('onRightAction', rowKey);
-  };
-
-  const onLeftAction = rowKey => {
-    console.log('onLeftAction', rowKey);
   };
 
   const VisibleItem = p => {
@@ -249,21 +228,16 @@ const ListingScreen = ({navigation, listData}, ...props) => {
   return (
     <View style={styles.container}>
       <SwipeListView
-        data={listCrypto}
+        data={listData}
         renderItem={renderItem}
         renderHiddenItem={renderHiddenItem}
         leftOpenValue={75}
         rightOpenValue={-150}
         disableRightSwipe
-        onRowDidOpen={onRowDidOpen}
         leftActivationValue={100}
         rightActivationValue={-200}
         leftActionValue={0}
         rightActionValue={-500}
-        onLeftAction={onLeftAction}
-        onRightAction={onRightAction}
-        onLeftActionStatusChange={onLeftActionStatusChange}
-        onRightActionStatusChange={onRightActionStatusChange}
       />
     </View>
   );

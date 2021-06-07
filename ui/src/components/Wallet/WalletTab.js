@@ -10,9 +10,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const WalletView = ({navigation}) => {
   const {BACKEND} = useContext(AuthContext);
-  const [sum, setSum] = useState('');
   const [listData, setListData] = useState({});
+  const [sum, setSum] = useState('');
+  // const [token, setToken] = useState('');
 
+  // it retrieves the user's wallet and calculate the total value it holds
   const getWalletCryptoList = tkn => {
     return fetch(`${BACKEND}/api/wallet`, {
       method: 'GET',
@@ -52,6 +54,7 @@ const WalletView = ({navigation}) => {
   useEffect(() => {
     const init = async () => {
       await AsyncStorage.getItem('@userToken').then(data => {
+        // setToken(JSON.parse(data));
         return navigation.addListener('focus', () => {
           getWalletCryptoList(JSON.parse(data));
         });
@@ -62,7 +65,7 @@ const WalletView = ({navigation}) => {
 
   return (
     <Container style={styles.bgColor}>
-      <Header title={'Total Balance'} />
+      <Header title={'Balance'} />
       <Container style={{backgroundColor: '#303030', margin: 10}}>
         {/* <View style={styles.walletAsset}>
           <Text style={styles.subtitle}>Asset Allocation</Text>
@@ -97,6 +100,7 @@ const WalletView = ({navigation}) => {
             style={styles.walletList}
             navigation={navigation}
             listData={listData}
+            setListData={setListData}
           />
         </View>
       </Container>
