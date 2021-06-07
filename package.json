@@ -7,9 +7,9 @@
   },
   "main": "index.js",
   "scripts": {
-    "start": "node initdb.js && node index.js",
-    "test": "rm -f db.test.sqlite && DB=db.test.sqlite node initdb-test.js && DB=db.test.sqlite jest",
-    "testWindows": "del db.test.sqlite && set DB=db.test.sqlite && node initdb-test.js && jest",
+    "start": "rm -f db.sqlite && node initdb.js && node index.js",
+    "test": "rm -f db.test.sqlite && DB=db.test.sqlite node initdb-test.js && DB=db.test.sqlite jest avenir/__tests__ --coverage",
+    "testWindows": "del db.test.sqlite && set DB=db.test.sqlite && node initdb-test.js && jest avenir/__tests__ --coverage",
     "lint": "eslint __tests__ routes services App.js index.js initdb-test.js initdb.js"
   },
   "dependencies": {

@@ -13,13 +13,23 @@ Projet CAW, Ensimag, 2021.
 
 ![Diagramme de cas d'usage](./doc/UseCase.png)
 
-# Maquette / les différents écrans
+# Diagrammes de séquence
+
+## Se connecter
+
+![Diagramme de séquence - Se connecter](./doc/SequenceLogin.png)
+
+## S'inscrire
+
+![Diagramme de séquence - S'inscrire](./doc/SequenceSignUp.png)
+
+# Maquette
 
 ![Maquette](./doc/MockUp.png)
 
 # Modèle de données
 
-![DataModel](./doc/DataModel.png)
+![Modèle de données](./doc/DataModel.png)
 
 # API back-end
 
@@ -43,17 +53,23 @@ Projet CAW, Ensimag, 2021.
 
 ## Webservices utilisés
 
-L'application Avenir utilise pour le moment l'**API de CoinMarketCap** sur le plan le plus basique, soit avec une clé gratuite.  
+L'application Avenir utilise pour le moment l'**API de CoinMarketCap** sur le plan le plus basique, soit avec une clé gratuite.
+
 Les limitations actuelles sont donc les suivantes :
 * 9 endpoints disponibles sur les 22 existants
 * 10.000 appels API par mois maximum
 * Aucune historisation des appels
 * Utilisation non commerciale
 
-De par l'objectif d'évolution de l'application Avenir et de l'arrivé de notre future boutique de vente de coupons premium très prochainement, il est prévu, dans un futur proche, d'investir dans un abonnement permettant de passer outre les contraintes citées ci-dessus.
+De par l'objectif d'évolution de l'application Avenir et de l'arrivé de notre future boutique de vente de coupons premium très prochainement, il est cependant prévu, dans un futur proche, d'investir dans un abonnement permettant de passer outre les contraintes citées ci-dessus.
 
 Les fonctions appelant l'**API de CoinMarketCap** se situent exclusivement au sein du fichier **avenir/services/coinMarket.js**.
 Celles-ci s'occupent principalement de récupérer les différentes données du marché (nom des cryptomonnaies, leur symbole, leur prix actuel, le volume des transactions sur 24h, le % d'évolution du prix sur les derières heures...) à intervalle régulier.
+
+En effet, au sein du fichier **avenir/App.js** se trouve un appel à **coinMarketService.selectCryptocurrencies()**, qui s'effectue toutes les **coinMarketService.CALL_TIMER** millisecondes.  
+**CALL_TIMER** étant une constante égale à **60000** millisecondes, cela équivaut à un intervalle d'une minute.  
+
+La fonction **selectCryptocurrencies()** va ensuite appeler de façon asynchrone **insertCryptocurrenciesMarket(cryptocurrenciesSelected)**, fonction communiquant avec l'**API de CoinMarketBase** pour obtenir les dernières données disponibles concernant les cryptommonaies actives au sein de notre application.
 
 ## Gestion des rôles
 
@@ -72,7 +88,7 @@ Pour plus de précisions, se référer à la section "Cas d'usage", "Maquette" e
 
 ## Structure projet
 
-![ProjectStructure](./doc/ProjectStructure.png)
+![Structure projet](./doc/ProjectStructure.png)
 
 # Screencast
 
@@ -82,7 +98,7 @@ TODO
 
 ## Lancer le serveur
 
-Ouvrir un terminal et saisir :
+Ouvrir un terminal, et saisir :
 
 ```sh
 $ git clone https://gitlab.ensimag.fr/pintodaj/avenir # or clone your own fork
@@ -93,19 +109,39 @@ $ npm start
 
 Le back-end de l'application devrait maintenant être lancé sur [localhost:5000](http://localhost:5000/).
 
-## Lint
-
-TODO
-
 ## Tests
 
-TODO
+Dans un terminal, saisir :
+
+```sh
+$ cd avenir
+$ npm run test # or "npm run testWindows" for windows
+```
+
+---
+
+Dernière analyse de couverture de code (07/06/2021) :
+
+![Couverture de code - Back-End](./doc/CodeCoverageBack.png)
+
+## Lint
+
+Dans un terminal, saisir :
+
+```sh
+$ cd avenir
+$ npm run lint
+```
+
+Le rapport listant les éventuels problèmes devrait maintenant apparaître dans le terminal.
+
+Note : la règle "camelcase" a été désactivée au sein du fichier avenir/.eslintrc.js.
 
 # Front-end
 
 ## Lancer l'application
 
-Ouvrir un premier terminal et saisir :
+Ouvrir un premier terminal, et saisir :
 
 ```sh
 $ cd avenir/ui
@@ -113,7 +149,7 @@ $ npm install
 $ npm start
 ```
 
-Ouvrir un second terminal et saisir :
+Ouvrir un second terminal (en gardant le précédent ouvert), et saisir :
 
 ```sh
 $ cd avenir/ui
@@ -122,9 +158,26 @@ $ npm run android # or "npm run ios" for ios
 
 L'application devrait maintenant être lancée sur votre émulateur/appareil.
 
+## Tests
+
+Pour les tests Jest, dans un terminal, saisir :
+
+```sh
+$ cd avenir
+$ npm run test
+```
+
+Pour les tests Detox, saisir :
+
+```sh
+$ cd avenir
+$ avdmanager create avd -n pixel3A -d 23  -k "system-images;android-28;default;x86_64"
+$ npm run test-detox
+```
+
 ## Lint
 
-Ouvrir un terminal et saisir :
+Dans un terminal, saisir :
 
 ```sh
 $ cd avenir/ui
@@ -134,8 +187,3 @@ $ npm run lint
 Le rapport listant les éventuels problèmes devrait maintenant apparaître dans le terminal.
 
 Note : la règle "react-native/no-inline-styles" a été désactivée au sein du fichier avenir/ui/.eslintrc.js.
-
-## Tests
-
-TODO
-
