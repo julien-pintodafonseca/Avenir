@@ -12,7 +12,7 @@ const WalletView = ({navigation}) => {
   const {BACKEND} = useContext(AuthContext);
   const [listData, setListData] = useState({});
   const [sum, setSum] = useState('');
-  // const [token, setToken] = useState('');
+  const [token, setToken] = useState('');
 
   // it retrieves the user's wallet and calculate the total value it holds
   const getWalletCryptoList = tkn => {
@@ -55,14 +55,17 @@ const WalletView = ({navigation}) => {
   useEffect(() => {
     const init = async () => {
       await AsyncStorage.getItem('@userToken').then(data => {
-        // setToken(JSON.parse(data));
-        return navigation.addListener('focus', () => {
-          getWalletCryptoList(JSON.parse(data));
-        });
+        setToken(JSON.parse(data));
       });
     };
     init();
   }, [navigation]);
+
+  useEffect(() => {
+    if (token) {
+      getWalletCryptoList(token);
+    }
+  }, [token]);
 
   return (
     <Container style={styles.bgColor}>
